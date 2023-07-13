@@ -3,7 +3,7 @@ import { RequestStorageLogger } from "./logger/request-storage-logger.js";
 import * as BunyanLogger from "bunyan";
 import { LoggingBunyan } from "@google-cloud/logging-bunyan";
 import { simpleConsoleWriter } from "./logger/simple-console-writer.js";
-import { runningOnGcp } from "../util/environment.js";
+import { runningOnGcp } from "../util/index.js";
 
 /**
  * The internal default bunyan logger that will be used whenever the
