@@ -1,5 +1,5 @@
 import { fromPairs, isPlainObject, isString, toPairs } from "lodash";
-import { createLogger } from "../../logging/index.js";
+import { createLogger } from "../../logging/logging.js";
 import { SecretsClient } from "./secrets.client.js";
 
 const secretPattern = /\s*SECRET\(\s*([\w-]+)\s*\)\s*/;

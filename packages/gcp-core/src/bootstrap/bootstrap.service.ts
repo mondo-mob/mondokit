@@ -1,5 +1,5 @@
 import { AuthUser, userRequestStorageProvider } from "../auth/index.js";
-import { createLogger } from "../logging/index.js";
+import { createLogger } from "../logging/logging.js";
 import { runWithRequestStorage } from "../request-storage/index.js";
 import { Bootstrapper } from "./bootstrapper.js";
 

@@ -4,8 +4,8 @@ import { zodValidator } from "../util/index.js";
 import { ConfigurationOptions, ConfigValidator, initialiseConfiguration } from "./configuration.js";
 import { gaeJsCoreConfigurationSchema } from "./schema.js";
 import { ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
-import SpyInstance = jest.SpyInstance;
 import { withEnvVars } from "../__test/test-utils.js";
+import { SpyInstance } from "vitest";
 
 const configSchema = gaeJsCoreConfigurationSchema.extend({
   customString: z.string(),
@@ -30,9 +30,9 @@ const fromDir = (dir: string, overrides?: Partial<ConfigurationOptions<Config>>)
 describe("configuration", () => {
   let accessSecretVersionSpy: SpyInstance;
   beforeEach(() => {
-    const cwdSpy = jest.spyOn(process, "cwd");
+    const cwdSpy = vi.spyOn(process, "cwd");
     cwdSpy.mockReturnValue(`${__dirname}/__test`);
-    accessSecretVersionSpy = jest.spyOn(SecretManagerServiceClient.prototype, "accessSecretVersion");
+    accessSecretVersionSpy = vi.spyOn(SecretManagerServiceClient.prototype, "accessSecretVersion");
   });
 
   describe("initialiseConfiguration", () => {

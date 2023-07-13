@@ -1,7 +1,7 @@
 import express, { Handler } from "express";
 import request from "supertest";
-import { requestTimeoutMinutes, requestTimeoutSeconds } from "./request-timeout";
-import { asyncHandler } from "./async-middleware";
+import { requestTimeoutMinutes, requestTimeoutSeconds } from "./request-timeout.js";
+import { asyncHandler } from "./async-middleware.js";
 
 const sendTimeoutValue: Handler = (req, res) => {
   return res.json({ timeout: (req as any).socket.timeout });

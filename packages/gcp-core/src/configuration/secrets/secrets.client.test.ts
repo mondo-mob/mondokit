@@ -1,7 +1,7 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
-import { SecretsClient } from "./secrets.client";
-import { BadRequestError } from "../../error";
-import SpyInstance = jest.SpyInstance;
+import { SecretsClient } from "./secrets.client.js";
+import { BadRequestError } from "../../error/index.js";
+import { SpyInstance } from "vitest";
 
 const RESOLVED_SECRET = "-secret-";
 
@@ -10,7 +10,7 @@ describe("SecretsClient", () => {
   let accessSecretVersionSpy: SpyInstance;
 
   beforeEach(() => {
-    accessSecretVersionSpy = jest.spyOn(SecretManagerServiceClient.prototype, "accessSecretVersion");
+    accessSecretVersionSpy = vi.spyOn(SecretManagerServiceClient.prototype, "accessSecretVersion");
     secretsClient = new SecretsClient("my-project-id");
   });
 

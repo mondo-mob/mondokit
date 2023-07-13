@@ -1,6 +1,6 @@
 import * as path from "path";
 import { Handler } from "express";
-import { createLogger } from "../logging/index.js";
+import { createLogger } from "../logging/logging.js";
 import { fetchFileList, generateHash, pathExists } from "./utils.js";
 
 const HASH_UNSET = "HASH_UNSET";

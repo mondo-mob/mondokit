@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
-import { SecretsClient } from "./secrets.client";
-import { SecretsResolver } from "./secrets.resolver";
+import { SecretsClient } from "./secrets.client.js";
+import { SecretsResolver } from "./secrets.resolver.js";
 
 const resolvedSecret = (key: string) => `SECRET-${key}`;
 describe("SecretsResolver", () => {
@@ -9,8 +9,8 @@ describe("SecretsResolver", () => {
 
   beforeEach(() => {
     mockSecretsClient = new SecretsClient("foo");
-    mockSecretsClient.fetchSecret = jest.fn().mockImplementation((key: string) => resolvedSecret(key));
-    mockSecretsClient.fetchOptionalSecret = jest.fn();
+    mockSecretsClient.fetchSecret = vi.fn().mockImplementation((key: string) => resolvedSecret(key));
+    mockSecretsClient.fetchOptionalSecret = vi.fn();
 
     secretsResolver = new SecretsResolver({ secretsClient: mockSecretsClient });
   });

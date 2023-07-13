@@ -1,5 +1,5 @@
 import _, { isString } from "lodash";
-import { createLogger } from "../logging/index.js";
+import { createLogger } from "../logging/logging.js";
 import { GaeJsCoreConfiguration } from "./schema.js";
 import Path from "path";
 import FileSystem from "fs";

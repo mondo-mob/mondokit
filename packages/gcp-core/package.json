@@ -13,8 +13,8 @@
     "clean": "rm -rf dist/ coverage/ tsconfig.tsbuildinfo tsconfig.prod.tsbuildinfo",
     "format": "prettier --write \"./src/**/*.ts\"",
     "prepublishOnly": "npm run build",
-    "test": "jest",
-    "test:ci": "jest"
+    "test": "vitest run",
+    "test:ci": "vitest run"
   },
   "publishConfig": {
     "access": "public"
@@ -34,6 +34,7 @@
     "zod": "^3.21.0"
   },
   "devDependencies": {
+    "vitest": "^0.33.0",
     "zod": "3.21.4"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"

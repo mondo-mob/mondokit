@@ -1,5 +1,5 @@
-import { createLogger } from "../logging";
-import { Logger } from "./logger";
+import { createLogger } from "../logging.js";
+import { Logger } from "./logger.js";
 
 describe("simpleConsoleWriter", () => {
   let logger: Logger;
@@ -11,7 +11,7 @@ describe("simpleConsoleWriter", () => {
   const timeFormat = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}";
 
   it("logs info messages", async () => {
-    const logSpy = jest.spyOn(console, "log");
+    const logSpy = vi.spyOn(console, "log");
     const expectInfoLog = (msgRegex: string) => {
       expect(logSpy).toHaveBeenCalledWith(
         expect.stringMatching(new RegExp(`^${timeFormat} \\| \\sINFO \\| ${msgRegex}$`))
@@ -28,7 +28,7 @@ describe("simpleConsoleWriter", () => {
   });
 
   it("logs warn messages", async () => {
-    const logSpy = jest.spyOn(console, "log");
+    const logSpy = vi.spyOn(console, "log");
     const expectWarnLog = (msgRegex: string) => {
       expect(logSpy).toHaveBeenCalledWith(
         "%s%s%s",
@@ -48,7 +48,7 @@ describe("simpleConsoleWriter", () => {
   });
 
   it("logs error messages with stack", async () => {
-    const logSpy = jest.spyOn(console, "log");
+    const logSpy = vi.spyOn(console, "log");
     const expectErrorLog = (msgRegex: string) => {
       expect(logSpy).toHaveBeenCalledWith(
         "%s%s%s",

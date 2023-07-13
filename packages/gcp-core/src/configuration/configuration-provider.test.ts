@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { zodValidator } from "../util";
-import { ConfigurationProvider } from "./configuration-provider";
-import { gaeJsCoreConfigurationSchema } from "./schema";
-import { ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables";
+import { zodValidator } from "../util/zod.js";
+import { ConfigurationProvider } from "./configuration-provider.js";
+import { gaeJsCoreConfigurationSchema } from "./schema.js";
+import { ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
 
 const testConfigSchema = gaeJsCoreConfigurationSchema.extend({
   appName: z.string(),

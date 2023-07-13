@@ -1,4 +1,4 @@
-import { runningOnGcp } from "./environment";
+import { runningOnGcp } from "./environment.js";
 
 describe("environment", () => {
   describe("runningOnGcp", () => {
