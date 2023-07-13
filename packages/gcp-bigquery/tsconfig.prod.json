@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    { "path": "../gcp-core/tsconfig.prod.json"},
+    { "path": "../gcp-storage/tsconfig.prod.json"}
+  ]
+}

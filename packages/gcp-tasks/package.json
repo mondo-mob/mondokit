@@ -1,0 +1,37 @@
+{
+  "name": "@mondokit/gcp-tasks",
+  "version": "1.0.0-alpha.0",
+  "description": "Tools for Google Cloud Tasks",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc --build --verbose tsconfig.prod.json",
+    "clean": "rm -rf dist/ coverage/ tsconfig.tsbuildinfo tsconfig.prod.tsbuildinfo",
+    "format": "prettier --write \"./src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "test:ci": "jest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/mondo-mob/gae-js",
+  "dependencies": {
+    "node-fetch": "^2.6.9"
+  },
+  "peerDependencies": {
+    "@google-cloud/tasks": "^3.0.0",
+    "@mondomob/gae-js-core": "^7.0.0",
+    "express": ">= 4.17.1"
+  },
+  "devDependencies": {
+    "@google-cloud/tasks": "3.1.2",
+    "@mondomob/gae-js-core": "7.0.3",
+    "@types/node-fetch": "2.6.4"
+  }
+}

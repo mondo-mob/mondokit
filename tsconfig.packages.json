@@ -2,25 +2,25 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/gae-js-core"
+      "path": "./packages/gcp-core"
     },
     {
-      "path": "./packages/gae-js-datastore"
+      "path": "./packages/gcp-datastore"
     },
     {
-      "path": "./packages/gae-js-firebase-auth"
+      "path": "./packages/gcp-firebase-auth"
     },
     {
-      "path": "./packages/gae-js-firestore"
+      "path": "./packages/gcp-firestore"
     },
     {
-      "path": "./packages/gae-js-gae-search"
+      "path": "./packages/gcp-gae-search"
     },
     {
-      "path": "./packages/gae-js-storage"
+      "path": "./packages/gcp-storage"
     },
     {
-      "path": "./packages/gae-js-tasks"
+      "path": "./packages/gcp-tasks"
     }
   ]
 }
