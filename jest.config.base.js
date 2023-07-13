@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-module.exports = {
+const jestConfigBase = {
   roots: ["<rootDir>/src"],
   setupFiles: ["<rootDir>/src/__test/setup-tests.ts"],
   setupFilesAfterEnv: ["jest-extended/all", "<rootDir>/src/__test/setup-after-env.ts"],
@@ -12,3 +12,5 @@ module.exports = {
   collectCoverage: true,
   verbose: true,
 };
+
+export default jestConfigBase;

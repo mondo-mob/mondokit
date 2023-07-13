@@ -1,7 +1,7 @@
-const base = require("./jest.config.base.js");
+import jestConfigBase from "./jest.config.base.js";
 
-module.exports = {
-  ...base,
+const jestConfig = {
+  ...jestConfigBase,
   roots: [
     "<rootDir>",
   ],
@@ -11,3 +11,5 @@ module.exports = {
     ],
   coverageDirectory: "<rootDir>/coverage/"
 };
+
+export default jestConfig

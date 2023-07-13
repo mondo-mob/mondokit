@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "npm run build --workspaces",
     "build:watch": "tsc --build --verbose --watch tsconfig.packages.json",

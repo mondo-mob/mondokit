@@ -1,6 +1,6 @@
 {
-  "name": "@mondomob/gae-js-core",
-  "version": "7.0.3",
+  "name": "@mondokit/gcp-core",
+  "version": "1.0.0-alpha.0",
   "description": "",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

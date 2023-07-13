@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "lib": ["ES2020"],
-    "target": "ES2020",
+    "module": "NodeNext",
+    "lib": ["ES2021"],
+    "target": "ES2021",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
