@@ -1,7 +1,7 @@
 import * as path from "path";
 import { Handler } from "express";
-import { generateHash, pathExists } from "./utils";
-import { createLogger } from "../logging";
+import { generateHash, pathExists } from "./utils.js";
+import { createLogger } from "../logging/index.js";
 
 /**
  * Handler to send a static file with md5 etag if response headers not already sent.

@@ -1,4 +1,4 @@
-import { HttpError } from "./http-error";
+import { HttpError } from "./http-error.js";
 
 export class BadRequestError extends HttpError {
   constructor(message?: string, readonly code = "bad.request") {

@@ -3,8 +3,8 @@ import {
   getRequestStorageValueOrDefault,
   getRequestStorageValueRequired,
   setRequestStorageValue,
-} from "./request-storage";
-import { DataValidator } from "../util";
+} from "./request-storage.js";
+import { DataValidator } from "../util/index.js";
 
 export class RequestStorageStore<T> {
   constructor(public key: string, public validator?: DataValidator<T>) {}

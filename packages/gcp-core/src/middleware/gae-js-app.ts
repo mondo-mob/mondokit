@@ -1,4 +1,4 @@
-import { gaeRequestLogger } from "./gae-request-logger";
-import { requestAsyncStorage } from "./request-async-storage";
+import { gaeRequestLogger } from "./gae-request-logger.js";
+import { requestAsyncStorage } from "./request-async-storage.js";
 
 export const gaeJsApp = [gaeRequestLogger, requestAsyncStorage];

@@ -1,6 +1,6 @@
-import { UserRequestStorageProvider } from "./user-request-storage-provider";
-import { AuthUser } from "./auth-user";
-import { RequestStorageStore, runWithRequestStorage } from "../request-storage";
+import { UserRequestStorageProvider } from "./user-request-storage-provider.js";
+import { AuthUser } from "./auth-user.js";
+import { RequestStorageStore, runWithRequestStorage } from "../request-storage/index.js";
 
 describe("UserRequestStorageProvider", () => {
   it("throws if storage not set", async () => {

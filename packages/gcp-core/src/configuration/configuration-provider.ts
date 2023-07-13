@@ -1,6 +1,6 @@
-import { GaeJsCoreConfiguration } from "./schema";
-import { Provider } from "../util";
-import { ConfigurationOptions, initialiseConfiguration } from "./configuration";
+import { GaeJsCoreConfiguration } from "./schema.js";
+import { Provider } from "../util/index.js";
+import { ConfigurationOptions, initialiseConfiguration } from "./configuration.js";
 
 export class ConfigurationProvider<T extends GaeJsCoreConfiguration = any> extends Provider<T> {
   get<K extends T>(): K {

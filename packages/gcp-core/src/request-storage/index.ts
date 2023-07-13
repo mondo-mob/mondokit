@@ -4,5 +4,5 @@ export {
   getRequestStorageValueOrDefault,
   setRequestStorageValue,
   runWithRequestStorage,
-} from "./request-storage";
-export { RequestStorageStore } from "./request-storage-store";
+} from "./request-storage.js";
+export { RequestStorageStore } from "./request-storage-store.js";

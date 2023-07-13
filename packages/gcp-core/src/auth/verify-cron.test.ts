@@ -1,6 +1,6 @@
 import express from "express";
 import request from "supertest";
-import { verifyCron } from "./verify-cron";
+import { verifyCron } from "./verify-cron.js";
 
 const initApp = () => {
   const app = express();

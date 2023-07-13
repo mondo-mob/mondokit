@@ -1,5 +1,5 @@
-import { SearchService } from "./search.service";
-import { Provider } from "../util";
+import { SearchService } from "./search.service.js";
+import { Provider } from "../util/index.js";
 
 export const searchProvider = new Provider<SearchService>(
   undefined,

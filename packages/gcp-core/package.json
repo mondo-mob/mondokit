@@ -2,6 +2,7 @@
   "name": "@mondokit/gcp-core",
   "version": "1.0.0-alpha.0",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -20,7 +21,7 @@
   },
   "author": "",
   "license": "MIT",
-  "homepage": "https://github.com/mondo-mob/gae-js",
+  "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
     "@google-cloud/logging-bunyan": "^4.2.2",
     "@google-cloud/secret-manager": "^4.2.2",

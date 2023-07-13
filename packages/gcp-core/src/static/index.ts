@@ -1,2 +1,2 @@
-export { serveStaticWithEtag } from "./serve-static-with-etag";
-export { serveFallbackWithEtag } from "./serve-fallback-with-etag";
+export { serveStaticWithEtag } from "./serve-static-with-etag.js";
+export { serveFallbackWithEtag } from "./serve-fallback-with-etag.js";

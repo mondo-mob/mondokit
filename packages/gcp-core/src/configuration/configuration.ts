@@ -1,11 +1,11 @@
 import _, { isString } from "lodash";
-import { createLogger } from "../logging";
-import { GaeJsCoreConfiguration } from "./schema";
+import { createLogger } from "../logging/index.js";
+import { GaeJsCoreConfiguration } from "./schema.js";
 import Path from "path";
 import FileSystem from "fs";
-import { ENV_VAR_CONFIG_DIR, ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables";
-import { SecretsResolver } from "./secrets/secrets.resolver";
-import { DataValidator } from "../util/data";
+import { ENV_VAR_CONFIG_DIR, ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
+import { SecretsResolver } from "./secrets/secrets.resolver.js";
+import { DataValidator } from "../util/data.js";
 
 export type EnvironmentStrategy = (projectId?: string) => string | undefined;
 

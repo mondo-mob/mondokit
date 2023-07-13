@@ -1,6 +1,6 @@
 import express from "express";
 import request from "supertest";
-import { gaeJsCron } from "./gae-js-cron";
+import { gaeJsCron } from "./gae-js-cron.js";
 
 const initApp = () => {
   const app = express();

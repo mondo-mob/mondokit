@@ -1,6 +1,6 @@
 import { Handler } from "express";
-import { userRequestStorageProvider } from "./user-request-storage-provider";
-import { UnauthorisedError } from "../error";
+import { userRequestStorageProvider } from "./user-request-storage-provider.js";
+import { UnauthorisedError } from "../error/index.js";
 
 /**
  * Middleware that checks for an authenticated user in the incoming request.

@@ -1,7 +1,9 @@
-const base = require("../../jest.config.base.js");
-const pack = require("./package");
+import base from "../../jest.config.base.js";
+import pack from "./package.json" assert { type: "json" };
 
-module.exports = {
+const jestConfig = {
   ...base,
   displayName: pack.name,
 };
+
+export default jestConfig;

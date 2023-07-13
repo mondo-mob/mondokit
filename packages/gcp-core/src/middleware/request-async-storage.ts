@@ -1,6 +1,6 @@
 import { Handler } from "express";
-import { loggingRequestStorage } from "../logging";
-import { runWithRequestStorage } from "../request-storage";
+import { loggingRequestStorage } from "../logging/index.js";
+import { runWithRequestStorage } from "../request-storage/index.js";
 
 export const requestAsyncStorage: Handler = (req, res, next) => {
   runWithRequestStorage(() => {

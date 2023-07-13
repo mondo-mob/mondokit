@@ -1,11 +1,11 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { z } from "zod";
-import { withEnvVars } from "../__test/test-utils";
-import { zodValidator } from "../util";
-import { ConfigurationOptions, ConfigValidator, initialiseConfiguration } from "./configuration";
-import { gaeJsCoreConfigurationSchema } from "./schema";
-import { ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables";
+import { zodValidator } from "../util/index.js";
+import { ConfigurationOptions, ConfigValidator, initialiseConfiguration } from "./configuration.js";
+import { gaeJsCoreConfigurationSchema } from "./schema.js";
+import { ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
 import SpyInstance = jest.SpyInstance;
+import { withEnvVars } from "../__test/test-utils.js";
 
 const configSchema = gaeJsCoreConfigurationSchema.extend({
   customString: z.string(),

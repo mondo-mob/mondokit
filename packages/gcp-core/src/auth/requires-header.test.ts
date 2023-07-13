@@ -1,6 +1,6 @@
 import express from "express";
 import request from "supertest";
-import { requiresHeader } from "./requires-header";
+import { requiresHeader } from "./requires-header.js";
 
 const initApp = () => {
   const app = express();

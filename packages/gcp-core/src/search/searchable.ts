@@ -1,4 +1,4 @@
-import { IndexEntry, Page, SearchFields, Sort } from "./search.service";
+import { IndexEntry, Page, SearchFields, Sort } from "./search.service.js";
 
 export interface SearchResults<T> {
   resultCount: number;

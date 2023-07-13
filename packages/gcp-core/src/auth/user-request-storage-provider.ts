@@ -1,6 +1,6 @@
-import { RequestStorageStore } from "../request-storage";
-import { AuthUser } from "./auth-user";
-import { Provider } from "../util";
+import { RequestStorageStore } from "../request-storage/index.js";
+import { AuthUser } from "./auth-user.js";
+import { Provider } from "../util/index.js";
 
 export class UserRequestStorageProvider<U extends AuthUser, T extends RequestStorageStore<U>> extends Provider<T> {}
 

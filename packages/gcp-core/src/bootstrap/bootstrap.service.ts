@@ -1,7 +1,7 @@
-import { AuthUser, userRequestStorageProvider } from "../auth";
-import { createLogger } from "../logging";
-import { runWithRequestStorage } from "../request-storage";
-import { Bootstrapper } from "./bootstrapper";
+import { AuthUser, userRequestStorageProvider } from "../auth/index.js";
+import { createLogger } from "../logging/index.js";
+import { runWithRequestStorage } from "../request-storage/index.js";
+import { Bootstrapper } from "./bootstrapper.js";
 
 const logger = createLogger("bootstrap-service");
 

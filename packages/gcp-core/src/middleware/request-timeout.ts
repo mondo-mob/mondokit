@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { createLogger } from "../logging";
+import { createLogger } from "../logging/index.js";
 
 /**
  * Node's default request timeout is 120s. For potentially long running requests such as Tasks and Crons, this can

@@ -1,4 +1,3 @@
-export { createLogger } from "./logging";
-export { Logger } from "./logger/logger";
-export { gaeRequestLogger } from "../middleware/gae-request-logger";
-export { loggingRequestStorage } from "./logging-request-storage";
+export { createLogger } from "./logging.js";
+export { Logger } from "./logger/logger.js";
+export { loggingRequestStorage } from "./logging-request-storage.js";

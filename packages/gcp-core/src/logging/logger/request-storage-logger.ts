@@ -1,7 +1,7 @@
-import { Logger } from "./logger";
-import { ProxyLogger } from "./proxy-logger";
-import { loggingRequestStorage } from "../logging-request-storage";
-import { defaultLogger } from "../logging";
+import { Logger } from "./logger.js";
+import { ProxyLogger } from "./proxy-logger.js";
+import { loggingRequestStorage } from "../logging-request-storage.js";
+import { defaultLogger } from "../logging.js";
 
 const requestStorageLoggerOrDefault = (): Logger => {
   return loggingRequestStorage.getWithDefault(defaultLogger);

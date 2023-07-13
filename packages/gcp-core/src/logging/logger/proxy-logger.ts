@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/explicit-module-boundary-types */
-import { Logger } from "./logger";
+import { Logger } from "./logger.js";
 
 const isString = (param: any) => typeof param === "string";
 

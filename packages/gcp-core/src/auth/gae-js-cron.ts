@@ -1,5 +1,5 @@
-import { requestTimeoutMinutes } from "../middleware";
-import { verifyCron } from "./verify-cron";
+import { requestTimeoutMinutes } from "../middleware/index.js";
+import { verifyCron } from "./verify-cron.js";
 
 /**
  * Util middleware to apply to GAE cron endpoints:

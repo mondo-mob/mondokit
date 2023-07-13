@@ -1,7 +1,7 @@
 import { Handler } from "express";
 import * as lb from "@google-cloud/logging-bunyan";
-import { defaultLogger } from "../logging/logging";
-import { runningOnGcp } from "../util/environment";
+import { defaultLogger } from "../logging/logging.js";
+import { runningOnGcp } from "../util/index.js";
 
 const localLoggingMiddleware = (): Handler => {
   const localLogger = defaultLogger;
