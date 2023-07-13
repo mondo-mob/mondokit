@@ -1,6 +1,6 @@
-import { runWithRequestStorage, setRequestStorageValue } from "./request-storage";
-import { RequestStorageStore } from "./request-storage-store";
-import { DataValidator } from "../util";
+import { runWithRequestStorage, setRequestStorageValue } from "./request-storage.js";
+import { RequestStorageStore } from "./request-storage-store.js";
+import { DataValidator } from "../util/data.js";
 
 describe("Request Storage Store", () => {
   describe("get", () => {

@@ -1,5 +1,5 @@
-import { validate, validateFound, validateArrayNotEmpty, validateNotNil } from "./validators";
-import { BadRequestError, NotFoundError } from "../error";
+import { validate, validateFound, validateArrayNotEmpty, validateNotNil } from "./validators.js";
+import { BadRequestError, NotFoundError } from "../error/index.js";
 
 describe("validators", () => {
   describe("validateFound", () => {

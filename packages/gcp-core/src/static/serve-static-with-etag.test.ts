@@ -1,7 +1,7 @@
 import express from "express";
 import request from "supertest";
-import { serveStaticWithEtag, StaticEtagOptions } from "./serve-static-with-etag";
-import { generateHash } from "./utils";
+import { serveStaticWithEtag, StaticEtagOptions } from "./serve-static-with-etag.js";
+import { generateHash } from "./utils.js";
 
 const initApp = ({ folder = "src/static", options }: { folder?: string; options?: StaticEtagOptions } = {}) => {
   const app = express();

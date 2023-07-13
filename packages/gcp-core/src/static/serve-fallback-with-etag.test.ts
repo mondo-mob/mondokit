@@ -1,7 +1,7 @@
 import express from "express";
 import request from "supertest";
-import { generateHash } from "./utils";
-import { serveFallbackWithEtag } from "./serve-fallback-with-etag";
+import { generateHash } from "./utils.js";
+import { serveFallbackWithEtag } from "./serve-fallback-with-etag.js";
 
 const initApp = (fallback = "src/static/index.ts") => {
   const app = express();

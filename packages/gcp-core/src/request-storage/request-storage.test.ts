@@ -5,7 +5,7 @@ import {
   getRequestStore,
   runWithRequestStorage,
   setRequestStorageValue,
-} from "./request-storage";
+} from "./request-storage.js";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 

@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import request from "supertest";
-import { routeNotFound } from "./route-not-found";
+import { routeNotFound } from "./route-not-found.js";
 
 const initApp = () => {
   const apiRouter = Router();
