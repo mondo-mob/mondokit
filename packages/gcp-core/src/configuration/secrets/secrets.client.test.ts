@@ -1,6 +1,8 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { SecretsClient } from "./secrets.client.js";
-import { BadRequestError } from "../../error/index.js";
+import { BadRequestError } from "../../error/bad-request-error.js";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore jest.extended is not declaring this correctly in current version
 import { SpyInstance } from "vitest";
 
 const RESOLVED_SECRET = "-secret-";

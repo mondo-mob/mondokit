@@ -1,4 +1,4 @@
-import { RequestStorageStore } from "../request-storage/index.js";
+import { RequestStorageStore } from "../request-storage/request-storage-store.js";
 import { AuthUser } from "./auth-user.js";
 import { Provider } from "../util/provider.js";
 

@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { ForbiddenError } from "../error/index.js";
+import { ForbiddenError } from "../error/forbidden-error.js";
 
 /**
  * Middleware that checks for a header in the incoming request.

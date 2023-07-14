@@ -1,5 +1,6 @@
 import { isNil } from "lodash";
-import { BadRequestError, NotFoundError } from "../error/index.js";
+import { BadRequestError } from "../error/bad-request-error.js";
+import { NotFoundError } from "../error/not-found-error.js";
 
 export const validate = (
   expression: boolean,

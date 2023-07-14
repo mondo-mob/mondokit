@@ -1,10 +1,12 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { z } from "zod";
-import { zodValidator } from "../util/index.js";
+import { zodValidator } from "../util/zod.js";
 import { ConfigurationOptions, ConfigValidator, initialiseConfiguration } from "./configuration.js";
 import { gaeJsCoreConfigurationSchema } from "./schema.js";
 import { ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
 import { withEnvVars } from "../__test/test-utils.js";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore jest.extended is not declaring this correctly in current version
 import { SpyInstance } from "vitest";
 
 const configSchema = gaeJsCoreConfigurationSchema.extend({

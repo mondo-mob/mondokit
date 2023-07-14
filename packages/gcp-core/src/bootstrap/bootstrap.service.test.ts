@@ -1,5 +1,7 @@
-import { AuthUser, userRequestStorageProvider } from "../auth/index.js";
-import { RequestStorageStore, runWithRequestStorage } from "../request-storage/index.js";
+import { AuthUser } from "../auth/auth-user.js";
+import { userRequestStorageProvider } from "../auth/user-request-storage-provider.js";
+import { RequestStorageStore } from "../request-storage/request-storage-store.js";
+import { runWithRequestStorage } from "../request-storage/request-storage.js";
 import { bootstrap } from "./bootstrap.service.js";
 
 describe("boostrap-service", () => {

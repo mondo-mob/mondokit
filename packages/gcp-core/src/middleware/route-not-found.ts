@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { NotFoundError } from "../error/index.js";
+import { NotFoundError } from "../error/not-found-error.js";
 
 /**
  * Middleware to throw NotFoundError if headers not already sent.
