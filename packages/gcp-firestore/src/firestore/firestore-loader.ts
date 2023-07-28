@@ -12,8 +12,8 @@ import {
   Transaction,
   WriteBatch,
 } from "@google-cloud/firestore";
-import { FilterOptions, QueryOptions } from "./firestore-query";
-import { FirestoreRepositoryError } from "./repository-error";
+import { FilterOptions, QueryOptions } from "./firestore-query.js";
+import { FirestoreRepositoryError } from "./repository-error.js";
 
 export interface FirestorePayload {
   ref: DocumentReference;

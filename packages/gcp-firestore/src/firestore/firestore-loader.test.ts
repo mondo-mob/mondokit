@@ -1,9 +1,9 @@
 import { Firestore } from "@google-cloud/firestore";
 import assert from "assert";
-import { FIRESTORE_ID_FIELD } from "./firestore-constants";
-import { FirestoreLoader } from "./firestore-loader";
-import { useFirestoreTest } from "../__test/useFirestoreTest.hook";
-import { firestoreProvider } from "./firestore-provider";
+import { FIRESTORE_ID_FIELD } from "./firestore-constants.js";
+import { FirestoreLoader } from "./firestore-loader.js";
+import { useFirestoreTest } from "../__test/useFirestoreTest.hook.js";
+import { firestoreProvider } from "./firestore-provider.js";
 
 describe("FirestoreLoader", () => {
   useFirestoreTest({ clearCollections: ["users"] });
@@ -13,7 +13,7 @@ describe("FirestoreLoader", () => {
   beforeEach(async () => {
     firestore = firestoreProvider.get();
     loader = new FirestoreLoader(firestore);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const createUserData = (id: string, data?: Record<string, unknown>) => ({
@@ -29,7 +29,7 @@ describe("FirestoreLoader", () => {
   describe("get", () => {
     it("fetches from firestore on first request", async () => {
       await firestore.doc("/users/123").create(createUserData("123"));
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
       const ref = firestore.doc("/users/123");
 
       await loader.get([ref]);
@@ -39,7 +39,7 @@ describe("FirestoreLoader", () => {
 
     it("should fetch data from cache", async () => {
       await firestore.doc("/users/123").create(createUserData("123"));
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
       const ref = firestore.doc("/users/123");
 
       const doc1 = await loader.get([ref]);
@@ -51,7 +51,7 @@ describe("FirestoreLoader", () => {
 
     it("should return copy of data when loading from cache", async () => {
       await firestore.doc("/users/123").create(createUserData("123"));
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
       const ref = firestore.doc("/users/123");
 
       const [doc1] = await loader.get([ref]);
@@ -90,7 +90,7 @@ describe("FirestoreLoader", () => {
 
     it("populates cache", async () => {
       const original = createUserPayload("123");
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
 
       await loader.create([original]);
       const [doc1] = await loader.get([original.ref]);
@@ -101,7 +101,7 @@ describe("FirestoreLoader", () => {
 
     it("should not pollute cache when changing original document", async () => {
       const original = createUserPayload("123");
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
 
       await loader.create([original]);
       // If we change a property on the original it should not change cache
@@ -134,7 +134,7 @@ describe("FirestoreLoader", () => {
 
     it("populates cache", async () => {
       const original = createUserPayload("123");
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
 
       await loader.set([original]);
       const [doc1] = await loader.get([original.ref]);
@@ -169,7 +169,7 @@ describe("FirestoreLoader", () => {
 
     it("should not pollute cache when changing original document", async () => {
       const original = createUserPayload("123");
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
 
       await loader.set([original]);
       // If we change a property on the original it should not change cache
@@ -291,7 +291,7 @@ describe("FirestoreLoader", () => {
     });
 
     it("populates cache with results when all fields returned", async () => {
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
       const ref = firestore.doc("/users/123");
       await ref.create({ prop1: "prop1" });
 
@@ -304,7 +304,7 @@ describe("FirestoreLoader", () => {
     });
 
     it("doesn't update cache with results when only some fields requested", async () => {
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
       const ref = firestore.doc("/users/123");
       await ref.create({ prop1: "prop1", prop2: "prop2", prop3: "prop3" });
 
@@ -319,7 +319,7 @@ describe("FirestoreLoader", () => {
     });
 
     it("should not pollute cache when changing original document", async () => {
-      const getAllSpy = jest.spyOn(firestore, "getAll");
+      const getAllSpy = vi.spyOn(firestore, "getAll");
       const ref = firestore.doc("/users/123");
       await ref.create({ name: "Original name" });
 
@@ -589,7 +589,7 @@ describe("FirestoreLoader", () => {
     const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     it("continues existing transaction for nested call", async () => {
-      const runTransactionSpy = jest.spyOn(firestore, "runTransaction");
+      const runTransactionSpy = vi.spyOn(firestore, "runTransaction");
       await loader.create([
         createUserPayload("123", { message: "create" }),
         createUserPayload("234", { message: "create" }),

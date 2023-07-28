@@ -1,4 +1,4 @@
-import { ValueTransformer } from "./value-transformers";
+import { ValueTransformer } from "./value-transformers.js";
 
 // Keep this generic so we don't hardcode "string" everywhere, in case this ever changes
 export type IdType = string;

@@ -1,13 +1,13 @@
 import { Firestore, v1 as firestoreV1 } from "@google-cloud/firestore";
-import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondomob/gae-js-core";
-import { withEnvVars } from "@mondomob/gae-js-core/dist/__test/test-utils";
-import { connectFirestore, connectFirestoreAdmin } from "./connect";
-import { initEmulatorConfig, initTestConfig } from "../__test/test-utils";
+import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondokit/gcp-core";
+import { withEnvVars } from "@mondokit/gcp-core/dist/__test/test-utils.js";
+import { connectFirestore, connectFirestoreAdmin } from "./connect.js";
+import { initEmulatorConfig, initTestConfig } from "../__test/test-utils.js";
 
-jest.mock("@google-cloud/firestore", () => ({
-  Firestore: jest.fn(),
+vi.mock("@google-cloud/firestore", () => ({
+  Firestore: vi.fn(),
   v1: {
-    FirestoreAdminClient: jest.fn(),
+    FirestoreAdminClient: vi.fn(),
   },
 }));
 

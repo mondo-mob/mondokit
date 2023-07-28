@@ -1,8 +1,9 @@
-import { createLogger, OneOrMany } from "@mondomob/gae-js-core";
-import { newTimestampedEntity, runInTransaction } from "../firestore";
-import { MutexUnavailableError } from "./mutex-unavailable-error";
-import { Mutex, mutexesRepository } from "./mutexes.repository";
-import { castArray } from "lodash";
+import { createLogger, OneOrMany } from "@mondokit/gcp-core";
+import { MutexUnavailableError } from "./mutex-unavailable-error.js";
+import { Mutex, mutexesRepository } from "./mutexes.repository.js";
+import { castArray } from "lodash-es";
+import { runInTransaction } from "../firestore/transactional.js";
+import { newTimestampedEntity } from "../firestore/timestamped-repository.js";
 
 export class MutexService {
   private readonly logger = createLogger("mutexService");

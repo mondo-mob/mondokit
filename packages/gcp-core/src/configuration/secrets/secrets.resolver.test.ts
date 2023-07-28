@@ -1,4 +1,4 @@
-import { cloneDeep } from "lodash";
+import { cloneDeep } from "lodash-es";
 import { SecretsClient } from "./secrets.client.js";
 import { SecretsResolver } from "./secrets.resolver.js";
 

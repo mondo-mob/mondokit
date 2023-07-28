@@ -190,7 +190,7 @@ describe("configuration", () => {
   describe("validation", () => {
     const alwaysPasses: ConfigValidator<Config> = (data) => data as Config;
     const alwaysFails: ConfigValidator<Config> = () => {
-      throw new Error("invalid prop blah");
+      throw new Error("invalid prop");
     };
 
     it("returns config when validator passes", async () => {

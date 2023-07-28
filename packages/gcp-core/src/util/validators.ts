@@ -1,4 +1,4 @@
-import { isNil } from "lodash";
+import { isNil } from "lodash-es";
 import { BadRequestError } from "../error/bad-request-error.js";
 import { NotFoundError } from "../error/not-found-error.js";
 

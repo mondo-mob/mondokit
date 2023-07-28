@@ -1,9 +1,9 @@
 import { Filter } from "@google-cloud/firestore";
-import { FIRESTORE_ID_FIELD } from "./firestore-constants";
-import { FirestoreRepository } from "./firestore-repository";
-import { useFirestoreTest } from "../__test/useFirestoreTest.hook";
-import { FirestoreGroupRepository } from "./firestore-group-repository";
-import { RepositoryItem } from "../__test/test-utils";
+import { FIRESTORE_ID_FIELD } from "./firestore-constants.js";
+import { FirestoreRepository } from "./firestore-repository.js";
+import { useFirestoreTest } from "../__test/useFirestoreTest.hook.js";
+import { FirestoreGroupRepository } from "./firestore-group-repository.js";
+import { RepositoryItem } from "../__test/test-utils.js";
 
 describe("FirestoreGroupRepository", () => {
   const collection = "repository-items";
@@ -21,7 +21,7 @@ describe("FirestoreGroupRepository", () => {
     subRepositoryA = new FirestoreRepository<RepositoryItem>(`${collection}/A/${subCollection}`);
     subRepositoryB = new FirestoreRepository<RepositoryItem>(`${collection}/B/${subCollection}`);
     groupRepository = new FirestoreGroupRepository<RepositoryItem>(subCollection);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const createItem = (id: string, data?: Record<string, unknown>) => {

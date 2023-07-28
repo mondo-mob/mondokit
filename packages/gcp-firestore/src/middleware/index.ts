@@ -1,1 +1,1 @@
-export { firestoreLoader } from "./firestore-loader";
+export { firestoreLoader } from "./firestore-loader.js";

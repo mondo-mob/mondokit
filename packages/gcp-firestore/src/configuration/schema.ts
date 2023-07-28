@@ -1,4 +1,4 @@
-import { gaeJsCoreConfigurationSchema } from "@mondomob/gae-js-core";
+import { gaeJsCoreConfigurationSchema } from "@mondokit/gcp-core";
 import { z } from "zod";
 
 export const gaeJsFirestoreConfigurationSchema = gaeJsCoreConfigurationSchema.extend({

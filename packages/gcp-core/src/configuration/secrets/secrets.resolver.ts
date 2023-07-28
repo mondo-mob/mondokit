@@ -1,4 +1,4 @@
-import { fromPairs, isPlainObject, isString, toPairs } from "lodash";
+import { fromPairs, isPlainObject, isString, toPairs } from "lodash-es";
 import { createLogger } from "../../logging/logging.js";
 import { SecretsClient } from "./secrets.client.js";
 

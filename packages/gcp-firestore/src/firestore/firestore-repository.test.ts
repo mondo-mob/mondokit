@@ -8,19 +8,19 @@ import {
   SearchService,
   Sort,
   zodValidator,
-} from "@mondomob/gae-js-core";
-import { toUpper } from "lodash";
+} from "@mondokit/gcp-core";
+import { toUpper } from "lodash-es";
 import { z } from "zod";
-import { FIRESTORE_ID_FIELD } from "./firestore-constants";
-import { isFirestoreError } from "./firestore-errors";
-import { FirestoreLoader } from "./firestore-loader";
-import { firestoreProvider } from "./firestore-provider";
-import { FirestoreRepository } from "./firestore-repository";
-import { firestoreLoaderRequestStorage } from "./firestore-request-storage";
-import { RepositoryNotFoundError } from "./repository-error";
-import { runInTransaction } from "./transactional";
-import { DateTransformers } from "./value-transformers";
-import { useFirestoreTest } from "../__test/useFirestoreTest.hook";
+import { FIRESTORE_ID_FIELD } from "./firestore-constants.js";
+import { isFirestoreError } from "./firestore-errors.js";
+import { FirestoreLoader } from "./firestore-loader.js";
+import { firestoreProvider } from "./firestore-provider.js";
+import { FirestoreRepository } from "./firestore-repository.js";
+import { firestoreLoaderRequestStorage } from "./firestore-request-storage.js";
+import { RepositoryNotFoundError } from "./repository-error.js";
+import { runInTransaction } from "./transactional.js";
+import { DateTransformers } from "./value-transformers.js";
+import { useFirestoreTest } from "../__test/useFirestoreTest.hook.js";
 
 const repositoryItemSchema = z.object({
   id: z.string(),
@@ -51,7 +51,7 @@ describe("FirestoreRepository", () => {
   beforeEach(async () => {
     firestore = firestoreProvider.get();
     repository = new FirestoreRepository<RepositoryItem>(collection, { firestore });
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const createItem = (id: string, data?: Record<string, unknown>) => {
@@ -494,10 +494,11 @@ describe("FirestoreRepository", () => {
       await repository.insert(createItem("123", { message: "insert" }));
       try {
         await repository.insert(createItem("123", { message: "insert again" }));
-        fail("Expected error");
       } catch (err) {
         expect(isFirestoreError(err, GrpcStatus.ALREADY_EXISTS)).toBe(true);
+        return;
       }
+      throw Error("Expected error not thrown - force fail");
     });
 
     describe("with schema", () => {
@@ -970,10 +971,10 @@ describe("FirestoreRepository", () => {
 
   describe("with search enabled", () => {
     const searchService: SearchService = {
-      index: jest.fn(),
-      delete: jest.fn(),
-      deleteAll: jest.fn(),
-      query: jest.fn(),
+      index: vi.fn(),
+      delete: vi.fn(),
+      deleteAll: vi.fn(),
+      query: vi.fn(),
     };
 
     const initRepo = (indexConfig: IndexConfig<RepositoryItem>): FirestoreRepository<RepositoryItem> =>
@@ -1005,7 +1006,7 @@ describe("FirestoreRepository", () => {
     });
 
     beforeEach(() => {
-      jest.resetAllMocks();
+      vi.resetAllMocks();
       repository = initRepo({
         prop1: true,
         prop2: (value) => value.prop2?.toUpperCase(),

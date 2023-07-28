@@ -1,7 +1,8 @@
-import { transactional } from "../__test/test-utils";
-import { MutexService } from "./mutex.service";
-import { Mutex, mutexesRepository } from "./mutexes.repository";
-import { useFirestoreTest } from "../__test/useFirestoreTest.hook";
+import { Mock } from "@vitest/spy";
+import { transactional } from "../__test/test-utils.js";
+import { MutexService } from "./mutex.service.js";
+import { Mutex, mutexesRepository } from "./mutexes.repository.js";
+import { useFirestoreTest } from "../__test/useFirestoreTest.hook.js";
 
 describe("MutexService", () => {
   useFirestoreTest({ clearCollections: ["mutexes"] });
@@ -104,9 +105,9 @@ describe("MutexService", () => {
   });
 
   describe("withMutex", () => {
-    let executorFunction: jest.Mock;
+    let executorFunction: Mock;
     beforeEach(() => {
-      executorFunction = jest.fn(() => "result");
+      executorFunction = vi.fn(() => "result");
     });
 
     it(
@@ -138,7 +139,7 @@ describe("MutexService", () => {
     it(
       "throws when executor throws, and unlocks mutex",
       transactional(async () => {
-        executorFunction = jest.fn(() => {
+        executorFunction = vi.fn(() => {
           throw new Error("Test error");
         });
 
@@ -171,9 +172,9 @@ describe("MutexService", () => {
   });
 
   describe("withMutexSilent", () => {
-    let executorFunction: jest.Mock;
+    let executorFunction: Mock;
     beforeEach(() => {
-      executorFunction = jest.fn(() => "result");
+      executorFunction = vi.fn(() => "result");
     });
 
     it(
@@ -205,7 +206,7 @@ describe("MutexService", () => {
     it(
       "throws when executor throws, and unlocks mutex",
       transactional(async () => {
-        executorFunction = jest.fn(() => {
+        executorFunction = vi.fn(() => {
           throw new Error("Test error");
         });
 
@@ -237,7 +238,7 @@ describe("MutexService", () => {
     it(
       "calls supplied handler when mutex is locked",
       transactional(async () => {
-        const handler = jest.fn();
+        const handler = vi.fn();
         await mutexService.obtain("test1");
 
         await expect(

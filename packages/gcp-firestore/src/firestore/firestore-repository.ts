@@ -13,15 +13,15 @@ import {
   SearchResults,
   SearchService,
   Sort,
-} from "@mondomob/gae-js-core";
+} from "@mondokit/gcp-core";
 import assert from "assert";
-import { castArray, first } from "lodash";
-import { DeleteAllOptions, FirestoreLoader, FirestorePayload } from "./firestore-loader";
-import { FilterOptions, idOnlyQueryOptions, IdQueryOptions, QueryOptions, QueryResponse } from "./firestore-query";
-import { RepositoryNotFoundError } from "./repository-error";
-import { transformDeep } from "./value-transformers";
-import { BaseEntity, IdType, ValueTransformers } from "./types";
-import { FirestoreBaseRepository } from "./firestore-base-repository";
+import { castArray, first } from "lodash-es";
+import { DeleteAllOptions, FirestoreLoader, FirestorePayload } from "./firestore-loader.js";
+import { FilterOptions, idOnlyQueryOptions, IdQueryOptions, QueryOptions, QueryResponse } from "./firestore-query.js";
+import { RepositoryNotFoundError } from "./repository-error.js";
+import { transformDeep } from "./value-transformers.js";
+import { BaseEntity, IdType, ValueTransformers } from "./types.js";
+import { FirestoreBaseRepository } from "./firestore-base-repository.js";
 
 const SEARCH_NOT_ENABLED_MSG = "Search is not configured for this repository";
 

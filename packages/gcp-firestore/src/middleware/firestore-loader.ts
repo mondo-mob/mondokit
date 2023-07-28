@@ -1,8 +1,8 @@
 import { Handler } from "express";
 import { Firestore } from "@google-cloud/firestore";
-import { firestoreLoaderRequestStorage } from "../firestore/firestore-request-storage";
-import { FirestoreLoader } from "../firestore/firestore-loader";
-import { firestoreProvider } from "../firestore/firestore-provider";
+import { firestoreLoaderRequestStorage } from "../firestore/firestore-request-storage.js";
+import { FirestoreLoader } from "../firestore/firestore-loader.js";
+import { firestoreProvider } from "../firestore/firestore-provider.js";
 
 /**
  * Creates a middleware that initialises a new FirestoreLoader into request storage

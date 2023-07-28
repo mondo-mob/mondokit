@@ -1,13 +1,13 @@
 import { Firestore } from "@google-cloud/firestore";
-import { runWithRequestStorage, setRequestStorageValue } from "@mondomob/gae-js-core";
+import { runWithRequestStorage, setRequestStorageValue } from "@mondokit/gcp-core";
 import {
   DISABLE_TIMESTAMP_UPDATE,
   newTimestampedEntity,
   TimestampedEntity,
   TimestampedRepository,
-} from "./timestamped-repository";
-import { useFirestoreTest } from "../__test/useFirestoreTest.hook";
-import { firestoreProvider } from "./firestore-provider";
+} from "./timestamped-repository.js";
+import { useFirestoreTest } from "../__test/useFirestoreTest.hook.js";
+import { firestoreProvider } from "./firestore-provider.js";
 
 interface TimestampedItem extends TimestampedEntity {
   id: string;
@@ -24,7 +24,7 @@ describe("TimestampedRepository", () => {
   beforeEach(async () => {
     firestore = firestoreProvider.get();
     repository = new TimestampedRepository<TimestampedItem>(collection, { firestore });
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     startTime = new Date();
   });
 

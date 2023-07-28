@@ -1,7 +1,7 @@
 import { Firestore, Settings, v1 as firestoreV1 } from "@google-cloud/firestore";
-import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client";
-import { configurationProvider, createLogger, runningOnGcp } from "@mondomob/gae-js-core";
-import { GaeJsFirestoreConfiguration } from "../configuration";
+import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client.js";
+import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
+import { GaeJsFirestoreConfiguration } from "../configuration/schema.js";
 
 export interface FirestoreConnectOptions {
   configuration?: GaeJsFirestoreConfiguration;

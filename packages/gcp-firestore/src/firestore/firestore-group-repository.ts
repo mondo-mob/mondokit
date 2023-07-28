@@ -1,7 +1,7 @@
-import { createLogger } from "@mondomob/gae-js-core";
-import { FilterOptions, idOnlyQueryOptions, IdQueryOptions, QueryOptions, QueryResponse } from "./firestore-query";
-import { BaseRepositoryOptions, FirestoreBaseRepository } from "./firestore-base-repository";
-import { BaseEntity, DocumentIdentifier, GroupEntity } from "./types";
+import { createLogger } from "@mondokit/gcp-core";
+import { FilterOptions, idOnlyQueryOptions, IdQueryOptions, QueryOptions, QueryResponse } from "./firestore-query.js";
+import { BaseRepositoryOptions, FirestoreBaseRepository } from "./firestore-base-repository.js";
+import { BaseEntity, DocumentIdentifier, GroupEntity } from "./types.js";
 
 /**
  * Repository for perform collection group operations.

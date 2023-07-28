@@ -1,6 +1,6 @@
 import { Firestore, Settings } from "@google-cloud/firestore";
-import { Provider } from "@mondomob/gae-js-core";
-import { connectFirestore } from "./connect";
+import { Provider } from "@mondokit/gcp-core";
+import { connectFirestore } from "./connect.js";
 
 export class FirestoreProvider extends Provider<Firestore> {
   init(firestoreOrSettings?: Firestore | Settings): void {

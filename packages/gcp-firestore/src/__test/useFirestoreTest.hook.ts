@@ -1,6 +1,7 @@
-import { GaeJsFirestoreConfiguration } from "../configuration";
-import { deleteCollections, initEmulatorConfig } from "./test-utils";
-import { connectFirestore, firestoreProvider } from "../firestore";
+import { GaeJsFirestoreConfiguration } from "../configuration/schema.js";
+import { deleteCollections, initEmulatorConfig } from "./test-utils.js";
+import { firestoreProvider } from "../firestore/firestore-provider.js";
+import { connectFirestore } from "../firestore/connect.js";
 
 export interface FirestoreTestOptions {
   config?: Partial<GaeJsFirestoreConfiguration>;

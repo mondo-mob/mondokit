@@ -1,5 +1,5 @@
 import { GrpcStatus } from "@google-cloud/firestore";
-import { isFirestoreError } from "./firestore-errors";
+import { isFirestoreError } from "./firestore-errors.js";
 
 describe("firestore-errors", () => {
   describe("isFirestoreError", () => {

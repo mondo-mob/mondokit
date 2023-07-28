@@ -1,5 +1,5 @@
 import { Timestamp } from "@google-cloud/firestore";
-import { cloneDeepWith } from "lodash";
+import { cloneDeepWith } from "lodash-es";
 
 const dateToTimestampTransformer = <T>(): ValueTransformer<T> => ({
   test: ({ src }) => src instanceof Date,

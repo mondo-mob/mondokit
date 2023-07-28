@@ -1,6 +1,6 @@
-import { createLogger, getRequestStorageValueOrDefault } from "@mondomob/gae-js-core";
-import { FirestoreRepository } from "./firestore-repository";
-import { BaseEntity } from "./types";
+import { createLogger, getRequestStorageValueOrDefault } from "@mondokit/gcp-core";
+import { FirestoreRepository } from "./firestore-repository.js";
+import { BaseEntity } from "./types.js";
 
 export interface TimestampedEntity extends BaseEntity {
   createdAt: Date;

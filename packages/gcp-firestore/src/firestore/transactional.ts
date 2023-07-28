@@ -1,5 +1,5 @@
-import { createLogger, RequestStorageStore, runWithRequestStorage } from "@mondomob/gae-js-core";
-import { firestoreLoaderRequestStorage } from "./firestore-request-storage";
+import { createLogger, RequestStorageStore, runWithRequestStorage } from "@mondokit/gcp-core";
+import { firestoreLoaderRequestStorage } from "./firestore-request-storage.js";
 
 const logger = createLogger("Transactional");
 

@@ -1,11 +1,11 @@
 import { Firestore } from "@google-cloud/firestore";
-import { DataValidator } from "@mondomob/gae-js-core";
-import { firestoreProvider } from "./firestore-provider";
-import { RepositoryError } from "./repository-error";
-import { DateTransformers, transformDeep } from "./value-transformers";
-import { BaseEntity, ValueTransformers } from "./types";
-import { FirestoreLoader } from "./firestore-loader";
-import { firestoreLoaderRequestStorage } from "./firestore-request-storage";
+import { DataValidator } from "@mondokit/gcp-core";
+import { firestoreProvider } from "./firestore-provider.js";
+import { RepositoryError } from "./repository-error.js";
+import { DateTransformers, transformDeep } from "./value-transformers.js";
+import { BaseEntity, ValueTransformers } from "./types.js";
+import { FirestoreLoader } from "./firestore-loader.js";
+import { firestoreLoaderRequestStorage } from "./firestore-request-storage.js";
 
 export interface BaseRepositoryOptions<T extends BaseEntity> {
   firestore?: Firestore;

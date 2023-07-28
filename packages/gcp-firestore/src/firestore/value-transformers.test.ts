@@ -1,5 +1,5 @@
 import { Timestamp } from "@google-cloud/firestore";
-import { DateTransformers, transformDeep, ValueTransformer } from "./value-transformers";
+import { DateTransformers, transformDeep, ValueTransformer } from "./value-transformers.js";
 
 describe("value-transformers", () => {
   describe("transformDeep", () => {

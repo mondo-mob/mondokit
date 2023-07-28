@@ -1,6 +1,6 @@
 import { FieldPath, Filter, OrderByDirection, WhereFilterOp } from "@google-cloud/firestore";
-import { OneOrMany } from "@mondomob/gae-js-core";
-import { FIRESTORE_ID_FIELD } from "./firestore-constants";
+import { OneOrMany } from "@mondokit/gcp-core";
+import { FIRESTORE_ID_FIELD } from "./firestore-constants.js";
 
 export interface WhereFilter {
   fieldPath: string | FieldPath;

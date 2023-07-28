@@ -1,4 +1,4 @@
-import _, { isString } from "lodash";
+import { last, merge, isString } from "lodash-es";
 import { createLogger } from "../logging/logging.js";
 import { GaeJsCoreConfiguration } from "./schema.js";
 import Path from "path";
@@ -53,7 +53,7 @@ export const getProjectId = (optionsProjectId?: string): string | undefined => {
 
 const projectSuffixEnvironment: EnvironmentStrategy = (projectId?: string) => {
   if (!projectId) return undefined;
-  return _.last(projectId.split("-"));
+  return last(projectId.split("-"));
 };
 
 const getEnvironment = (
@@ -116,7 +116,7 @@ const loadRawConfiguration = async <T extends GaeJsCoreConfiguration>(
   );
   const mergedConfig: Record<string, unknown> = { projectId, environment };
   sources.forEach((parsedConfig) => {
-    _.merge(mergedConfig, parsedConfig.content);
+    merge(mergedConfig, parsedConfig.content);
   });
 
   return mergedConfig;

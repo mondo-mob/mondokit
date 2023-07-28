@@ -1,3 +1,3 @@
-export * from "./mutex-unavailable-error";
-export * from "./mutex.service";
-export * from "./mutexes.repository";
+export * from "./mutex-unavailable-error.js";
+export * from "./mutex.service.js";
+export * from "./mutexes.repository.js";

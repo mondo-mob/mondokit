@@ -1,8 +1,8 @@
 import { Firestore } from "@google-cloud/firestore";
-import { runWithRequestStorage } from "@mondomob/gae-js-core";
-import { FirestoreLoader } from "./firestore-loader";
-import { FirestoreRepository } from "./firestore-repository";
-import { firestoreLoaderRequestStorage } from "./firestore-request-storage";
+import { runWithRequestStorage } from "@mondokit/gcp-core";
+import { FirestoreLoader } from "./firestore-loader.js";
+import { FirestoreRepository } from "./firestore-repository.js";
+import { firestoreLoaderRequestStorage } from "./firestore-request-storage.js";
 import {
   execPostCommitOrNow,
   execPostCommitOrNowSync,
@@ -10,9 +10,9 @@ import {
   PostCommitError,
   runInTransaction,
   Transactional,
-} from "./transactional";
-import { useFirestoreTest } from "../__test/useFirestoreTest.hook";
-import { firestoreProvider } from "./firestore-provider";
+} from "./transactional.js";
+import { useFirestoreTest } from "../__test/useFirestoreTest.hook.js";
+import { firestoreProvider } from "./firestore-provider.js";
 
 interface RepositoryItem {
   id: string;
@@ -51,7 +51,7 @@ class TransactionalService {
 describe("Transactional", () => {
   const collection1 = "transactional1";
   const collection2 = "transactional2";
-  useFirestoreTest({ clearCollections: [collection1, collection1] });
+  useFirestoreTest({ clearCollections: [collection1, collection2] });
 
   let firestore: Firestore;
   let repository1: FirestoreRepository<RepositoryItem>;
@@ -63,12 +63,12 @@ describe("Transactional", () => {
     repository1 = new FirestoreRepository<RepositoryItem>(collection1, { firestore });
     repository2 = new FirestoreRepository<RepositoryItem>(collection2, { firestore });
     service = new TransactionalService(repository1, repository2);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe("Transactional Method Decorator", () => {
     it("does not run transaction for non-annotated method", async () => {
-      const runTransactionSpy = jest.spyOn(firestore, "runTransaction");
+      const runTransactionSpy = vi.spyOn(firestore, "runTransaction");
 
       await runWithRequestStorage(async () => {
         firestoreLoaderRequestStorage.set(new FirestoreLoader(firestore));
@@ -81,7 +81,7 @@ describe("Transactional", () => {
     });
 
     it("saves multiple collections in single transaction", async () => {
-      const runTransactionSpy = jest.spyOn(firestore, "runTransaction");
+      const runTransactionSpy = vi.spyOn(firestore, "runTransaction");
 
       await runWithRequestStorage(async () => {
         firestoreLoaderRequestStorage.set(new FirestoreLoader(firestore));
@@ -94,7 +94,7 @@ describe("Transactional", () => {
     });
 
     it("continues existing transaction for nested decoration", async () => {
-      const runTransactionSpy = jest.spyOn(firestore, "runTransaction");
+      const runTransactionSpy = vi.spyOn(firestore, "runTransaction");
 
       await runWithRequestStorage(async () => {
         firestoreLoaderRequestStorage.set(new FirestoreLoader(firestore));
@@ -113,20 +113,21 @@ describe("Transactional", () => {
         try {
           await service.saveItemsTransaction("123");
           await service.saveItemsThenThrow("456");
-          fail("Should have thrown by now");
         } catch {
           await expect(repository1.get("123")).resolves.toBeTruthy();
           await expect(repository2.get("123")).resolves.toBeTruthy();
           await expect(repository1.get("456")).resolves.toBe(null);
           await expect(repository2.get("456")).resolves.toBe(null);
+          return;
         }
+        throw Error("Should have thrown by now");
       });
     });
   });
 
   describe("runInTransaction", () => {
     it("saves multiple collections in single transaction", async () => {
-      const runTransactionSpy = jest.spyOn(firestore, "runTransaction");
+      const runTransactionSpy = vi.spyOn(firestore, "runTransaction");
 
       await runWithRequestStorage(async () => {
         firestoreLoaderRequestStorage.set(new FirestoreLoader(firestore));
@@ -153,7 +154,7 @@ describe("Transactional", () => {
     });
 
     it("continues existing transaction for nested decoration", async () => {
-      const runTransactionSpy = jest.spyOn(firestore, "runTransaction");
+      const runTransactionSpy = vi.spyOn(firestore, "runTransaction");
 
       await runWithRequestStorage(async () => {
         firestoreLoaderRequestStorage.set(new FirestoreLoader(firestore));
@@ -179,13 +180,14 @@ describe("Transactional", () => {
             await service.saveItems("567");
             throw new Error("failed");
           });
-          fail("Should have thrown by now");
         } catch {
           await expect(repository1.get("234")).resolves.toBeTruthy();
           await expect(repository2.get("234")).resolves.toBeTruthy();
           await expect(repository1.get("567")).resolves.toBe(null);
           await expect(repository2.get("567")).resolves.toBe(null);
+          return;
         }
+        throw Error("Should have thrown by now");
       });
     });
   });
@@ -283,7 +285,7 @@ describe("Transactional", () => {
             return "Result of the transactional block";
           })
         );
-        fail("Expected error");
+        throw Error("Expected error");
       } catch (err) {
         expect(err).toBeInstanceOf(PostCommitError);
         const postCommitError = err as PostCommitError;
@@ -362,7 +364,7 @@ describe("Transactional", () => {
             return "Result of the transactional block";
           })
         );
-        fail("Expected error");
+        throw Error("Expected error");
       } catch (err) {
         expect(err).toBeInstanceOf(PostCommitError);
         const postCommitError = err as PostCommitError;
