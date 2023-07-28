@@ -1,4 +1,4 @@
-import { TimestampedEntity, TimestampedRepository } from "../firestore";
+import { TimestampedEntity, TimestampedRepository } from "../firestore/timestamped-repository.js";
 
 export const MUTEXES_COLLECTION_NAME = "mutexes";
 
