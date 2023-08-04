@@ -14,13 +14,13 @@ describe("TaskQueueService", () => {
 
   beforeEach(async () => {
     await initTestConfig();
-    vi.useFakeTimers({ now: new Date("2023-10-11T12:13:14.000Z"), advanceTimers: true });
-  });
-  afterEach(() => {
-    vi.useRealTimers();
   });
 
   describe("enqueue", () => {
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
     describe("google tasks service", () => {
       beforeEach(() => {
         (CloudTasksClient as any).mockClear();
@@ -100,6 +100,7 @@ describe("TaskQueueService", () => {
           taskQueueService = new TaskQueueService({
             tasksRoutingService: "backend",
           });
+          vi.useFakeTimers({ now: new Date("2023-10-11T12:13:14.000Z"), shouldAdvanceTime: true });
 
           await taskQueueService.enqueue("test-task", {
             data: { key: "value1" },
@@ -164,7 +165,6 @@ describe("TaskQueueService", () => {
       it("posts to local task service", async () => {
         const scope = nock("http://127.0.0.1").post("/tasks/local-task").reply(204);
         await taskQueueService.enqueue("local-task");
-        vi.advanceTimersByTime(5000);
         await waitUntil(() => scope.isDone());
       });
 
