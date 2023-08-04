@@ -1,3 +1,3 @@
-export * from "./task-queue-service";
-export * from "./tasks-provider";
-export * from "./types";
+export * from "./task-queue-service.js";
+export * from "./tasks-provider.js";
+export * from "./types.js";

@@ -1,5 +1,5 @@
 import { Status } from "google-gax";
-import { isGoogleGaxError } from "./errors";
+import { isGoogleGaxError } from "./errors.js";
 
 describe("errors", () => {
   describe("isFirestoreError", () => {

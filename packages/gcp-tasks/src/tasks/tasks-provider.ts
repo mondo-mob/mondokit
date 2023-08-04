@@ -1,5 +1,5 @@
 import { CloudTasksClient } from "@google-cloud/tasks";
-import { createLogger, Provider, runningOnGcp } from "@mondomob/gae-js-core";
+import { createLogger, Provider, runningOnGcp } from "@mondokit/gcp-core";
 
 export class TasksProvider extends Provider<CloudTasksClient> {
   init(tasksClient?: CloudTasksClient): void {

@@ -3,7 +3,7 @@ import {
   GaeJsCoreConfiguration,
   gaeJsCoreConfigurationSchema,
   zodValidator,
-} from "@mondomob/gae-js-core";
+} from "@mondokit/gcp-core";
 
 export const initTestConfig = async (config?: Partial<GaeJsCoreConfiguration>): Promise<GaeJsCoreConfiguration> => {
   process.env.GAEJS_PROJECT = "tasks-tests";

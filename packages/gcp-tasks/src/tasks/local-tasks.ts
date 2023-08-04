@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
-import { BadRequestError, createLogger } from "@mondomob/gae-js-core";
-import { CreateTaskRequest } from "./types";
+import { BadRequestError, createLogger } from "@mondokit/gcp-core";
+import { CreateTaskRequest } from "./types.js";
 
 // Keep track of used task names (for simulating task deduplication)
 const taskNames = new Set<string>();

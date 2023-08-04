@@ -1,6 +1,6 @@
 import express from "express";
 import request from "supertest";
-import { gaeJsTask } from "./gae-js-task";
+import { gaeJsTask } from "./gae-js-task.js";
 
 const initApp = () => {
   const app = express();

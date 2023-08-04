@@ -1,2 +1,2 @@
-export * from "./gae-js-task";
-export * from "./verify-task";
+export * from "./gae-js-task.js";
+export * from "./verify-task.js";

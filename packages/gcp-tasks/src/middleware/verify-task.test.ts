@@ -1,6 +1,6 @@
 import express from "express";
 import request from "supertest";
-import { verifyTask } from "./verify-task";
+import { verifyTask } from "./verify-task.js";
 
 const initApp = () => {
   const app = express();

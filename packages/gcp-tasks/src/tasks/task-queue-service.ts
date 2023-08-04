@@ -1,17 +1,17 @@
 import * as crypto from "crypto";
 import { CloudTasksClient } from "@google-cloud/tasks";
 import { Status } from "google-gax";
-import { configurationProvider, createLogger, runningOnGcp } from "@mondomob/gae-js-core";
+import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
 import {
   CreateTaskQueueServiceOptions,
   CreateTaskRequest,
   TaskOptions,
   TaskQueueServiceOptions,
   TaskThrottle,
-} from "./types";
-import { tasksProvider } from "./tasks-provider";
-import { createLocalTask } from "./local-tasks";
-import { isGoogleGaxError } from "../utils/errors";
+} from "./types.js";
+import { tasksProvider } from "./tasks-provider.js";
+import { createLocalTask } from "./local-tasks.js";
+import { isGoogleGaxError } from "../utils/errors.js";
 
 export class TaskQueueService {
   private logger = createLogger("taskQueueService");

@@ -1,5 +1,5 @@
-import { requestTimeoutMinutes } from "@mondomob/gae-js-core";
-import { verifyTask } from "./verify-task";
+import { requestTimeoutMinutes } from "@mondokit/gcp-core";
+import { verifyTask } from "./verify-task.js";
 
 /**
  * Util middleware to apply to GAE task endpoints:

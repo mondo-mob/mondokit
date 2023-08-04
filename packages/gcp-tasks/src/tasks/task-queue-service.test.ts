@@ -1,23 +1,23 @@
 import nock from "nock";
-import { initTestConfig, waitUntil } from "../__test/test-utils";
-import { TaskQueueService } from "./task-queue-service";
+import { initTestConfig, waitUntil } from "../__test/test-utils.js";
+import { TaskQueueService } from "./task-queue-service.js";
 import { CloudTasksClient } from "@google-cloud/tasks";
-import { withEnvVars } from "@mondomob/gae-js-core/dist/__test/test-utils";
-import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondomob/gae-js-core";
-import { tasksProvider } from "./tasks-provider";
-import { TaskThrottle } from "./types";
+import { withEnvVars } from "@mondokit/gcp-core/dist/__test/test-utils.js";
+import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondokit/gcp-core";
+import { tasksProvider } from "./tasks-provider.js";
+import { TaskThrottle } from "./types.js";
 
-jest.mock("@google-cloud/tasks");
+vi.mock("@google-cloud/tasks");
 
 describe("TaskQueueService", () => {
   let taskQueueService: TaskQueueService;
 
   beforeEach(async () => {
     await initTestConfig();
-    jest.useFakeTimers({ now: new Date("2023-10-11T12:13:14.000Z"), advanceTimers: true });
+    vi.useFakeTimers({ now: new Date("2023-10-11T12:13:14.000Z"), advanceTimers: true });
   });
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   describe("enqueue", () => {
@@ -59,7 +59,6 @@ describe("TaskQueueService", () => {
 
           const timeIn60Seconds = 60 + Math.floor(Date.now() / 1000);
           await taskQueueService.enqueue("test-task", { data: { key: "value1" }, inSeconds: 60 });
-
           expectTaskParams({
             appEngineHttpRequest: {
               relativeUri: "/tasks/test-task",
@@ -129,7 +128,7 @@ describe("TaskQueueService", () => {
         "ignores ALREADY_EXISTS error for throttled task",
         withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
           tasksProvider.init();
-          jest.spyOn(tasksProvider.get(), "createTask").mockImplementation(() => {
+          vi.spyOn(tasksProvider.get(), "createTask").mockImplementation(() => {
             throw { code: 6, details: "Requested entity already exists" };
           });
 
@@ -143,7 +142,7 @@ describe("TaskQueueService", () => {
         "throws non ALREADY_EXISTS errors for throttled task",
         withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
           tasksProvider.init();
-          jest.spyOn(tasksProvider.get(), "createTask").mockImplementation(() => {
+          vi.spyOn(tasksProvider.get(), "createTask").mockImplementation(() => {
             throw { code: 3, details: "Invalid argument" };
           });
 
@@ -165,7 +164,7 @@ describe("TaskQueueService", () => {
       it("posts to local task service", async () => {
         const scope = nock("http://127.0.0.1").post("/tasks/local-task").reply(204);
         await taskQueueService.enqueue("local-task");
-        jest.advanceTimersByTime(5000);
+        vi.advanceTimersByTime(5000);
         await waitUntil(() => scope.isDone());
       });
 
