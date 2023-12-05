@@ -18,3 +18,18 @@ Simplify building NodeJS applications on Google App Engine (GAE)
 - [gae-js-firebase-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firebase-auth.html)
 - [gae-js-migrations](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-migrations.html)
 - [gae-js-search](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-gae-search.html)
+
+## Development
+
+### Merging fixes from gae-js
+Feel free to change:
+ - the name of your local branch in the first step
+ - the name of the branch you are merging from in `gae-js` in the last step
+
+```shell
+git checkout -b feature/gae-js-merge
+git remote add gae-js https://github.com/mondo-mob/gae-js.git
+git remote update
+git merge gae-js/main
+
+```

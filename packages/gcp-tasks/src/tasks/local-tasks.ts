@@ -10,11 +10,25 @@ export const createLocalTask = async (targetHost: string, createTaskRequest: Cre
   const { parent, task } = createTaskRequest;
   if (!parent || !task) throw new BadRequestError("parent and task must be supplied");
 
-  const { appEngineHttpRequest } = task;
-  if (!appEngineHttpRequest) throw new BadRequestError("Only supports app engine task requests");
+  const { appEngineHttpRequest, httpRequest } = task;
+  if (!appEngineHttpRequest && !httpRequest) {
+    throw new BadRequestError("appEngineHttpRequest or httpRequest must be supplied");
+  }
 
-  const { relativeUri } = appEngineHttpRequest;
-  if (!relativeUri) throw new BadRequestError("relativeUri must be supplied");
+  const getEndpoint = (): string => {
+    if (appEngineHttpRequest) {
+      return `${targetHost}${appEngineHttpRequest.relativeUri}`;
+    }
+
+    if (httpRequest?.url) {
+      const url = new URL(httpRequest.url);
+      return `${targetHost}${url.pathname}`;
+    }
+
+    throw new BadRequestError("endpoint could not be resolved");
+  };
+
+  const endpoint = getEndpoint();
 
   if (task.name) {
     if (taskNames.has(task.name)) {
@@ -26,11 +40,10 @@ export const createLocalTask = async (targetHost: string, createTaskRequest: Cre
     taskNames.add(task.name);
   }
 
-  const endpoint = `${targetHost}${appEngineHttpRequest.relativeUri}`;
   const delayMs = task.scheduleTime?.seconds ? Number(task.scheduleTime?.seconds) * 1000 - new Date().getTime() : 0;
-  const body = appEngineHttpRequest.body
-    ? Buffer.from(appEngineHttpRequest.body as string, "base64").toString("ascii")
-    : undefined;
+
+  const bodyData = appEngineHttpRequest ? appEngineHttpRequest.body : httpRequest?.body;
+  const body = bodyData ? Buffer.from(bodyData as string, "base64").toString("ascii") : undefined;
 
   // Intentionally don't return this promise because we want the task to be executed
   // asynchronously - i.e. a tiny bit like a task queue would work. Otherwise, if the caller
@@ -43,7 +56,13 @@ export const createLocalTask = async (targetHost: string, createTaskRequest: Cre
         body,
         headers: {
           "content-type": "application/json",
-          "x-appengine-taskname": relativeUri,
+          ...(appEngineHttpRequest ? { "x-appengine-taskname": appEngineHttpRequest.relativeUri ?? "" } : {}),
+          ...(httpRequest
+            ? {
+                "x-local-tasks-oidc-service-account-email": httpRequest.oidcToken?.serviceAccountEmail ?? "",
+                "x-local-tasks-oidc-audience": httpRequest.oidcToken?.audience ?? "",
+              }
+            : {}),
         },
       });
     })

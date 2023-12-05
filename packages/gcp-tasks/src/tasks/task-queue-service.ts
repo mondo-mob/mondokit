@@ -3,8 +3,12 @@ import { CloudTasksClient } from "@google-cloud/tasks";
 import { Status } from "google-gax";
 import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
 import {
+  AppEngineTargetOptions,
   CreateTaskQueueServiceOptions,
   CreateTaskRequest,
+  HttpTargetOptions,
+  IAppEngineHttpRequest,
+  IHttpRequest,
   TaskOptions,
   TaskQueueServiceOptions,
   TaskThrottle,
@@ -72,30 +76,59 @@ export class TaskQueueService {
     }
   }
 
-  private buildTask(path: string, options: TaskOptions): CreateTaskRequest {
+  protected buildTask(path: string, options: TaskOptions): CreateTaskRequest {
     const { projectId, location, queueName } = this.options;
     const queuePath = runningOnGcp()
       ? this.getTasksClient().queuePath(projectId, location, queueName)
       : `projects/${projectId}/locations/${location}/queues/${queueName}`;
     this.logger.info(`Using queue path: ${queuePath}`);
 
-    const { data = {}, inSeconds, throttle } = options;
-    const body = JSON.stringify(data);
-    const requestPayload = Buffer.from(body).toString("base64");
+    const { inSeconds, throttle } = options;
     return {
       parent: queuePath,
       task: {
-        appEngineHttpRequest: {
-          relativeUri: `${this.fullTaskPath(path)}`,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: requestPayload,
-          ...this.taskRouting(),
-        },
+        ...this.taskRequest(path, options),
         ...this.taskSchedule(inSeconds),
         ...this.taskThrottle(queuePath, throttle),
       },
+    };
+  }
+
+  private taskRequest(path: string, options: TaskOptions) {
+    return "httpTargetHost" in this.options
+      ? {
+          httpRequest: this.httpRequest(path, options),
+        }
+      : {
+          appEngineHttpRequest: this.appEngineRequest(path, options),
+        };
+  }
+
+  private commonRequest({ data = {} }: TaskOptions) {
+    const body = JSON.stringify(data);
+    const requestPayload = Buffer.from(body).toString("base64");
+    return {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: requestPayload,
+    };
+  }
+
+  private appEngineRequest(path: string, options: TaskOptions): IAppEngineHttpRequest {
+    return {
+      ...this.commonRequest(options),
+      relativeUri: `${this.fullTaskPath(path)}`,
+      ...this.appEngineRouting(),
+    };
+  }
+
+  private httpRequest(path: string, options: TaskOptions): IHttpRequest {
+    const { httpTargetHost, oidcToken } = this.options as HttpTargetOptions;
+    return {
+      ...this.commonRequest(options),
+      url: `${httpTargetHost}${this.fullTaskPath(path)}`,
+      ...(oidcToken && { oidcToken }),
     };
   }
 
@@ -109,8 +142,8 @@ export class TaskQueueService {
       : {};
   }
 
-  private taskRouting() {
-    const { tasksRoutingService, tasksRoutingVersion } = this.options;
+  private appEngineRouting() {
+    const { tasksRoutingService, tasksRoutingVersion } = this.options as AppEngineTargetOptions;
     if (tasksRoutingVersion || tasksRoutingService) {
       return {
         appEngineRouting: {

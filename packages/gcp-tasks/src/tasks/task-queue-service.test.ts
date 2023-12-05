@@ -94,6 +94,53 @@ describe("TaskQueueService", () => {
       );
 
       it(
+        "creates http target task params for host override routing",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          taskQueueService = new TaskQueueService({
+            httpTargetHost: "https://my-host.com",
+            oidcToken: {
+              serviceAccountEmail: "sacount@gnet.com",
+              audience: "my-audience",
+            },
+          });
+
+          await taskQueueService.enqueue("test-task", { data: { key: "value1" } });
+
+          expectTaskParams({
+            httpRequest: {
+              url: "https://my-host.com/tasks/test-task",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: Buffer.from(JSON.stringify({ key: "value1" })).toString("base64"),
+              oidcToken: { serviceAccountEmail: "sacount@gnet.com", audience: "my-audience" },
+            },
+          });
+        })
+      );
+
+      it(
+        "creates http target task params for host override routing without auth",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          taskQueueService = new TaskQueueService({ httpTargetHost: "https://my-host.com" });
+
+          await taskQueueService.enqueue("test-task", { data: { key: "value1" } });
+
+          expectTaskParams({
+            httpRequest: {
+              url: "https://my-host.com/tasks/test-task",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: Buffer.from(JSON.stringify({ key: "value1" })).toString("base64"),
+            },
+          });
+        })
+      );
+
+      it(
         "creates task params for throttling",
         withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
           tasksProvider.init();
@@ -182,6 +229,13 @@ describe("TaskQueueService", () => {
 
       it("ignores leading slash on task name", async () => {
         const scope = nock("http://127.0.0.1").post("/tasks/local-task").reply(204);
+        await taskQueueService.enqueue("/local-task");
+        await waitUntil(() => scope.isDone());
+      });
+
+      it("posts to local task service given httpTargetHost override", async () => {
+        const scope = nock("http://127.0.0.1").post("/tasks/local-task").reply(204);
+        taskQueueService = new TaskQueueService({ httpTargetHost: "https://my-host.com" });
         await taskQueueService.enqueue("/local-task");
         await waitUntil(() => scope.isDone());
       });
