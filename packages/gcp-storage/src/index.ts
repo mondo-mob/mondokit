@@ -1,2 +1,2 @@
-export * from "./configuration";
-export * from "./storage";
+export * from "./configuration/index.js";
+export * from "./storage/index.js";

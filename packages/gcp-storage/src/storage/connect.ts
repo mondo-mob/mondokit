@@ -1,6 +1,6 @@
 import { Storage, StorageOptions } from "@google-cloud/storage";
-import { configurationProvider, createLogger } from "@mondomob/gae-js-core";
-import { GaeJsStorageConfiguration } from "../configuration";
+import { configurationProvider, createLogger } from "@mondokit/gcp-core";
+import { GaeJsStorageConfiguration } from "../configuration/index.js";
 
 export interface StorageConnectOptions {
   configuration?: GaeJsStorageConfiguration;

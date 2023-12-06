@@ -1,6 +1,6 @@
 import { Storage, StorageOptions } from "@google-cloud/storage";
-import { configurationProvider, gaeJsCoreConfigurationSchema, zodValidator } from "@mondomob/gae-js-core";
-import { GaeJsStorageConfiguration, gaeJsStorageConfigurationSchema } from "../configuration";
+import { configurationProvider, gaeJsCoreConfigurationSchema, zodValidator } from "@mondokit/gcp-core";
+import { GaeJsStorageConfiguration, gaeJsStorageConfigurationSchema } from "../configuration/index.js";
 
 export const initTestConfig = async (
   config?: Partial<GaeJsStorageConfiguration>

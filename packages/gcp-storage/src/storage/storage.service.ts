@@ -1,15 +1,15 @@
 import { Bucket, CreateResumableUploadOptions, File, FileOptions, Storage } from "@google-cloud/storage";
-import { configurationProvider, createLogger } from "@mondomob/gae-js-core";
-import { storageProvider } from "./storage-provider";
+import { configurationProvider, createLogger } from "@mondokit/gcp-core";
+import { storageProvider } from "./storage-provider.js";
 import {
   CopyFileOptions,
   CreateStorageServiceOptions,
   GcsFileIdentifier,
   StorageServiceOptions,
   WriteFileOptions,
-} from "./types";
-import { gcsPathJoin, generateSignedDownloadUrl, toGcsFile, toGcsSaveOptions, toGcsUri } from "./utils";
-import { gcsPromiseLimit } from "./promises";
+} from "./types.js";
+import { gcsPathJoin, generateSignedDownloadUrl, toGcsFile, toGcsSaveOptions, toGcsUri } from "./utils.js";
+import { gcsPromiseLimit } from "./promises.js";
 import path from "path";
 
 /**

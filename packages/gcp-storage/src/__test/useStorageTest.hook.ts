@@ -1,6 +1,6 @@
-import { GaeJsStorageConfiguration } from "../configuration";
-import { initTestConfig } from "./test-utils";
-import { storageProvider } from "../storage";
+import { GaeJsStorageConfiguration } from "../configuration/index.js";
+import { initTestConfig } from "./test-utils.js";
+import { storageProvider } from "../storage/index.js";
 
 export const emptyBucket = async (bucketName: string): Promise<void> => {
   const bucket = await storageProvider.get().bucket(bucketName);

@@ -2,6 +2,7 @@
   "name": "@mondokit/gcp-storage",
   "version": "1.0.0-alpha.0",
   "description": "Tools for Google Cloud Storage",
+  "type": "module",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -13,8 +14,8 @@
     "emulator:start": "npx --yes firebase-tools emulators:start --project storage-tests",
     "format": "prettier --write \"./src/**/*.ts\"",
     "prepublishOnly": "npm run build",
-    "test": "jest --runInBand",
-    "test:ci": "firebase emulators:exec --only storage --project storage-tests \"jest --runInBand\""
+    "test": "vitest run",
+    "test:ci": "npx --yes firebase-tools emulators:exec --only storage --project storage-tests \"vitest run\""
   },
   "publishConfig": {
     "access": "public"
@@ -23,7 +24,7 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "peerDependencies": {
-    "@mondomob/gae-js-core": "^7.0.0",
+    "@mondokit/gcp-core": "^1.0.0-alpha.1",
     "@google-cloud/storage": "^6.0.0",
     "express": ">= 4.17.1"
   },
@@ -31,7 +32,7 @@
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
-    "@mondomob/gae-js-core": "7.0.3",
+    "@mondokit/gcp-core": "^1.0.0-alpha.1",
     "@google-cloud/storage": "6.11.0"
   }
 }

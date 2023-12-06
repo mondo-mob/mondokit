@@ -1,5 +1,5 @@
-import { BadRequestError } from "@mondomob/gae-js-core";
-import { gcsPathJoin, parseGcsUri } from "./utils";
+import { BadRequestError } from "@mondokit/gcp-core";
+import { gcsPathJoin, parseGcsUri } from "./utils.js";
 
 describe("Storage Utils", () => {
   describe("parseGcsUri", () => {

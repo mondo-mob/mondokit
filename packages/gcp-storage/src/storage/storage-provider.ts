@@ -1,6 +1,6 @@
 import { Storage, StorageOptions } from "@google-cloud/storage";
-import { Provider } from "@mondomob/gae-js-core";
-import { connectStorage } from "./connect";
+import { Provider } from "@mondokit/gcp-core";
+import { connectStorage } from "./connect.js";
 
 class StorageProvider extends Provider<Storage> {
   init(storageOrOptions?: Storage | StorageOptions): void {

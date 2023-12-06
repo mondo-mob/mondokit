@@ -1,6 +1,6 @@
-import { storageProvider } from "./storage-provider";
-import { StorageService } from "./storage.service";
-import { useStorageTest } from "../__test/useStorageTest.hook";
+import { storageProvider } from "./storage-provider.js";
+import { StorageService } from "./storage.service.js";
+import { useStorageTest } from "../__test/useStorageTest.hook.js";
 
 // TODO: This connects to the storage emulator but this currently only supports firebase functionality and
 //       so can't be used for most gcloud related functions. Hopefully will be improved soon...
@@ -9,7 +9,7 @@ describe("StorageService", () => {
   useStorageTest({ clearBuckets: ["test-bucket", "test-bucket2"] });
   let service: StorageService;
   beforeEach(async () => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe("Service options", () => {
@@ -157,7 +157,7 @@ describe("StorageService", () => {
       });
 
       it("creates resumable upload url with encryption key set", async () => {
-        const fileSpy = jest.spyOn(service.getBucket(), "file");
+        const fileSpy = vi.spyOn(service.getBucket(), "file");
         const uploadUrl = await service.getResumableUploadUrl("12345", undefined, {
           kmsKeyName: "test-key",
         });

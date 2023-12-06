@@ -1,8 +1,8 @@
-import { BadRequestError } from "@mondomob/gae-js-core";
+import { BadRequestError } from "@mondokit/gcp-core";
 import { File, SaveOptions, Storage } from "@google-cloud/storage";
 import { trim } from "lodash";
-import { GcsFileIdentifier } from "./types";
-import { storageProvider } from "./storage-provider";
+import { GcsFileIdentifier } from "./types.js";
+import { storageProvider } from "./storage-provider.js";
 
 const GS_BUCKET_AND_OBJECT_REGEX = /^gs:\/\/([A-Za-z0-9.\-_]+)\/(.*)$/;
 const DEFAULT_SIGNED_URL_EXPIRY_MS = 10 * 60 * 1000;
