@@ -1,6 +1,6 @@
 import { OneOrMany } from "@mondokit/gcp-core";
-import { Operator } from "@google-cloud/datastore/build/src/query";
-import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
+import { Operator } from "@google-cloud/datastore/build/src/query.js";
+import { entity as Entity } from "@google-cloud/datastore/build/src/entity.js";
 import { Key } from "@google-cloud/datastore";
 import { castArray } from "lodash-es";
 

@@ -1,5 +1,5 @@
 import { Datastore, Key } from "@google-cloud/datastore";
-import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
+import { entity as Entity } from "@google-cloud/datastore/build/src/entity.js";
 import { castArray, chain, first, flatMap } from "lodash-es";
 import {
   createLogger,

@@ -29,13 +29,13 @@
     "p-limit": "^3.1.0"
   },
   "peerDependencies": {
-    "@google-cloud/datastore": ">=7.0.0",
+    "@google-cloud/datastore": ">=8.2.0",
     "@mondokit/gcp-core": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "@google-cloud/datastore": "^7.5.0",
+    "@google-cloud/datastore": "^8.2.2",
     "@mondokit/gcp-core": "^1.0.0-alpha.1",
-    "google-datastore-emulator": "6.0.1"
+    "google-datastore-emulator": "^7.1.0"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }

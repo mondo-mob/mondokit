@@ -1,6 +1,6 @@
 import { Datastore, Transaction } from "@google-cloud/datastore";
-import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
-import { OrderOptions, RunQueryInfo } from "@google-cloud/datastore/build/src/query";
+import { entity as Entity } from "@google-cloud/datastore/build/src/entity.js";
+import { OrderOptions, RunQueryInfo } from "@google-cloud/datastore/build/src/query.js";
 import DataLoader from "dataloader";
 import { buildFilters, Filters } from "./filters.js";
 import { createLogger, Logger, NonFatalError, OneOrMany } from "@mondokit/gcp-core";

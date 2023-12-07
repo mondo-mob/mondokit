@@ -2,7 +2,7 @@ import { Datastore, Key } from "@google-cloud/datastore";
 import { AbstractRepository, buildExclusions } from "./abstract-repository.js";
 import { DatastoreEntity, DatastorePayload } from "./datastore-loader.js";
 import { omit } from "lodash-es";
-import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
+import { entity as Entity } from "@google-cloud/datastore/build/src/entity.js";
 import { IdEntity, IdType, RepositoryOptions } from "./datastore-repository.js";
 
 export interface ChildRepositoryOptions<T extends IdEntity> extends RepositoryOptions<T> {
