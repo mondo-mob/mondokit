@@ -1,8 +1,8 @@
 import { BigQuery } from "@google-cloud/bigquery";
-import { connectBigQuery } from "./connect";
-import { initTestConfig } from "../__test/test-utils";
+import { connectBigQuery } from "./connect.js";
+import { initTestConfig } from "../__test/test-utils.js";
 
-jest.mock("@google-cloud/bigquery");
+vi.mock("@google-cloud/bigquery");
 
 describe("connectBigQuery", () => {
   it("connects to app project by default", async () => {

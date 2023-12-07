@@ -1,8 +1,8 @@
 import { BigQuery } from "@google-cloud/bigquery";
 import { Storage } from "@google-cloud/storage";
-import { createLogger } from "@mondomob/gae-js-core";
-import { parseGcsUri, storageProvider } from "@mondomob/gae-js-storage";
-import { bigQueryProvider } from "./bigquery-provider";
+import { createLogger } from "@mondokit/gcp-core";
+import { parseGcsUri, storageProvider } from "@mondokit/gcp-storage";
+import { bigQueryProvider } from "./bigquery-provider.js";
 
 export interface BigQueryImportServiceOptions {
   bigQuery?: BigQuery;

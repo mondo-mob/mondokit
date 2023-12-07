@@ -1,2 +1,2 @@
-export * from "./bigquery";
-export * from "./configuration";
+export * from "./bigquery/index.js";
+export * from "./configuration/index.js";

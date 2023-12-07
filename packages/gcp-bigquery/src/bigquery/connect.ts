@@ -1,6 +1,6 @@
 import { BigQuery, BigQueryOptions } from "@google-cloud/bigquery";
-import { configurationProvider, createLogger } from "@mondomob/gae-js-core";
-import { GaeJsBigQueryConfiguration } from "../configuration";
+import { configurationProvider, createLogger } from "@mondokit/gcp-core";
+import { GaeJsBigQueryConfiguration } from "../configuration/index.js";
 
 export interface BigQueryConnectOptions {
   configuration?: GaeJsBigQueryConfiguration;

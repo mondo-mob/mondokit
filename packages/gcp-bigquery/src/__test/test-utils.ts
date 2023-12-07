@@ -1,5 +1,5 @@
-import { configurationProvider, zodValidator } from "@mondomob/gae-js-core";
-import { GaeJsBigQueryConfiguration, gaeJsBigQueryConfigurationSchema } from "../configuration";
+import { configurationProvider, zodValidator } from "@mondokit/gcp-core";
+import { GaeJsBigQueryConfiguration, gaeJsBigQueryConfigurationSchema } from "../configuration/index.js";
 
 export const initTestConfig = async (
   config?: Partial<GaeJsBigQueryConfiguration>

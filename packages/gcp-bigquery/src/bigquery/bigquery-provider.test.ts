@@ -1,9 +1,9 @@
 import { BigQuery } from "@google-cloud/bigquery";
-import { BigQueryProvider } from "./bigquery-provider";
-import { connectBigQuery } from "./connect";
-import { initTestConfig } from "../__test/test-utils";
+import { BigQueryProvider } from "./bigquery-provider.js";
+import { connectBigQuery } from "./connect.js";
+import { initTestConfig } from "../__test/test-utils.js";
 
-jest.mock("@google-cloud/bigquery");
+vi.mock("@google-cloud/bigquery");
 
 describe("BigQueryProvider", () => {
   beforeAll(async () => {
