@@ -2,6 +2,7 @@
   "name": "@mondokit/gcp-datastore",
   "version": "1.0.0-alpha.0",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -13,8 +14,8 @@
     "datastore:start": "gcloud beta emulators datastore start --consistency 1.0 --project datastore-tests",
     "format": "prettier --write \"./src/**/*.ts\"",
     "prepublishOnly": "npm run build",
-    "test": "jest --runInBand",
-    "test:ci": "jest --runInBand --config=./jest-ci.config.js"
+    "test": "vitest run",
+    "test:ci": "vitest run --config=./vitest-ci.config.js"
   },
   "publishConfig": {
     "access": "public"
@@ -24,16 +25,16 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
     "dataloader": "^2.2.2",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "p-limit": "^3.1.0"
   },
   "peerDependencies": {
     "@google-cloud/datastore": ">=7.0.0",
-    "@mondomob/gae-js-core": "^7.0.0"
+    "@mondokit/gcp-core": "^1.0.0-alpha.1"
   },
   "devDependencies": {
     "@google-cloud/datastore": "^7.5.0",
-    "@mondomob/gae-js-core": "7.0.3",
+    "@mondokit/gcp-core": "^1.0.0-alpha.1",
     "google-datastore-emulator": "6.0.1"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"

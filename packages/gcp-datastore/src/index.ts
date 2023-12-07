@@ -1,3 +1,3 @@
-export * from "./configuration";
-export * from "./middleware";
-export * from "./datastore";
+export * from "./configuration/index.js";
+export * from "./middleware/index.js";
+export * from "./datastore/index.js";

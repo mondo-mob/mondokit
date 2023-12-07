@@ -1,9 +1,9 @@
 import { Datastore, Key } from "@google-cloud/datastore";
-import { isReadonlyArray, OneOrMany } from "@mondomob/gae-js-core";
+import { isReadonlyArray, OneOrMany } from "@mondokit/gcp-core";
 import assert from "assert";
-import { castArray, omit } from "lodash";
-import { AbstractRepository, AbstractRepositoryOptions, buildExclusions } from "./abstract-repository";
-import { DatastoreEntity, DatastorePayload, Index } from "./datastore-loader";
+import { castArray, omit } from "lodash-es";
+import { AbstractRepository, AbstractRepositoryOptions, buildExclusions } from "./abstract-repository.js";
+import { DatastoreEntity, DatastorePayload, Index } from "./datastore-loader.js";
 
 export interface StringIdEntity {
   id: string;

@@ -1,1 +1,1 @@
-export { datastoreLoader } from "./datastore-loader";
+export { datastoreLoader } from "./datastore-loader.js";

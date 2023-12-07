@@ -1,5 +1,5 @@
-import { createLogger, getRequestStorageValueOrDefault, isReadonlyArray, OneOrMany } from "@mondomob/gae-js-core";
-import { DatastoreRepository, IdEntity } from "./datastore-repository";
+import { createLogger, getRequestStorageValueOrDefault, isReadonlyArray, OneOrMany } from "@mondokit/gcp-core";
+import { DatastoreRepository, IdEntity } from "./datastore-repository.js";
 
 export interface TimestampedEntity {
   createdAt: Date;

@@ -9,15 +9,15 @@ import {
   SearchService,
   Sort,
   zodValidator,
-} from "@mondomob/gae-js-core";
-import { castArray, chunk, padStart } from "lodash";
+} from "@mondokit/gcp-core";
+import { castArray, chunk, padStart } from "lodash-es";
 import { z } from "zod";
-import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils";
-import { DatastoreLoader } from "./datastore-loader";
-import { datastoreProvider } from "./datastore-provider";
-import { DatastoreRepository } from "./datastore-repository";
-import { datastoreLoaderRequestStorage } from "./datastore-request-storage";
-import { runInTransaction } from "./transactional";
+import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils.js";
+import { DatastoreLoader } from "./datastore-loader.js";
+import { datastoreProvider } from "./datastore-provider.js";
+import { DatastoreRepository } from "./datastore-repository.js";
+import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
+import { runInTransaction } from "./transactional.js";
 
 const repositoryItemSchema = z.object({
   id: z.string(),
@@ -49,7 +49,7 @@ describe("DatastoreRepository", () => {
   beforeEach(async () => {
     await deleteKind(datastore, collection);
     repository = new DatastoreRepository<RepositoryItem>(collection, { datastore });
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const itemKey = (id: string): Key => datastore.key([collection, id]);
@@ -849,10 +849,10 @@ describe("DatastoreRepository", () => {
 
   describe("with search enabled", () => {
     const searchService: SearchService = {
-      index: jest.fn(),
-      delete: jest.fn(),
-      deleteAll: jest.fn(),
-      query: jest.fn(),
+      index: vi.fn(),
+      delete: vi.fn(),
+      deleteAll: vi.fn(),
+      query: vi.fn(),
     };
 
     const initRepo = (indexConfig: IndexConfig<RepositoryItem>): DatastoreRepository<RepositoryItem> =>
@@ -878,7 +878,7 @@ describe("DatastoreRepository", () => {
     });
 
     beforeEach(() => {
-      jest.resetAllMocks();
+      vi.resetAllMocks();
       repository = initRepo({
         prop1: true,
         prop2: (value) => value.prop2?.toUpperCase(),

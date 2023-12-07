@@ -1,16 +1,16 @@
-import { DatastoreLoader } from "./datastore-loader";
+import { DatastoreLoader } from "./datastore-loader.js";
 import { Datastore } from "@google-cloud/datastore";
-import { connectDatastoreEmulator, deleteKind, RepositoryItem } from "../__test/test-utils";
+import { connectDatastoreEmulator, deleteKind, RepositoryItem } from "../__test/test-utils.js";
 import {
   execPostCommitOrNow,
   isTransactionActive,
   PostCommitError,
   runInTransaction,
   Transactional,
-} from "./transactional";
-import { DatastoreRepository } from "./datastore-repository";
-import { runWithRequestStorage } from "@mondomob/gae-js-core";
-import { datastoreLoaderRequestStorage } from "./datastore-request-storage";
+} from "./transactional.js";
+import { DatastoreRepository } from "./datastore-repository.js";
+import { runWithRequestStorage } from "@mondokit/gcp-core";
+import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
 
 class TransactionalService {
   constructor(
@@ -56,12 +56,12 @@ describe("Transactional", () => {
     repository1 = new DatastoreRepository<RepositoryItem>(collection1, { datastore });
     repository2 = new DatastoreRepository<RepositoryItem>(collection2, { datastore });
     service = new TransactionalService(repository1, repository2);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe("Transactional Method Decorator", () => {
     it("does not run transaction for non-annotated method", async () => {
-      const runTransactionSpy = jest.spyOn(datastore, "transaction");
+      const runTransactionSpy = vi.spyOn(datastore, "transaction");
 
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
@@ -74,7 +74,7 @@ describe("Transactional", () => {
     });
 
     it("saves multiple collections in single transaction", async () => {
-      const runTransactionSpy = jest.spyOn(datastore, "transaction");
+      const runTransactionSpy = vi.spyOn(datastore, "transaction");
 
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
@@ -87,7 +87,7 @@ describe("Transactional", () => {
     });
 
     it("continues existing transaction for nested decoration", async () => {
-      const runTransactionSpy = jest.spyOn(datastore, "transaction");
+      const runTransactionSpy = vi.spyOn(datastore, "transaction");
 
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
@@ -119,7 +119,7 @@ describe("Transactional", () => {
 
   describe("runInTransaction", () => {
     it("saves multiple collections in single transaction", async () => {
-      const runTransactionSpy = jest.spyOn(datastore, "transaction");
+      const runTransactionSpy = vi.spyOn(datastore, "transaction");
 
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
@@ -146,7 +146,7 @@ describe("Transactional", () => {
     });
 
     it("continues existing transaction for nested decoration", async () => {
-      const runTransactionSpy = jest.spyOn(datastore, "transaction");
+      const runTransactionSpy = vi.spyOn(datastore, "transaction");
 
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));

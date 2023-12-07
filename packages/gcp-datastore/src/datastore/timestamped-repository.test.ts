@@ -3,11 +3,11 @@ import {
   newTimestampedEntity,
   TimestampedEntity,
   TimestampedRepository,
-} from "./timestamped-repository";
-import { runWithRequestStorage, setRequestStorageValue } from "@mondomob/gae-js-core";
-import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils";
+} from "./timestamped-repository.js";
+import { runWithRequestStorage, setRequestStorageValue } from "@mondokit/gcp-core";
+import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils.js";
 import { Datastore } from "@google-cloud/datastore";
-import { omit } from "lodash";
+import { omit } from "lodash-es";
 
 interface TimestampedItem extends TimestampedEntity {
   id: string;
@@ -24,7 +24,7 @@ describe("TimestampedRepository", () => {
   beforeEach(async () => {
     await deleteKind(datastore, collection);
     repository = new TimestampedRepository<TimestampedItem>(collection, { datastore });
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     startTime = new Date();
   });
 

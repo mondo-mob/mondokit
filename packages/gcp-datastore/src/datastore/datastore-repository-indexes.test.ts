@@ -1,7 +1,7 @@
 import { Datastore } from "@google-cloud/datastore";
-import { DatastoreRepository, StringIdEntity } from "./datastore-repository";
-import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils";
-import { Filters } from "./filters";
+import { DatastoreRepository, StringIdEntity } from "./datastore-repository.js";
+import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils.js";
+import { Filters } from "./filters.js";
 
 describe("Datastore repository indexing", () => {
   const kind = "TestItem";
@@ -10,7 +10,7 @@ describe("Datastore repository indexing", () => {
   beforeAll(async () => (datastore = connectDatastoreEmulator()));
   beforeEach(async () => {
     await deleteKind(datastore, kind);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const expectQueryMatch = async <T extends StringIdEntity>(

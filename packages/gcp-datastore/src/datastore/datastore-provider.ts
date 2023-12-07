@@ -1,6 +1,6 @@
 import { Datastore, DatastoreOptions } from "@google-cloud/datastore";
-import { Provider } from "@mondomob/gae-js-core";
-import { connectDatastore } from "./connect";
+import { Provider } from "@mondokit/gcp-core";
+import { connectDatastore } from "./connect.js";
 
 export class DatastoreProvider extends Provider<Datastore> {
   init(datastoreOrOptions?: Datastore | DatastoreOptions): void {

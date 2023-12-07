@@ -1,6 +1,6 @@
 import { Datastore, DatastoreAdminClient, DatastoreOptions } from "@google-cloud/datastore";
-import { configurationProvider, createLogger, runningOnGcp } from "@mondomob/gae-js-core";
-import { GaeJsDatastoreConfiguration } from "../configuration";
+import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
+import { GaeJsDatastoreConfiguration } from "../configuration/index.js";
 
 export interface DatastoreConnectOptions {
   configuration?: GaeJsDatastoreConfiguration;

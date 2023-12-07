@@ -1,8 +1,8 @@
-import { buildFilters, Filters } from "./filters";
+import { buildFilters, Filters } from "./filters.js";
 
 const buildQuery = () => {
   const query = {
-    filter: jest.fn(),
+    filter: vi.fn(),
   };
 
   query.filter.mockReturnValue(query);

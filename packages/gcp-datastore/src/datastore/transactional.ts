@@ -1,5 +1,5 @@
-import { datastoreLoaderRequestStorage } from "./datastore-request-storage";
-import { createLogger, RequestStorageStore, runWithRequestStorage } from "@mondomob/gae-js-core";
+import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
+import { createLogger, RequestStorageStore, runWithRequestStorage } from "@mondokit/gcp-core";
 
 const logger = createLogger("Transactional");
 

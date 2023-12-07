@@ -1,6 +1,6 @@
 import { Datastore, Key } from "@google-cloud/datastore";
 import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
-import { castArray, chain, first, flatMap } from "lodash";
+import { castArray, chain, first, flatMap } from "lodash-es";
 import {
   createLogger,
   DataValidator,
@@ -15,7 +15,7 @@ import {
   SearchResults,
   SearchService,
   Sort,
-} from "@mondomob/gae-js-core";
+} from "@mondokit/gcp-core";
 import pLimit from "p-limit";
 import {
   DatastoreEntity,
@@ -24,9 +24,9 @@ import {
   Index,
   QueryOptions,
   QueryResponse,
-} from "./datastore-loader";
-import { datastoreLoaderRequestStorage } from "./datastore-request-storage";
-import { datastoreProvider } from "./datastore-provider";
+} from "./datastore-loader.js";
+import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
+import { datastoreProvider } from "./datastore-provider.js";
 import assert from "assert";
 
 const SEARCH_NOT_ENABLED_MSG = "Search is not configured for this repository";

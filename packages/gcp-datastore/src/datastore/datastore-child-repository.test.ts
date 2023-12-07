@@ -1,6 +1,6 @@
 import { Datastore, Key } from "@google-cloud/datastore";
-import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils";
-import { runInTransaction } from "./transactional";
+import { connectDatastoreEmulator, deleteKind } from "../__test/test-utils.js";
+import { runInTransaction } from "./transactional.js";
 import {
   IndexConfig,
   IndexEntry,
@@ -10,11 +10,11 @@ import {
   SearchService,
   Sort,
   zodValidator,
-} from "@mondomob/gae-js-core";
-import { datastoreLoaderRequestStorage } from "./datastore-request-storage";
-import { DatastoreLoader } from "./datastore-loader";
-import { datastoreProvider } from "./datastore-provider";
-import { DatastoreChildRepository } from "./datastore-child-repository";
+} from "@mondokit/gcp-core";
+import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
+import { DatastoreLoader } from "./datastore-loader.js";
+import { datastoreProvider } from "./datastore-provider.js";
+import { DatastoreChildRepository } from "./datastore-child-repository.js";
 import { z } from "zod";
 
 const datastoreKey = z.instanceof(Key);
@@ -47,7 +47,7 @@ describe("DatastoreChildRepository", () => {
   beforeAll(async () => (datastore = connectDatastoreEmulator()));
   beforeEach(async () => {
     await deleteKind(datastore, kind);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     repository = new DatastoreChildRepository<RepositoryItem>(kind, { datastore, parentProperty: "parentKey" });
     parentKey = datastore.key(["parent-items", "xyz"]);
   });
@@ -820,10 +820,10 @@ describe("DatastoreChildRepository", () => {
 
   describe("with search enabled", () => {
     const searchService: SearchService = {
-      index: jest.fn(),
-      delete: jest.fn(),
-      deleteAll: jest.fn(),
-      query: jest.fn(),
+      index: vi.fn(),
+      delete: vi.fn(),
+      deleteAll: vi.fn(),
+      query: vi.fn(),
     };
 
     const initRepo = (indexConfig: IndexConfig<RepositoryItem>): DatastoreChildRepository<RepositoryItem> =>
@@ -851,7 +851,7 @@ describe("DatastoreChildRepository", () => {
     });
 
     beforeEach(() => {
-      jest.resetAllMocks();
+      vi.resetAllMocks();
       repository = initRepo({
         prop1: true,
         prop2: (value) => value.prop2?.toUpperCase(),

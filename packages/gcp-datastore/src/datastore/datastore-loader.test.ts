@@ -1,5 +1,5 @@
-import { DatastoreEntity, DatastoreLoader, DatastorePayload } from "./datastore-loader";
-import { connectDatastoreEmulator, deleteKinds } from "../__test/test-utils";
+import { DatastoreEntity, DatastoreLoader, DatastorePayload } from "./datastore-loader.js";
+import { connectDatastoreEmulator, deleteKinds } from "../__test/test-utils.js";
 import { Datastore, Key } from "@google-cloud/datastore";
 
 interface User {
@@ -18,7 +18,7 @@ describe("DatastoreLoader", () => {
   beforeEach(async () => {
     await deleteKinds(datastore, "users", "orgs", "groups", "ideas");
     loader = new DatastoreLoader(datastore);
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   const userKey = (id: string): Key => datastore.key(["users", id]);
@@ -48,14 +48,14 @@ describe("DatastoreLoader", () => {
 
   describe("get", () => {
     it("fetches from datastore on first request", async () => {
-      const getSpy = jest.spyOn(datastore, "get");
+      const getSpy = vi.spyOn(datastore, "get");
       const key = userKey("123");
       await loader.get([key]);
       expect(getSpy).toBeCalledTimes(1);
     });
 
     it("should fetch data from cache", async () => {
-      const getSpy = jest.spyOn(datastore, "get");
+      const getSpy = vi.spyOn(datastore, "get");
       const key = userKey("123");
 
       const doc1 = await loader.get([key]);
@@ -321,7 +321,7 @@ describe("DatastoreLoader", () => {
     });
 
     it("populates cache with results when all fields returned", async () => {
-      const getSpy = jest.spyOn(datastore, "get");
+      const getSpy = vi.spyOn(datastore, "get");
       await datastore.insert({ key: userKey("123"), data: { prop1: "prop1" } });
 
       const [results] = await loader.executeQuery("users", {});
@@ -333,7 +333,7 @@ describe("DatastoreLoader", () => {
     });
 
     it("doesn't update cache with results when only some fields requested", async () => {
-      const getSpy = jest.spyOn(datastore, "get");
+      const getSpy = vi.spyOn(datastore, "get");
       await datastore.insert({ key: userKey("123"), data: { prop1: "prop1", prop2: "prop2", prop3: "prop3" } });
 
       const [results] = await loader.executeQuery("users", {
@@ -538,7 +538,7 @@ describe("DatastoreLoader", () => {
     const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     it("continues existing transaction for nested call", async () => {
-      const runTransactionSpy = jest.spyOn(datastore, "transaction");
+      const runTransactionSpy = vi.spyOn(datastore, "transaction");
       await loader.insert([
         createUserPayload("123", { message: "create" }),
         createUserPayload("234", { message: "create" }),

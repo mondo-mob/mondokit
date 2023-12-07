@@ -1,8 +1,8 @@
 import { Handler } from "express";
 import { Datastore } from "@google-cloud/datastore";
-import { datastoreLoaderRequestStorage } from "../datastore/datastore-request-storage";
-import { DatastoreLoader } from "../datastore/datastore-loader";
-import { datastoreProvider } from "../datastore/datastore-provider";
+import { datastoreLoaderRequestStorage } from "../datastore/datastore-request-storage.js";
+import { DatastoreLoader } from "../datastore/datastore-loader.js";
+import { datastoreProvider } from "../datastore/datastore-provider.js";
 
 /**
  * Creates a middleware that initialises a new DatastoreLoader into request storage

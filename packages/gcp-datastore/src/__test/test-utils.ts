@@ -1,6 +1,20 @@
 import { Datastore, DatastoreOptions } from "@google-cloud/datastore";
-import { configurationProvider, zodValidator } from "@mondomob/gae-js-core";
-import { GaeJsDatastoreConfiguration, gaeJsDatastoreConfigurationSchema } from "../configuration";
+import { configurationProvider, zodValidator } from "@mondokit/gcp-core";
+import { GaeJsDatastoreConfiguration, gaeJsDatastoreConfigurationSchema } from "../configuration/index.js";
+
+// NOTE: This will only work for code that does not inspect the process on initialisation
+export const withEnvVars = (vars: Record<string, string | undefined>, testFn: () => Promise<unknown>) => {
+  return () => {
+    const originalEnv = process.env;
+    process.env = {
+      ...originalEnv,
+      ...vars,
+    };
+    return testFn().finally(() => {
+      process.env = originalEnv;
+    });
+  };
+};
 
 export interface RepositoryItem {
   id: string;

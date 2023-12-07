@@ -1,10 +1,9 @@
 import { Datastore, DatastoreAdminClient } from "@google-cloud/datastore";
-import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondomob/gae-js-core";
-import { withEnvVars } from "@mondomob/gae-js-core/dist/__test/test-utils";
-import { connectDatastore, connectDatastoreAdmin } from "./connect";
-import { initEmulatorConfig, initTestConfig } from "../__test/test-utils";
+import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondokit/gcp-core";
+import { connectDatastore, connectDatastoreAdmin } from "./connect.js";
+import { initEmulatorConfig, initTestConfig, withEnvVars } from "../__test/test-utils.js";
 
-jest.mock("@google-cloud/datastore");
+vi.mock("@google-cloud/datastore");
 
 describe("connect", () => {
   describe("connectDatastore", () => {

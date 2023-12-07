@@ -2,9 +2,9 @@ import { Datastore, Transaction } from "@google-cloud/datastore";
 import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
 import { OrderOptions, RunQueryInfo } from "@google-cloud/datastore/build/src/query";
 import DataLoader from "dataloader";
-import { buildFilters, Filters } from "./filters";
-import { createLogger, Logger, NonFatalError, OneOrMany } from "@mondomob/gae-js-core";
-import { castArray, chunk, isEqual } from "lodash";
+import { buildFilters, Filters } from "./filters.js";
+import { createLogger, Logger, NonFatalError, OneOrMany } from "@mondokit/gcp-core";
+import { castArray, chunk, isEqual } from "lodash-es";
 
 const keysEqual = (key1: Entity.Key, key2: Entity.Key) => {
   return isEqual(key1.path.join(":"), key2.path.join(":"));

@@ -1,6 +1,6 @@
 import { Datastore } from "@google-cloud/datastore";
-import { connectDatastoreEmulator, initEmulatorConfig } from "../__test/test-utils";
-import { DatastoreProvider } from "./datastore-provider";
+import { connectDatastoreEmulator, initEmulatorConfig } from "../__test/test-utils.js";
+import { DatastoreProvider } from "./datastore-provider.js";
 
 describe("DatastoreProvider", () => {
   beforeAll(async () => initEmulatorConfig());

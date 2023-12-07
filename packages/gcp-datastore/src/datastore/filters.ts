@@ -1,8 +1,8 @@
-import { OneOrMany } from "@mondomob/gae-js-core";
+import { OneOrMany } from "@mondokit/gcp-core";
 import { Operator } from "@google-cloud/datastore/build/src/query";
 import { entity as Entity } from "@google-cloud/datastore/build/src/entity";
 import { Key } from "@google-cloud/datastore";
-import { castArray } from "lodash";
+import { castArray } from "lodash-es";
 
 type NotUndefined<T> = T extends undefined ? never : T;
 
