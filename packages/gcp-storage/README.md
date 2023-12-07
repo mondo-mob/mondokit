@@ -1,4 +1,4 @@
-# GAE JS STORAGE
+# MONDOKIT GCP STORAGE
 
 Use Cloud Storage in your app.
 

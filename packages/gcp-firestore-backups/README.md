@@ -1,4 +1,4 @@
-# GAE JS FIRESTORE BACKUPS
+# MONDOKIT GCP FIRESTORE BACKUPS
 
 Module to perform scheduled Firestore exports in your app.
 

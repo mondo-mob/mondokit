@@ -1,4 +1,4 @@
-# GAE JS FIREBASE AUTH
+# MONDOKIT GCP FIREBASE AUTH
 
 Use Firebase Auth to authenticate your users
 

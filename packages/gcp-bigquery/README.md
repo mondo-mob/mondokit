@@ -1,4 +1,4 @@
-# GAE JS BIGQUERY
+# MONDOKIT GCP BIGQUERY
 
 Simplifies BigQuery client initialisation and common BigQuery operations.
 

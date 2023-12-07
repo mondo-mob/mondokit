@@ -1,4 +1,4 @@
-# GAE JS CORE
+# MONDOKIT GCP CORE
 
 The core stuff needed for most apps.
 

@@ -1,4 +1,4 @@
-# GAE JS SEARCH
+# MONDOKIT GCP SEARCH
 
 SearchService implementation that uses the GAE Search API via the
 [https://github.com/mondo-mob/gae-search-service](https://github.com/mondo-mob/gae-search-service) GAE Search Service proxy.

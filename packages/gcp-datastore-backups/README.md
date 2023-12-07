@@ -1,4 +1,4 @@
-# GAE JS DATASTORE BACKUPS
+# MONDOKIT GCP DATASTORE BACKUPS
 
 Module to perform scheduled Datastore exports in your app.
 

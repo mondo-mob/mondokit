@@ -1,4 +1,4 @@
-# GAE JS FIRESTORE
+# MONDOKIT GCP FIRESTORE
 
 Use Firestore in Native mode as your app db including [DataLoader](https://github.com/graphql/dataloader) implementation GraphQL
  and request level caching.
