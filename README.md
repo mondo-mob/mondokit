@@ -1,6 +1,8 @@
-# GAE JS
+# MONDO KIT
 
-Simplify building NodeJS applications on Google App Engine (GAE)
+A helpful toolkit to simplify building NodeJS applications on the cloud. The most mature set of libraries is currently focussed on Google Cloud Platform (GCP).
+
+Built for ESM only.
 
 [Official documentation](https://mondo-mob.github.io/gae-js-docs)
 
@@ -17,6 +19,11 @@ Simplify building NodeJS applications on Google App Engine (GAE)
 - [gae-js-google-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-google-auth.html)
 - [gae-js-firebase-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firebase-auth.html)
 - [gae-js-migrations](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-migrations.html)
+
+## History
+
+These libraries have most recently evolved from [GAE JS](https://github.com/mondo-mob/gae-js), authored by the same team. They have been re-branded,
+given they are not just useful for Google App Engine, updated for ESM, and cleaned up with deprecations removed.
 
 ## Development
 
