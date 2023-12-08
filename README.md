@@ -17,7 +17,6 @@ Simplify building NodeJS applications on Google App Engine (GAE)
 - [gae-js-google-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-google-auth.html)
 - [gae-js-firebase-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firebase-auth.html)
 - [gae-js-migrations](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-migrations.html)
-- [gae-js-search](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-gae-search.html)
 
 ## Development
 
