@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { configurationProvider } from "@mondomob/gae-js-core";
-import { gaeJsFirestoreConfigurationSchema } from "@mondomob/gae-js-firestore";
-import { coreBackupConfigSchema } from "./core";
+import { configurationProvider } from "@mondokit/gcp-core";
+import { gaeJsFirestoreConfigurationSchema } from "@mondokit/gcp-firestore";
+import { coreBackupConfigSchema } from "./core.js";
 
 export const firestoreBackupConfigSchema = gaeJsFirestoreConfigurationSchema.merge(coreBackupConfigSchema);
 

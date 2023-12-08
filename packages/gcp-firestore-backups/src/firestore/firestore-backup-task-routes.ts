@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { asyncHandler, createLogger } from "@mondomob/gae-js-core";
-import { bigQueryFirestoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery";
-import { firestoreExportCheckRequestSchema } from "./firestore-export-check-request";
-import { firestoreExportServiceProvider } from "./firestore-export.service";
-import { validateRequest } from "../util/types";
+import { asyncHandler, createLogger } from "@mondokit/gcp-core";
+import { bigQueryFirestoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery/index.js";
+import { firestoreExportCheckRequestSchema } from "./firestore-export-check-request.js";
+import { firestoreExportServiceProvider } from "./firestore-export.service.js";
+import { validateRequest } from "../util/types.js";
 
 export const TASK_FIRESTORE_EXPORT_CHECK = "/backups/firestore-export-check";
 

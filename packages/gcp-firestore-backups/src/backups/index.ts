@@ -1,2 +1,2 @@
-export * from "./backup-operation";
-export * from "./backup-task-queue.service";
+export * from "./backup-operation.js";
+export * from "./backup-task-queue.service.js";

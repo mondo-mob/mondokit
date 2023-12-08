@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { asyncHandler } from "@mondomob/gae-js-core";
-import { bigQueryFirestoreImportServiceProvider } from "./bigquery-firestore-import.service";
-import { validateRequest } from "../util/types";
-import { bigQueryLoadRequestSchema } from "./bigquery-load-request";
+import { asyncHandler } from "@mondokit/gcp-core";
+import { bigQueryFirestoreImportServiceProvider } from "./bigquery-firestore-import.service.js";
+import { validateRequest } from "../util/types.js";
+import { bigQueryLoadRequestSchema } from "./bigquery-load-request.js";
 
 export const TASK_BIGQUERY_LOAD_COLLECTION = "/backups/bigquery-load-collection";
 

@@ -1,16 +1,16 @@
-import { v4 as uuidv4 } from "uuid";
+import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client.js";
+import { createLogger, LazyProvider, validateArrayNotEmpty, validateNotNil } from "@mondokit/gcp-core";
+import { connectFirestoreAdmin, newTimestampedEntity } from "@mondokit/gcp-firestore";
 import assert from "assert";
-import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client";
 import { DateTime } from "luxon";
-import { createLogger, LazyProvider, validateArrayNotEmpty, validateNotNil } from "@mondomob/gae-js-core";
-import { connectFirestoreAdmin, newTimestampedEntity } from "@mondomob/gae-js-firestore";
-import { FirestoreExportCheckRequest } from "./firestore-export-check-request";
-import { BackupOperation, backupTaskServiceProvider } from "../backups";
-import { FirestoreExportRequest } from "./firestore-export-request";
-import { mergeExportOperation } from "./util";
-import { backupOperationsRepository } from "./backup-operations.repository";
-import { TASK_FIRESTORE_EXPORT_CHECK } from "./firestore-backup-task-routes";
-import { getFirestoreBackupConfiguration } from "../configuration";
+import { nanoid } from "nanoid";
+import { BackupOperation, backupTaskServiceProvider } from "../backups/index.js";
+import { getFirestoreBackupConfiguration } from "../configuration/index.js";
+import { backupOperationsRepository } from "./backup-operations.repository.js";
+import { TASK_FIRESTORE_EXPORT_CHECK } from "./firestore-backup-task-routes.js";
+import { FirestoreExportCheckRequest } from "./firestore-export-check-request.js";
+import { FirestoreExportRequest } from "./firestore-export-request.js";
+import { mergeExportOperation } from "./util.js";
 
 const UPDATE_STATUS_DELAY_SECONDS = 60;
 const DEFAULT_TIME_ZONE = "Australia/Sydney";
@@ -57,7 +57,7 @@ export class FirestoreExportService {
 
     const backupOperation = mergeExportOperation(
       {
-        ...newTimestampedEntity(uuidv4()),
+        ...newTimestampedEntity(nanoid()),
         operationName: operation.name,
         type: options.type,
         name,

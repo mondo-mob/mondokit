@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { oneOrManyStrings } from "../util/types";
+import { oneOrManyStrings } from "../util/types.js";
 
 export const firestoreExportRequestSchema = z.object({
   type: z.enum(["EXPORT", "EXPORT_TO_BIGQUERY"]),

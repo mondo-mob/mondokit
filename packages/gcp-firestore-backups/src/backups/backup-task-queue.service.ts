@@ -1,6 +1,6 @@
-import { LazyProvider } from "@mondomob/gae-js-core";
-import { TaskQueueService } from "@mondomob/gae-js-tasks";
-import { getCoreBackupConfiguration } from "../configuration";
+import { LazyProvider } from "@mondokit/gcp-core";
+import { TaskQueueService } from "@mondokit/gcp-tasks";
+import { getCoreBackupConfiguration } from "../configuration/index.js";
 
 export const DEFAULT_BACKUP_QUEUE = "backup-queue";
 
