@@ -1,5 +1,5 @@
-import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
 import { createLogger, RequestStorageStore, runWithRequestStorage } from "@mondokit/gcp-core";
+import { datastoreLoaderRequestStorage } from "./datastore-request-storage.js";
 
 const logger = createLogger("Transactional");
 
@@ -47,28 +47,6 @@ export const execPostCommitOrNow = async (action: ActionFunction): Promise<void>
     await action();
   }
 };
-
-/**
- * Method decorator to run a function within a transaction.
- * - Must be run with datastoreLoaderRequestStorage enabled
- * - If not already in a transactional context a new one will be created
- * - If an existing transaction is found then this will be reused
- */
-export function Transactional() {
-  return function (
-    target: unknown,
-    propertyKey: string | symbol,
-    descriptor: TypedPropertyDescriptor<AnyAsync>
-  ): TypedPropertyDescriptor<AnyAsync> {
-    const originalMethod = descriptor.value;
-    if (originalMethod) {
-      descriptor.value = async function (...args) {
-        return applyInTransaction(this, originalMethod, ...args);
-      };
-    }
-    return descriptor;
-  };
-}
 
 /**
  * Runs the provided function within a transaction.
