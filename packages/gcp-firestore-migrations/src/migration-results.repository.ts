@@ -1,4 +1,4 @@
-import { TimestampedEntity, TimestampedRepository } from "@mondomob/gae-js-firestore";
+import { TimestampedEntity, TimestampedRepository } from "@mondokit/gcp-firestore";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MigrationResult extends TimestampedEntity {

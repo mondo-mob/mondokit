@@ -1,5 +1,5 @@
-import { Logger } from "@mondomob/gae-js-core";
-import { MigrationOptions } from "./migration";
+import { Logger } from "@mondokit/gcp-core";
+import { MigrationOptions } from "./migration.js";
 
 export interface MigrateParams {
   /**

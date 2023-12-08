@@ -1,5 +1,5 @@
-import { LazyProvider } from "@mondomob/gae-js-core";
-import { MutexService } from "@mondomob/gae-js-firestore";
+import { LazyProvider } from "@mondokit/gcp-core";
+import { MutexService } from "@mondokit/gcp-firestore";
 
 export const mutexServiceProvider = new LazyProvider(
   () =>

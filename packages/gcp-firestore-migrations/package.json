@@ -1,7 +1,8 @@
 {
-  "name": "@mondokit/gcp-migrations",
+  "name": "@mondokit/gcp-firestore-migrations",
   "version": "1.0.0-alpha.0",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -13,8 +14,8 @@
     "firestore:start": "npx --yes firebase-tools emulators:start --project firestore-tests",
     "format": "prettier --write \"./src/**/*.ts\"",
     "prepublishOnly": "npm run build",
-    "test": "jest --runInBand",
-    "test:ci": "firebase emulators:exec --only firestore --project firestore-tests \"jest --runInBand\""
+    "test": "vitest run",
+    "test:ci": "npx --yes firebase-tools emulators:exec --only firestore --project firestore-tests \"vitest run\""
   },
   "publishConfig": {
     "access": "public"
@@ -23,16 +24,16 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
-    "@mondomob/gae-js-core": "^7.0.0",
-    "@mondomob/gae-js-firestore": "^17.0.0"
+    "@mondokit/gcp-core": "^1.0.0-alpha.1",
+    "@mondokit/gcp-firestore": "^1.0.0-alpha.2"
   },
   "devDependencies": {
-    "@google-cloud/firestore": "6.6.1",
-    "@mondomob/gae-js-core": "7.0.3",
-    "@mondomob/gae-js-firestore": "17.0.0"
+    "@google-cloud/firestore": "^6.6.1",
+    "@mondokit/gcp-core": "1.0.0-alpha.1",
+    "@mondokit/gcp-firestore": "1.0.0-alpha.2"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }

@@ -1,15 +1,15 @@
-import { Bootstrapper, createLogger, runWithRequestStorage, setRequestStorageValue } from "@mondomob/gae-js-core";
+import { Bootstrapper, createLogger, runWithRequestStorage, setRequestStorageValue } from "@mondokit/gcp-core";
 import {
   DISABLE_TIMESTAMP_UPDATE,
   FirestoreLoader,
   firestoreLoaderRequestStorage,
   firestoreProvider,
   newTimestampedEntity,
-} from "@mondomob/gae-js-firestore";
-import { merge } from "lodash";
-import { AutoMigration } from "./auto-migration";
-import { migrationResultsRepository } from "./migration-results.repository";
-import { mutexServiceProvider } from "./mutex";
+} from "@mondokit/gcp-firestore";
+import { merge } from "lodash-es";
+import { AutoMigration } from "./auto-migration.js";
+import { migrationResultsRepository } from "./migration-results.repository.js";
+import { mutexServiceProvider } from "./mutex.js";
 
 const logger = createLogger("migrations");
 const MUTEX_ID = "migrations";

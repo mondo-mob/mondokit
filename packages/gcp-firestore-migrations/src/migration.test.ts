@@ -4,12 +4,12 @@ import {
   newTimestampedEntity,
   TimestampedEntity,
   TimestampedRepository,
-} from "@mondomob/gae-js-firestore";
-import { transactional, useFirestoreTest } from "./__test/test-utils";
-import { AutoMigration } from "./auto-migration";
-import { runMigrations } from "./migration";
-import { migrationResultsRepository } from "./migration-results.repository";
-import { mutexServiceProvider } from "./mutex";
+} from "@mondokit/gcp-firestore";
+import { transactional, useFirestoreTest } from "./__test/test-utils.js";
+import { AutoMigration } from "./auto-migration.js";
+import { runMigrations } from "./migration.js";
+import { migrationResultsRepository } from "./migration-results.repository.js";
+import { mutexServiceProvider } from "./mutex.js";
 
 const dummyEntityCollectionName = "migrations-dummy-entities";
 const ORIG_CREATED_AT = new Date("1999-01-01T00:00:00");

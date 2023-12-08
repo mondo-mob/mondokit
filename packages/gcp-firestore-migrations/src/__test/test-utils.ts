@@ -1,13 +1,7 @@
 import { CollectionReference, Firestore, Settings } from "@google-cloud/firestore";
-import { configurationProvider, runWithRequestStorage, zodValidator } from "@mondomob/gae-js-core";
-import {
-  FirestoreLoader,
-  firestoreLoaderRequestStorage,
-  firestoreProvider,
-  GaeJsFirestoreConfiguration,
-  gaeJsFirestoreConfigurationSchema,
-} from "@mondomob/gae-js-firestore";
-import ProvidesCallback = jest.ProvidesCallback;
+import { configurationProvider, runWithRequestStorage, zodValidator } from "@mondokit/gcp-core";
+import { FirestoreLoader, firestoreLoaderRequestStorage, firestoreProvider, GaeJsFirestoreConfiguration, gaeJsFirestoreConfigurationSchema } from "@mondokit/gcp-firestore";
+
 
 export const initTestConfig = async (
   config?: Partial<GaeJsFirestoreConfiguration>
@@ -62,7 +56,7 @@ export const useFirestoreTest = (collectionsToClear: string[] = []) => {
 };
 
 // Helper for standalone tests that require transaction support
-export const transactional = (testFn: () => Promise<unknown>): ProvidesCallback => {
+export const transactional = (testFn: () => Promise<unknown>) => {
   return () =>
     runWithRequestStorage(async () => {
       // We need firestore loader in request storage if we want to use gae-js transactions
