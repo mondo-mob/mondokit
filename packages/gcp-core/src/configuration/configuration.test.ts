@@ -18,7 +18,7 @@ type Config = z.infer<typeof configSchema>;
 const validator = zodValidator(configSchema);
 
 const withOptions = (overrides?: Partial<ConfigurationOptions<Config>>): ConfigurationOptions<Config> => ({
-  projectId: "gae-js-jest",
+  projectId: "gcp-core-test",
   validator,
   ...overrides,
 });
@@ -43,8 +43,8 @@ describe("configuration", () => {
         const config = await initialiseConfiguration(withOptions());
 
         expect(config).toEqual({
-          projectId: "gae-js-jest",
-          environment: "jest",
+          projectId: "gcp-core-test",
+          environment: "test",
           customString: "config environment file string",
         });
       });
@@ -53,8 +53,8 @@ describe("configuration", () => {
         const config = await initialiseConfiguration(fromDir("with-environment"));
 
         expect(config).toEqual({
-          projectId: "gae-js-jest",
-          environment: "jest",
+          projectId: "gcp-core-test",
+          environment: "test",
           customString: "with-environment environment file string",
         });
       });
@@ -63,8 +63,8 @@ describe("configuration", () => {
         const config = await initialiseConfiguration(fromDir("no-environment"));
 
         expect(config).toEqual({
-          projectId: "gae-js-jest",
-          environment: "jest",
+          projectId: "gcp-core-test",
+          environment: "test",
           customString: "default string",
         });
       });
@@ -73,8 +73,8 @@ describe("configuration", () => {
         const config = await initialiseConfiguration(fromDir("no-default"));
 
         expect(config).toEqual({
-          projectId: "gae-js-jest",
-          environment: "jest",
+          projectId: "gcp-core-test",
+          environment: "test",
           customString: "no-default environment file string",
         });
       });
@@ -85,8 +85,8 @@ describe("configuration", () => {
         );
 
         expect(config).toEqual({
-          projectId: "gae-js-jest",
-          environment: "jest",
+          projectId: "gcp-core-test",
+          environment: "test",
           customString: "options string",
         });
       });
@@ -106,7 +106,7 @@ describe("configuration", () => {
       });
 
       it(
-        "resolves projectId from gae-js environment variable",
+        "resolves projectId from gcp-core environment variable",
         withEnvVars({ [ENV_VAR_PROJECT]: "proj-envvar" }, async () => {
           const config = await initialiseConfiguration(withOptions({ projectId: undefined }));
 
@@ -153,7 +153,7 @@ describe("configuration", () => {
           })
         );
 
-        expect(config.environment).toBe("gae-js");
+        expect(config.environment).toBe("gcp-co");
       });
     });
 
@@ -174,12 +174,12 @@ describe("configuration", () => {
             const config = await initialiseConfiguration(withOptions());
 
             expect(config).toEqual({
-              projectId: "gae-js-jest",
-              environment: "jest",
+              projectId: "gcp-core-test",
+              environment: "test",
               customString: "top secret value",
             });
             expect(accessSecretVersionSpy).toHaveBeenCalledWith({
-              name: "projects/gae-js-jest/secrets/MY_SECRET/versions/latest",
+              name: "projects/gcp-core-test/secrets/MY_SECRET/versions/latest",
             });
           }
         )
@@ -196,8 +196,8 @@ describe("configuration", () => {
     it("returns config when validator passes", async () => {
       const config = await initialiseConfiguration(withOptions({ validator: alwaysPasses }));
       expect(config).toEqual({
-        projectId: "gae-js-jest",
-        environment: "jest",
+        projectId: "gcp-core-test",
+        environment: "test",
         customString: "config environment file string",
       });
     });
@@ -224,8 +224,8 @@ describe("configuration", () => {
       );
 
       expect(config).toEqual({
-        projectId: "gae-js-jest",
-        environment: "jest",
+        projectId: "gcp-core-test",
+        environment: "test",
         customString: "long top secret value",
       });
     });
@@ -236,13 +236,13 @@ describe("configuration", () => {
       customString: "env var string",
     });
     const config = await initialiseConfiguration({
-      projectId: "gae-js-jest",
+      projectId: "gcp-core-test",
       validator,
       configDir: `${__dirname}/__test/with-environment`,
     });
     expect(config).toEqual({
-      projectId: "gae-js-jest",
-      environment: "jest",
+      projectId: "gcp-core-test",
+      environment: "test",
       customString: "env var string",
     });
   });
@@ -252,7 +252,7 @@ describe("configuration", () => {
       customString: "env var string",
     });
     const config = await initialiseConfiguration({
-      projectId: "gae-js-jest",
+      projectId: "gcp-core-test",
       validator,
       configDir: `${__dirname}/__test/with-environment`,
       overrides: {
@@ -260,8 +260,8 @@ describe("configuration", () => {
       },
     });
     expect(config).toEqual({
-      projectId: "gae-js-jest",
-      environment: "jest",
+      projectId: "gcp-core-test",
+      environment: "test",
       customString: "options string",
     });
   });

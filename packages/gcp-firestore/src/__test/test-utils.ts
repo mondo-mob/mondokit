@@ -57,7 +57,7 @@ export const deleteCollections = async (collectionNames: string[]): Promise<void
 export const transactional = (testFn: () => Promise<unknown>) => {
   return () =>
     runWithRequestStorage(async () => {
-      // We need firestore loader in request storage if we want to use gae-js transactions
+      // We need firestore loader in request storage if we want to use gcp-firestore transactions
       firestoreLoaderRequestStorage.set(new FirestoreLoader(firestoreProvider.get()));
       return testFn();
     });
