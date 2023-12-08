@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-firestore-migrations",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "@google-cloud/firestore": "^6.6.1",
-    "@mondokit/gcp-core": "1.0.0-alpha.1",
-    "@mondokit/gcp-firestore": "1.0.0-alpha.2"
+    "@mondokit/gcp-core": "1.0.0-alpha.2",
+    "@mondokit/gcp-firestore": "1.0.0-alpha.3"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }

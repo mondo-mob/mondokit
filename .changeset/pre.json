@@ -1,0 +1,20 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "@mondokit/gcp-bigquery": "1.0.0-alpha.0",
+    "@mondokit/gcp-core": "1.0.0-alpha.1",
+    "@mondokit/gcp-datastore": "1.0.0-alpha.0",
+    "@mondokit/gcp-datastore-backups": "1.0.0-alpha.0",
+    "@mondokit/gcp-firebase-auth": "1.0.0-alpha.0",
+    "@mondokit/gcp-firestore": "1.0.0-alpha.2",
+    "@mondokit/gcp-firestore-backups": "1.0.0-alpha.0",
+    "@mondokit/gcp-firestore-migrations": "1.0.0-alpha.0",
+    "@mondokit/gcp-google-auth": "1.0.0-alpha.0",
+    "@mondokit/gcp-storage": "1.0.0-alpha.0",
+    "@mondokit/gcp-tasks": "1.0.0-alpha.0"
+  },
+  "changesets": [
+    "swift-mails-train"
+  ]
+}
