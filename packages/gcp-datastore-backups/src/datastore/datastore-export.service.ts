@@ -1,16 +1,16 @@
-import { v4 as uuidv4 } from "uuid";
+import { DatastoreAdminClient } from "@google-cloud/datastore";
+import { createLogger, LazyProvider, validateArrayNotEmpty, validateNotNil } from "@mondokit/gcp-core";
+import { connectDatastoreAdmin, newTimestampedEntity } from "@mondokit/gcp-datastore";
 import assert from "assert";
 import { DateTime } from "luxon";
-import { DatastoreAdminClient } from "@google-cloud/datastore";
-import { createLogger, LazyProvider, validateArrayNotEmpty, validateNotNil } from "@mondomob/gae-js-core";
-import { DatastoreExportCheckRequest } from "./datastore-export-check-request";
-import { BackupOperation, backupTaskServiceProvider } from "../backups";
-import { DatastoreExportRequest } from "./datastore-export-request";
-import { mergeExportOperation } from "./util";
-import { backupOperationsRepository } from "./backup-operations.repository";
-import { TASK_DATASTORE_EXPORT_CHECK } from "./datastore-backup-task-routes";
-import { getDatastoreBackupConfiguration } from "../configuration";
-import { connectDatastoreAdmin, newTimestampedEntity } from "@mondomob/gae-js-datastore";
+import { nanoid } from "nanoid";
+import { BackupOperation, backupTaskServiceProvider } from "../backups/index.js";
+import { getDatastoreBackupConfiguration } from "../configuration/index.js";
+import { backupOperationsRepository } from "./backup-operations.repository.js";
+import { TASK_DATASTORE_EXPORT_CHECK } from "./datastore-backup-task-routes.js";
+import { DatastoreExportCheckRequest } from "./datastore-export-check-request.js";
+import { DatastoreExportRequest } from "./datastore-export-request.js";
+import { mergeExportOperation } from "./util.js";
 
 const UPDATE_STATUS_DELAY_SECONDS = 60;
 const DEFAULT_TIME_ZONE = "Australia/Sydney";
@@ -56,7 +56,7 @@ export class DatastoreExportService {
     const backupOperation = mergeExportOperation(
       {
         ...newTimestampedEntity(),
-        id: uuidv4(),
+        id: nanoid(),
         operationName: operation.name,
         type: options.type,
         name,

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { asyncHandler } from "@mondomob/gae-js-core";
-import { datastoreExportServiceProvider } from "./datastore-export.service";
-import { validateRequest } from "../util/types";
-import { datastoreExportRequestSchema } from "./datastore-export-request";
+import { asyncHandler } from "@mondokit/gcp-core";
+import { datastoreExportServiceProvider } from "./datastore-export.service.js";
+import { validateRequest } from "../util/types.js";
+import { datastoreExportRequestSchema } from "./datastore-export-request.js";
 
 export const datastoreBackupCronRoutes = (router = Router()): Router => {
   router.get(

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { asyncHandler } from "@mondomob/gae-js-core";
-import { bigQueryDatastoreImportServiceProvider } from "./bigquery-datastore-import.service";
-import { validateRequest } from "../util/types";
-import { bigQueryLoadRequestSchema } from "./bigquery-load-request";
+import { asyncHandler } from "@mondokit/gcp-core";
+import { bigQueryDatastoreImportServiceProvider } from "./bigquery-datastore-import.service.js";
+import { validateRequest } from "../util/types.js";
+import { bigQueryLoadRequestSchema } from "./bigquery-load-request.js";
 
 export const TASK_BIGQUERY_LOAD_KIND = "/backups/bigquery-load-kind";
 

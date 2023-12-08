@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod";
-import { BadRequestError } from "@mondomob/gae-js-core";
+import { BadRequestError } from "@mondokit/gcp-core";
 
 /**
  * Convenience to validate a request payload and coerce to expected type.

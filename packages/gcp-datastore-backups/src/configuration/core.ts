@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { configurationProvider } from "@mondomob/gae-js-core";
-import { gaeJsBigQueryConfigurationSchema } from "@mondomob/gae-js-bigquery";
-import { gaeJsStorageConfigurationSchema } from "@mondomob/gae-js-storage";
+import { configurationProvider } from "@mondokit/gcp-core";
+import { gaeJsBigQueryConfigurationSchema } from "@mondokit/gcp-bigquery";
+import { gaeJsStorageConfigurationSchema } from "@mondokit/gcp-storage";
 
 const libraryConfig = gaeJsBigQueryConfigurationSchema.merge(gaeJsStorageConfigurationSchema);
 

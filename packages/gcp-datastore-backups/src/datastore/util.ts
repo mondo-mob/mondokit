@@ -1,9 +1,9 @@
-import * as protos from "@google-cloud/datastore/build/protos/protos";
-import { BackupOperation } from "../backups";
+import { google } from "@google-cloud/datastore/build/protos/protos.js";
+import { BackupOperation } from "../backups/index.js";
+import ITimestamp = google.protobuf.ITimestamp;
+import IExportEntitiesMetadata = google.datastore.admin.v1.IExportEntitiesMetadata;
 
-type ExportMetadata = protos.google.datastore.admin.v1.IExportEntitiesMetadata;
-
-export const toISOTime = (timestamp?: protos.google.protobuf.ITimestamp | null): string | null => {
+export const toISOTime = (timestamp?: ITimestamp | null): string | null => {
   if (!timestamp || !timestamp.seconds) return null;
   return new Date(Number(timestamp.seconds) * 1000).toISOString();
 };
@@ -16,7 +16,7 @@ export const mergeExportOperation = (
     error: { code?: number; message?: string } | undefined;
   }
 ): BackupOperation => {
-  const meta = exportOperation.metadata as ExportMetadata;
+  const meta = exportOperation.metadata as IExportEntitiesMetadata;
   return {
     ...backupOperation,
     done: exportOperation.done || false,

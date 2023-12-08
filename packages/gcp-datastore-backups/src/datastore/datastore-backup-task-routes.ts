@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { asyncHandler, createLogger } from "@mondomob/gae-js-core";
-import { bigQueryDatastoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery";
-import { datastoreExportCheckRequestSchema } from "./datastore-export-check-request";
-import { datastoreExportServiceProvider } from "./datastore-export.service";
-import { validateRequest } from "../util/types";
+import { asyncHandler, createLogger } from "@mondokit/gcp-core";
+import { bigQueryDatastoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery/index.js";
+import { datastoreExportCheckRequestSchema } from "./datastore-export-check-request.js";
+import { datastoreExportServiceProvider } from "./datastore-export.service.js";
+import { validateRequest } from "../util/types.js";
 
 export const TASK_DATASTORE_EXPORT_CHECK = "/backups/datastore-export-check";
 
