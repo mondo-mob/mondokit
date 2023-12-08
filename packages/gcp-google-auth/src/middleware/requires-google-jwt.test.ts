@@ -1,7 +1,7 @@
 import express from "express";
 import { LoginTicket, OAuth2Client, TokenPayload } from "google-auth-library";
 import request from "supertest";
-import { JwtVerificationOptions, requiresGoogleJwt } from "./requires-google-jwt";
+import { JwtVerificationOptions, requiresGoogleJwt } from "./requires-google-jwt.js";
 
 describe("requiresGoogleJwt", () => {
   it("is disabled for non-GCP deployed environment by default", async () => {
@@ -147,7 +147,7 @@ const initEndpointWithRequiresGoogleJwt = (opts?: JwtVerificationOptions) => {
 };
 
 const mockVerifyIdToken = (payloadOverrides: Partial<TokenPayload> = {}) =>
-  jest.spyOn(OAuth2Client.prototype, "verifyIdToken").mockImplementation(
+  vi.spyOn(OAuth2Client.prototype, "verifyIdToken").mockImplementation(
     async () =>
       new LoginTicket("envelope", {
         ...SAMPLE_SUCCESS_PAYLOAD,
@@ -156,10 +156,10 @@ const mockVerifyIdToken = (payloadOverrides: Partial<TokenPayload> = {}) =>
   );
 
 const mockVerifyIdTokenUndefinedPayload = () =>
-  jest.spyOn(OAuth2Client.prototype, "verifyIdToken").mockImplementation(async () => new LoginTicket());
+  vi.spyOn(OAuth2Client.prototype, "verifyIdToken").mockImplementation(async () => new LoginTicket());
 
 const mockVerifyIdTokenThrowsError = () =>
-  jest.spyOn(OAuth2Client.prototype, "verifyIdToken").mockImplementation(() => {
+  vi.spyOn(OAuth2Client.prototype, "verifyIdToken").mockImplementation(() => {
     throw new Error("Test error");
   });
 

@@ -1,1 +1,1 @@
-export * from "./google-auth-client-provider";
+export * from "./google-auth-client-provider.js";

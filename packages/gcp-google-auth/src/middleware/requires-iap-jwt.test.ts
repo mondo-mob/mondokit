@@ -1,7 +1,7 @@
 import express from "express";
 import { LoginTicket, OAuth2Client, TokenPayload } from "google-auth-library";
 import request from "supertest";
-import { IAP_JWT_HEADER, IapJwtVerificationOptions, requiresIapJwt } from "./requires-iap-jwt";
+import { IAP_JWT_HEADER, IapJwtVerificationOptions, requiresIapJwt } from "./requires-iap-jwt.js";
 
 describe("requiresIapJwt", () => {
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe("requiresIapJwt", () => {
     expect(verifySpy).toHaveBeenCalledWith(
       "the-token",
       { key1: "keyabc", key2: "keydef" },
-      ["http://example.com"],
+      ["expected-audience"],
       ["https://cloud.google.com/iap"]
     );
   });
@@ -84,12 +84,12 @@ const initEndpointWithRequiresIapJwt = (opts?: Partial<IapJwtVerificationOptions
 };
 
 const mockGetKeys = () =>
-  jest.spyOn(OAuth2Client.prototype, "getIapPublicKeys").mockImplementation(async () => ({
+  vi.spyOn(OAuth2Client.prototype, "getIapPublicKeys").mockImplementation(async () => ({
     pubkeys: { key1: "keyabc", key2: "keydef" },
   }));
 
 const mockVerifyIdToken = (payloadOverrides: Partial<TokenPayload> = {}) =>
-  jest.spyOn(OAuth2Client.prototype, "verifySignedJwtWithCertsAsync").mockImplementation(
+  vi.spyOn(OAuth2Client.prototype, "verifySignedJwtWithCertsAsync").mockImplementation(
     async () =>
       new LoginTicket("envelope", {
         ...SAMPLE_SUCCESS_PAYLOAD,
@@ -98,7 +98,7 @@ const mockVerifyIdToken = (payloadOverrides: Partial<TokenPayload> = {}) =>
   );
 
 const mockVerifyIdTokenThrowsError = () =>
-  jest.spyOn(OAuth2Client.prototype, "verifySignedJwtWithCertsAsync").mockImplementation(() => {
+  vi.spyOn(OAuth2Client.prototype, "verifySignedJwtWithCertsAsync").mockImplementation(() => {
     throw new Error("Test error");
   });
 

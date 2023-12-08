@@ -1,6 +1,7 @@
-import { asArray, asyncMiddleware, createLogger, ForbiddenError, OneOrMany, runningOnGcp } from "@mondomob/gae-js-core";
+import { asyncMiddleware, createLogger, ForbiddenError, OneOrMany, runningOnGcp } from "@mondokit/gcp-core";
 import { Handler } from "express";
-import { googleAuthClientProvider } from "../google-auth/google-auth-client-provider";
+import { castArray } from "lodash";
+import { googleAuthClientProvider } from "../google-auth/google-auth-client-provider.js";
 
 export interface JwtVerificationOptions {
   email?: OneOrMany<string>;
@@ -19,7 +20,7 @@ export const requiresGoogleJwt = ({
     try {
       const ticket = await googleAuthClientProvider
         .get()
-        .verifyIdToken({ idToken, audience: audience && asArray(audience) });
+        .verifyIdToken({ idToken, audience: audience && castArray(audience) });
       return ticket.getPayload();
     } catch (e) {
       logger.error("Error extracting token payload.");
@@ -55,7 +56,7 @@ export const requiresGoogleJwt = ({
     validate(claims.iss === "https://accounts.google.com", "Not a valid Google JWT: invalid issuer");
     if (email) {
       validate(
-        !!claims.email && asArray(email).includes(claims.email),
+        !!claims.email && castArray(email).includes(claims.email),
         `JWT email ${claims.email} does not match one of the expected: ${email}`
       );
     }

@@ -5,7 +5,7 @@ import {
   LazyProvider,
   OneOrMany,
   runningOnGcp,
-} from "@mondomob/gae-js-core";
+} from "@mondokit/gcp-core";
 import { OAuth2Client } from "google-auth-library";
 import { Handler } from "express";
 import { castArray } from "lodash";
