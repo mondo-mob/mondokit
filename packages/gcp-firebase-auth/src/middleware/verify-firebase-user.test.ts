@@ -1,6 +1,6 @@
 import express, { ErrorRequestHandler, Handler } from "express";
 import { initializeApp } from "firebase-admin/app";
-import { verifyFirebaseUser, VerifyOptions } from "./verify-firebase-user";
+import { verifyFirebaseUser, VerifyOptions } from "./verify-firebase-user.js";
 import request from "supertest";
 import {
   AuthUser,
@@ -9,7 +9,7 @@ import {
   RequestStorageStore,
   UnauthorisedError,
   userRequestStorageProvider,
-} from "@mondomob/gae-js-core";
+} from "@mondokit/gcp-core";
 
 const emulatorSignup = async (email: string): Promise<any> => {
   const emulatorResponse = await request("http://127.0.0.1:9099")

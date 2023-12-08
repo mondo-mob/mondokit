@@ -2,6 +2,7 @@
   "name": "@mondokit/gcp-firebase-auth",
   "version": "1.0.0-alpha.0",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -13,8 +14,8 @@
     "firebase:start": "npx --yes firebase-tools emulators:start --project auth-tests",
     "format": "prettier --write \"./src/**/*.ts\"",
     "prepublishOnly": "npm run build",
-    "test": "jest --runInBand",
-    "test:ci": "firebase emulators:exec --only auth --project auth-tests \"jest --runInBand\""
+    "test": "vitest run",
+    "test:ci": "npx --yes firebase-tools emulators:exec --only auth --project auth-tests \"vitest run\""
   },
   "publishConfig": {
     "access": "public"
@@ -23,12 +24,12 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "peerDependencies": {
-    "@mondomob/gae-js-core": "^7.0.0",
+    "@mondokit/gcp-core": "^1.0.0-alpha.1",
     "firebase-admin": ">= 11.0.0"
   },
   "devDependencies": {
-    "@mondomob/gae-js-core": "7.0.3",
-    "firebase-admin": "11.4.1"
+    "@mondokit/gcp-core": "1.0.0-alpha.1",
+    "firebase-admin": "11.11.1"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }

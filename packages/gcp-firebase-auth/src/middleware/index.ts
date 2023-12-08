@@ -1,1 +1,1 @@
-export { verifyFirebaseUser } from "./verify-firebase-user";
+export { verifyFirebaseUser } from "./verify-firebase-user.js";

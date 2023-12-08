@@ -1,7 +1,7 @@
 import { Handler } from "express";
 import { App } from "firebase-admin/app";
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
-import { AuthUser, createLogger, UnauthorisedError, userRequestStorageProvider } from "@mondomob/gae-js-core";
+import { AuthUser, createLogger, UnauthorisedError, userRequestStorageProvider } from "@mondokit/gcp-core";
 
 const convertIdTokenToUser = async (
   idToken: DecodedIdToken
