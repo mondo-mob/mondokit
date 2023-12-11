@@ -4,21 +4,21 @@ A helpful toolkit to simplify building NodeJS applications on the cloud. The mos
 
 Built for ESM only.
 
-[Official documentation](https://mondo-mob.github.io/gae-js-docs)
+[Official documentation](https://mondokit.dev)
 
 ## Package documentation
 
-- [gae-js-core](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-core.html)
-- [gae-js-firestore](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firestore.html)
-- [gae-js-firestore-backups](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firestore-backups.html)
-- [gae-js-datastore](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-datastore.html)
-- [gae-js-datastore-backups](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-datastore-backups.html)
-- [gae-js-storage](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-storage.html)
-- [gae-js-tasks](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-tasks.html)
-- [gae-js-bigquery](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-bigquery.html)
-- [gae-js-google-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-google-auth.html)
-- [gae-js-firebase-auth](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firebase-auth.html)
-- [gae-js-migrations](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-migrations.html)
+- [gcp-core](https://mondokit.dev/packages/gcp-core.html)
+- [gcp-firestore](https://mondokit.dev/packages/gcp-firestore.html)
+- [gcp-firestore-backups](https://mondokit.dev/packages/gcp-firestore-backups.html)
+- [gcp-firestore-migrations](https://mondokit.dev/packages/gcp-migrations.html) 
+- [gcp-datastore](https://mondokit.dev/packages/gcp-datastore.html)
+- [gcp-datastore-backups](https://mondokit.dev/packages/gcp-datastore-backups.html)
+- [gcp-storage](https://mondokit.dev/packages/gcp-storage.html)
+- [gcp-tasks](https://mondokit.dev/packages/gcp-tasks.html)
+- [gcp-bigquery](https://mondokit.dev/packages/gcp-bigquery.html)
+- [gcp-google-auth](https://mondokit.dev/packages/gcp-google-auth.html)
+- [gcp-firebase-auth](https://mondokit.dev/packages/gcp-firebase-auth.html)
 
 ## History
 

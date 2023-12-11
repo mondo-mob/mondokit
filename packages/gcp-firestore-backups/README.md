@@ -11,4 +11,4 @@ Firestore exports are long-running operations. This module keeps track of operat
 After an operation is started it will queue tasks to update the status of the operation until it is complete.
 Once complete the backup can be auto-imported into BigQuery.
 
-[Official documentation](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-firestore-backups.html)
+[Official documentation](https://mondokit.dev/packages/gcp-firestore-backups.html)

@@ -2,4 +2,4 @@
 
 Use Cloud Tasks to call task handler endpoints in your app.
 
-[Official documentation](https://mondo-mob.github.io/gae-js-docs/packages/gae-js-tasks.html)
+[Official documentation](https://mondokit.dev/packages/gcp-tasks.html)
