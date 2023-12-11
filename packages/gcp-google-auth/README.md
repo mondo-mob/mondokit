@@ -1,4 +1,4 @@
-# MONDOKIT GCP GOOGLE AUTH
+# MondoKit GCP Google Auth
 
 Utilities extending on [Google Auth Library](https://github.com/googleapis/google-auth-library-nodejs#readme), such as middleware to validate Google JWT.
 

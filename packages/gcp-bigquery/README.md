@@ -1,4 +1,4 @@
-# MONDOKIT GCP BIGQUERY
+# MondoKit GCP BigQuery
 
 Simplifies BigQuery client initialisation and common BigQuery operations.
 

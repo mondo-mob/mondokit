@@ -1,4 +1,4 @@
-# MONDOKIT GCP CORE
+# MondoKit GCP Core
 
 The core stuff needed for most apps.
 

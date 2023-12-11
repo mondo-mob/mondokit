@@ -1,4 +1,4 @@
-# MONDOKIT GCP FIRESTORE BACKUPS
+# MondoKit GCP Firestore Backups
 
 Module to perform scheduled Firestore exports in your app.
 

@@ -1,4 +1,4 @@
-# MONDOKIT GCP DATASTORE BACKUPS
+# MondoKit GCP Datastore Backups
 
 Module to perform scheduled Datastore exports in your app.
 

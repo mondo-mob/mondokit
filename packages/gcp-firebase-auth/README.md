@@ -1,4 +1,4 @@
-# MONDOKIT GCP FIREBASE AUTH
+# MondoKit GCP Firebase Auth
 
 Use Firebase Auth to authenticate your users
 

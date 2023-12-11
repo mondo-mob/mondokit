@@ -1,4 +1,4 @@
-# MONDO KIT
+# MondoKit
 
 A helpful toolkit to simplify building NodeJS applications on the cloud. The most mature set of libraries is currently focussed on Google Cloud Platform (GCP).
 

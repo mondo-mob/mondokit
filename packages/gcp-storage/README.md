@@ -1,4 +1,4 @@
-# MONDOKIT GCP STORAGE
+# MondoKit GCP Storage
 
 Use Cloud Storage in your app.
 
