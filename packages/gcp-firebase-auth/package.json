@@ -28,7 +28,7 @@
     "firebase-admin": ">= 11.0.0"
   },
   "devDependencies": {
-    "@mondokit/gcp-core": "1.0.0-alpha.2",
+    "@mondokit/gcp-core": "1.0.0-alpha.3",
     "firebase-admin": "11.11.1"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"

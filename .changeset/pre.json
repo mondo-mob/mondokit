@@ -15,6 +15,8 @@
     "@mondokit/gcp-tasks": "1.0.0-alpha.0"
   },
   "changesets": [
+    "orange-socks-talk",
+    "slimy-chefs-exercise",
     "swift-mails-train"
   ]
 }
