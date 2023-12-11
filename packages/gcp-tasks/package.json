@@ -23,14 +23,13 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "peerDependencies": {
-    "@google-cloud/tasks": "^3.0.0",
+    "@google-cloud/tasks": ">= 3.0.0",
     "@mondokit/gcp-core": "^1.0.0-alpha.1",
     "express": ">= 4.17.1"
   },
   "devDependencies": {
-    "@google-cloud/tasks": "3.1.2",
-    "@mondokit/gcp-core": "^1.0.0-alpha.2",
-    "vitest": "^0.33.0"
+    "@google-cloud/tasks": "^4.0.1",
+    "@mondokit/gcp-core": "^1.0.0-alpha.2"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"

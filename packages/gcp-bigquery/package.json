@@ -23,7 +23,7 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "peerDependencies": {
-    "@google-cloud/bigquery": ">=7.3.0",
+    "@google-cloud/bigquery": ">=6.0.0",
     "@mondokit/gcp-core": "^1.0.0-alpha.1",
     "@mondokit/gcp-storage": "^1.0.0-alpha.0"
   },

@@ -34,7 +34,6 @@
   "devDependencies": {
     "@google-cloud/firestore": "6.6.1",
     "@mondokit/gcp-core": "1.0.0-alpha.2",
-    "@types/lodash-es": "^4.17.8",
-    "vitest": "^0.33.0"
+    "@types/lodash-es": "^4.17.8"
   }
 }
