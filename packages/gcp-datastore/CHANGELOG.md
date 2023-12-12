@@ -1,5 +1,12 @@
 # @mondokit/gcp-datastore
 
+## 1.0.0-alpha.3
+
+### Patch Changes
+
+- dd0d63e: Update internal google-cloud libs to latest
+- 6030743: Update all dependencies except for vitest
+
 ## 1.0.0-alpha.2
 
 ### Patch Changes

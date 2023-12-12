@@ -1,5 +1,14 @@
 # @mondokit/gcp-firestore-backups
 
+## 1.0.0-alpha.4
+
+### Patch Changes
+
+- dd0d63e: Update internal google-cloud libs to latest
+- 6030743: Update all dependencies except for vitest
+- Updated dependencies [6030743]
+  - @mondokit/gcp-tasks@1.0.0-alpha.3
+
 ## 1.0.0-alpha.3
 
 ### Patch Changes
