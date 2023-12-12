@@ -23,7 +23,6 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
-    "lodash": "^4.17.21",
     "luxon": "^3.3.0",
     "nanoid": "^5.0.4"
   },

@@ -1,5 +1,5 @@
 import DataLoader from "dataloader";
-import { castArray, chunk, cloneDeep } from "lodash";
+import { castArray, chunk, cloneDeep } from "lodash-es";
 import {
   DocumentData,
   DocumentReference,

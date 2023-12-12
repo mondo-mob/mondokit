@@ -8,7 +8,7 @@ import {
 } from "@mondokit/gcp-core";
 import { OAuth2Client } from "google-auth-library";
 import { Handler } from "express";
-import { castArray } from "lodash";
+import { castArray } from "lodash-es";
 
 export const IAP_JWT_HEADER = "x-goog-iap-jwt-assertion";
 export const IAP_JWT_ISSUER = "https://cloud.google.com/iap";

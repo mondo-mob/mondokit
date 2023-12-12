@@ -1,6 +1,6 @@
 import { BadRequestError } from "@mondokit/gcp-core";
 import { File, SaveOptions, Storage } from "@google-cloud/storage";
-import { trim } from "lodash";
+import { trim } from "lodash-es";
 import { GcsFileIdentifier } from "./types.js";
 import { storageProvider } from "./storage-provider.js";
 

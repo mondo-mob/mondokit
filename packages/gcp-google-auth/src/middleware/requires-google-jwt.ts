@@ -1,6 +1,6 @@
 import { asyncMiddleware, createLogger, ForbiddenError, OneOrMany, runningOnGcp } from "@mondokit/gcp-core";
 import { Handler } from "express";
-import { castArray } from "lodash";
+import { castArray } from "lodash-es";
 import { googleAuthClientProvider } from "../google-auth/google-auth-client-provider.js";
 
 export interface JwtVerificationOptions {
