@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-firebase-auth",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -28,7 +28,7 @@
     "firebase-admin": ">= 11.0.0"
   },
   "devDependencies": {
-    "@mondokit/gcp-core": "1.0.0-alpha.3",
+    "@mondokit/gcp-core": "1.0.0-alpha.4",
     "firebase-admin": "^12.0.0"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"

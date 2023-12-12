@@ -15,6 +15,7 @@
     "@mondokit/gcp-tasks": "1.0.0-alpha.0"
   },
   "changesets": [
+    "cyan-papayas-greet",
     "late-phones-attend",
     "orange-socks-talk",
     "shiny-kiwis-dress",

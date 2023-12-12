@@ -1,5 +1,13 @@
 # @mondokit/gcp-firestore-backups
 
+## 1.0.0-alpha.5
+
+### Patch Changes
+
+- 9bb9f30: Fix npm vulnerabilities via npm audit fix
+- Updated dependencies [9bb9f30]
+  - @mondokit/gcp-tasks@1.0.0-alpha.4
+
 ## 1.0.0-alpha.4
 
 ### Patch Changes

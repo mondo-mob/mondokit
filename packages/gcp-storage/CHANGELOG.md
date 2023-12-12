@@ -1,5 +1,11 @@
 # @mondokit/gcp-storage
 
+## 1.0.0-alpha.5
+
+### Patch Changes
+
+- 9bb9f30: Fix npm vulnerabilities via npm audit fix
+
 ## 1.0.0-alpha.4
 
 ### Patch Changes
