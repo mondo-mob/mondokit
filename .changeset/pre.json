@@ -15,6 +15,7 @@
     "@mondokit/gcp-tasks": "1.0.0-alpha.0"
   },
   "changesets": [
+    "late-phones-attend",
     "orange-socks-talk",
     "slimy-chefs-exercise",
     "swift-mails-train"

@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-firestore-backups",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Utils for performing firestore backups",
   "type": "module",
   "main": "dist/index.js",
@@ -40,8 +40,8 @@
     "@google-cloud/tasks": "3.1.2",
     "@mondokit/gcp-bigquery": "1.0.0-alpha.2",
     "@mondokit/gcp-core": "1.0.0-alpha.3",
-    "@mondokit/gcp-firestore": "1.0.0-alpha.4",
-    "@mondokit/gcp-storage": "1.0.0-alpha.2",
+    "@mondokit/gcp-firestore": "1.0.0-alpha.5",
+    "@mondokit/gcp-storage": "1.0.0-alpha.3",
     "@mondokit/gcp-tasks": "1.0.0-alpha.2",
     "@types/luxon": "3.3.0"
   }

@@ -1,5 +1,11 @@
 # @mondokit/gcp-firestore
 
+## 1.0.0-alpha.5
+
+### Patch Changes
+
+- 0a52b54: Remove lurking lodash references and replace with lodash-es for ESM
+
 ## 1.0.0-alpha.4
 
 ### Patch Changes

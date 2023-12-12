@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-storage",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Tools for Google Cloud Storage",
   "type": "module",
   "main": "dist/index.js",

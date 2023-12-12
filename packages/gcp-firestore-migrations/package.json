@@ -33,7 +33,7 @@
   "devDependencies": {
     "@google-cloud/firestore": "^6.6.1",
     "@mondokit/gcp-core": "1.0.0-alpha.3",
-    "@mondokit/gcp-firestore": "1.0.0-alpha.4"
+    "@mondokit/gcp-firestore": "1.0.0-alpha.5"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }
