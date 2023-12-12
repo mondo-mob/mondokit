@@ -33,7 +33,7 @@
     "@mondokit/gcp-core": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "@google-cloud/datastore": "^8.2.2",
+    "@google-cloud/datastore": "^8.3.0",
     "@mondokit/gcp-core": "^1.0.0-alpha.3",
     "google-datastore-emulator": "^7.1.0"
   },

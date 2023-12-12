@@ -34,7 +34,7 @@
     "@mondokit/gcp-tasks": "1.0.0-alpha.2"
   },
   "devDependencies": {
-    "@google-cloud/bigquery": "6.2.0",
+    "@google-cloud/bigquery": "^7.3.0",
     "@google-cloud/firestore": "^7.1.0",
     "@google-cloud/storage": "^7.7.0",
     "@google-cloud/tasks": "^4.0.1",
