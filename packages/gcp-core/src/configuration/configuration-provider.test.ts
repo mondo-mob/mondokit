@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { zodValidator } from "../util/zod.js";
+import { ENV_VAR_CONFIG_OVERRIDES, zodValidator } from "@mondokit/core";
 import { ConfigurationProvider } from "./configuration-provider.js";
 import { gaeJsCoreConfigurationSchema } from "./schema.js";
-import { ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
+import { ENV_VAR_PROJECT } from "./variables.js";
 
 const testConfigSchema = gaeJsCoreConfigurationSchema.extend({
   appName: z.string(),

@@ -1,0 +1,38 @@
+{
+  "name": "@mondokit/core",
+  "version": "1.0.0-alpha.1",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc --build --verbose tsconfig.prod.json",
+    "clean": "rm -rf dist/ coverage/ tsconfig.tsbuildinfo tsconfig.prod.tsbuildinfo",
+    "format": "prettier --write \"./src/**/*.ts\"",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:ci": "vitest run"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/mondo-mob/mondokit",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "lodash-es": "^4.17.21"
+  },
+  "peerDependencies": {
+    "express": ">= 4.17.1",
+    "zod": "^3.21.0"
+  },
+  "devDependencies": {
+    "@types/bunyan": "^1.8.11",
+    "@types/lodash-es": "^4.17.8",
+    "zod": "^3.22.4"
+  }
+}

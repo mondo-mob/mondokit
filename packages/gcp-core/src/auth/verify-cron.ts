@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { requiresHeader } from "./requires-header.js";
+import { requiresHeader } from "@mondokit/core";
 
 /**
  * Middleware that verifies request is a valid App Engine Cron request.

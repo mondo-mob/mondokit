@@ -1,4 +1,4 @@
-import { requestTimeoutMinutes } from "../middleware/request-timeout.js";
+import { requestTimeoutMinutes } from "@mondokit/core";
 import { verifyCron } from "./verify-cron.js";
 
 /**

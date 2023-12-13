@@ -1,13 +1,11 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { z } from "zod";
-import { zodValidator } from "../util/zod.js";
-import { ConfigurationOptions, ConfigValidator, initialiseConfiguration } from "./configuration.js";
-import { gaeJsCoreConfigurationSchema } from "./schema.js";
-import { ENV_VAR_CONFIG_ENV, ENV_VAR_CONFIG_OVERRIDES, ENV_VAR_PROJECT } from "./variables.js";
+import { ConfigValidator, ENV_VAR_CONFIG_OVERRIDES, zodValidator } from "@mondokit/core";
 import { withEnvVars } from "../__test/test-utils.js";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore jest.extended is not declaring this correctly in current version
-import { SpyInstance } from "vitest";
+import { gaeJsCoreConfigurationSchema } from "./schema.js";
+import { ConfigurationOptions, initialiseConfiguration } from "./configuration.js";
+import { ENV_VAR_CONFIG_ENV, ENV_VAR_PROJECT } from "./variables.js";
+import { MockInstance } from "@vitest/spy";
 
 const configSchema = gaeJsCoreConfigurationSchema.extend({
   customString: z.string(),
@@ -30,7 +28,7 @@ const fromDir = (dir: string, overrides?: Partial<ConfigurationOptions<Config>>)
   });
 
 describe("configuration", () => {
-  let accessSecretVersionSpy: SpyInstance;
+  let accessSecretVersionSpy: MockInstance;
   beforeEach(() => {
     const cwdSpy = vi.spyOn(process, "cwd");
     cwdSpy.mockReturnValue(`${__dirname}/__test`);
@@ -81,7 +79,7 @@ describe("configuration", () => {
 
       it("does not throw if configDir missing (and config still valid)", async () => {
         const config = await initialiseConfiguration(
-          fromDir("not-a-folder", { overrides: { customString: "options string" } })
+          fromDir("not-a-folder", { overrides: { customString: "options string" } }),
         );
 
         expect(config).toEqual({
@@ -93,7 +91,7 @@ describe("configuration", () => {
 
       it("throws for invalid json file", async () => {
         await expect(() => initialiseConfiguration(fromDir("invalid-json"))).rejects.toThrow(
-          "Cannot parse config source"
+          "Cannot parse config source",
         );
       });
     });
@@ -111,7 +109,7 @@ describe("configuration", () => {
           const config = await initialiseConfiguration(withOptions({ projectId: undefined }));
 
           expect(config.projectId).toBe("proj-envvar");
-        })
+        }),
       );
 
       it(
@@ -120,7 +118,7 @@ describe("configuration", () => {
           const config = await initialiseConfiguration(withOptions({ projectId: undefined }));
 
           expect(config.projectId).toBe("proj-gcpvar");
-        })
+        }),
       );
     });
 
@@ -143,14 +141,14 @@ describe("configuration", () => {
           const config = await initialiseConfiguration(withOptions({ environment: "special" }));
 
           expect(config.environment).toBe("special");
-        })
+        }),
       );
 
       it("can pass custom strategy", async () => {
         const config = await initialiseConfiguration(
           withOptions({
             environment: (projectId) => projectId?.substring(0, 6),
-          })
+          }),
         );
 
         expect(config.environment).toBe("gcp-co");
@@ -168,7 +166,7 @@ describe("configuration", () => {
           },
           async () => {
             accessSecretVersionSpy.mockImplementationOnce(() =>
-              Promise.resolve([{ payload: { data: "top secret value" } }])
+              Promise.resolve([{ payload: { data: "top secret value" } }]),
             );
 
             const config = await initialiseConfiguration(withOptions());
@@ -181,8 +179,8 @@ describe("configuration", () => {
             expect(accessSecretVersionSpy).toHaveBeenCalledWith({
               name: "projects/gcp-core-test/secrets/MY_SECRET/versions/latest",
             });
-          }
-        )
+          },
+        ),
       );
     });
   });
@@ -208,7 +206,7 @@ describe("configuration", () => {
 
     it("should only validate after config fully resolved", async () => {
       accessSecretVersionSpy.mockImplementationOnce(() =>
-        Promise.resolve([{ payload: { data: "long top secret value" } }])
+        Promise.resolve([{ payload: { data: "long top secret value" } }]),
       );
 
       // Raw value SECRET(MY_SECRET) doesn't pass this validation
@@ -216,11 +214,11 @@ describe("configuration", () => {
       const secretLengthValidator = zodValidator(
         gaeJsCoreConfigurationSchema.extend({
           customString: z.string().min(20),
-        })
+        }),
       );
 
       const config = await initialiseConfiguration(
-        withOptions({ validator: secretLengthValidator, overrides: { customString: "SECRET(MY_SECRET)" } })
+        withOptions({ validator: secretLengthValidator, overrides: { customString: "SECRET(MY_SECRET)" } }),
       );
 
       expect(config).toEqual({

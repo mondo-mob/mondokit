@@ -1,5 +1,5 @@
+import { Provider } from "@mondokit/core";
 import { GaeJsCoreConfiguration } from "./schema.js";
-import { Provider } from "../util/provider.js";
 import { ConfigurationOptions, initialiseConfiguration } from "./configuration.js";
 
 export class ConfigurationProvider<T extends GaeJsCoreConfiguration = any> extends Provider<T> {
@@ -15,5 +15,5 @@ export class ConfigurationProvider<T extends GaeJsCoreConfiguration = any> exten
 
 export const configurationProvider = new ConfigurationProvider(
   undefined,
-  "No Configuration instance found. Please initialise configurationProvider."
+  "No Configuration instance found. Please initialise configurationProvider.",
 );

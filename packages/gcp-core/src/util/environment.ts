@@ -1,4 +1,4 @@
-import { ENV_VAR_RUNTIME_ENVIRONMENT } from "../configuration/variables.js";
+import { ENV_VAR_RUNTIME_ENVIRONMENT } from "@mondokit/core";
 
 /**
  * This checks for the cloud function reserved environment variables K_SERVICE and K_REVISION

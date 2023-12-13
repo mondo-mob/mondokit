@@ -1,6 +1,6 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
+import { BadRequestError } from "@mondokit/core";
 import { SecretsClient } from "./secrets.client.js";
-import { BadRequestError } from "../../error/bad-request-error.js";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore jest.extended is not declaring this correctly in current version
 import { SpyInstance } from "vitest";
@@ -25,7 +25,7 @@ describe("SecretsClient", () => {
               data: RESOLVED_SECRET,
             },
           },
-        ])
+        ]),
       );
 
       const result = await secretsClient.fetchSecret("MY_SECRET");
@@ -42,11 +42,11 @@ describe("SecretsClient", () => {
           {
             payload: {},
           },
-        ])
+        ]),
       );
 
       await expect(secretsClient.fetchSecret("MY_SECRET")).rejects.toEqual(
-        new BadRequestError("Cannot find secret: MY_SECRET")
+        new BadRequestError("Cannot find secret: MY_SECRET"),
       );
     });
   });

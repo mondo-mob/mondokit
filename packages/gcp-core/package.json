@@ -24,17 +24,12 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
     "@google-cloud/logging-bunyan": "^5.0.1",
-    "@google-cloud/secret-manager": "^5.0.1",
-    "bunyan": "^1.8.15",
-    "lodash-es": "^4.17.21"
+    "@google-cloud/secret-manager": "^5.0.1"
   },
   "peerDependencies": {
-    "express": ">= 4.17.1",
-    "zod": "^3.21.0"
+    "@mondokit/core": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "@types/bunyan": "^1.8.11",
-    "@types/lodash-es": "^4.17.8",
-    "zod": "^3.22.4"
+    "@mondokit/core": "^1.0.0-alpha.1"
   }
 }

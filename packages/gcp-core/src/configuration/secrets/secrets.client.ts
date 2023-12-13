@@ -1,5 +1,5 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
-import { validateNotNil } from "../../util/validators.js";
+import { validateNotNil } from "@mondokit/core";
 
 export class SecretsClient {
   private readonly client: SecretManagerServiceClient;

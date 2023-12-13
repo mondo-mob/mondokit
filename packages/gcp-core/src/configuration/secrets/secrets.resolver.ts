@@ -1,5 +1,5 @@
 import { fromPairs, isPlainObject, isString, toPairs } from "lodash-es";
-import { createLogger } from "../../logging/logging.js";
+import { createLogger } from "@mondokit/core";
 import { SecretsClient } from "./secrets.client.js";
 
 const secretPattern = /\s*SECRET\(\s*([\w-]+)\s*\)\s*/;
