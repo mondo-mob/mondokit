@@ -1,5 +1,11 @@
 # @mondokit/core
 
+## 1.0.0-alpha.3
+
+### Patch Changes
+
+- 60e5094: Rename environment variables to remove GAEJS prefix
+
 ## 1.0.0-alpha.2
 
 ### Patch Changes

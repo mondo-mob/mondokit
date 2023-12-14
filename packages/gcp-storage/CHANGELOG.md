@@ -1,5 +1,12 @@
 # @mondokit/gcp-storage
 
+## 1.0.0-alpha.6
+
+### Patch Changes
+
+- 25c0eaa: Replace gaejs in variable and file names
+- 60e5094: Rename environment variables to remove GAEJS prefix
+
 ## 1.0.0-alpha.5
 
 ### Patch Changes

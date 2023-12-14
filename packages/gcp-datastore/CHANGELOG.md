@@ -1,5 +1,11 @@
 # @mondokit/gcp-datastore
 
+## 1.0.0-alpha.5
+
+### Patch Changes
+
+- 25c0eaa: Replace gaejs in variable and file names
+
 ## 1.0.0-alpha.4
 
 ### Patch Changes

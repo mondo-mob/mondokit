@@ -1,5 +1,14 @@
 # @mondokit/gcp-firestore
 
+## 1.0.0-alpha.8
+
+### Patch Changes
+
+- 25c0eaa: Replace gaejs in variable and file names
+- Updated dependencies [25c0eaa]
+- Updated dependencies [60e5094]
+  - @mondokit/gcp-core@1.0.0-alpha.6
+
 ## 1.0.0-alpha.7
 
 ### Patch Changes
