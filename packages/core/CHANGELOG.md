@@ -1,5 +1,11 @@
 # @mondokit/core
 
+## 1.0.0-alpha.4
+
+### Patch Changes
+
+- 486a241: Remove deprecated asArray function
+
 ## 1.0.0-alpha.3
 
 ### Patch Changes
