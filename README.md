@@ -76,7 +76,7 @@ these steps should save some time:
 - Copy `package.json`, `tsconfig.json`, `tsconfig.prod.json`, `jest.config.json` from one of the existing packages
 - Update `package.json` to match desired name, version, dependencies, etc
 - Update `tsconfig.json` to match desired project references.
-- Create file src/index.ts and export some constant
+- Create file `src/index.ts` and export some constant
 - Run `npm install` from root folder
 - Run `npm run build` from project folder
 
