@@ -6,8 +6,8 @@ import {
 } from "@mondokit/gcp-core";
 
 export const initTestConfig = async (config?: Partial<GcpCoreConfiguration>): Promise<GcpCoreConfiguration> => {
-  process.env.GAEJS_PROJECT = "tasks-tests";
-  process.env.GAEJS_CONFIG_OVERRIDES = JSON.stringify({
+  process.env.MONDOKIT_PROJECT = "tasks-tests";
+  process.env.MONDOKIT_CONFIG_OVERRIDES = JSON.stringify({
     host: "http://127.0.0.1",
     location: "local",
     ...config,

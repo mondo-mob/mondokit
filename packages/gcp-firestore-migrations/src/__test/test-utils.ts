@@ -11,8 +11,8 @@ import {
 export const initTestConfig = async (
   config?: Partial<GcpFirestoreConfiguration>,
 ): Promise<GcpFirestoreConfiguration> => {
-  process.env.GAEJS_PROJECT = "migration-tests";
-  process.env.GAEJS_CONFIG_OVERRIDES = JSON.stringify({
+  process.env.MONDOKIT_PROJECT = "migration-tests";
+  process.env.MONDOKIT_CONFIG_OVERRIDES = JSON.stringify({
     firestoreProjectId: "firestore-tests",
     firestoreHost: "0.0.0.0",
     firestorePort: 9000,

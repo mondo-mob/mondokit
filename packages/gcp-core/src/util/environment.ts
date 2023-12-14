@@ -12,12 +12,12 @@ const onAppEngine = (): boolean => process.env[ENV_VAR_RUNTIME_ENVIRONMENT] === 
  * Determines whether the code is running on GCP (vs locally).
  *
  * Cloud Functions: Checks for existence of K_SERVICE and K_REVISION reserved env variables
- * AppEngine: Consumers must set the GAEJS_ENVIRONMENT variable in deployed GCP environments.
+ * AppEngine: Consumers must set the MONDOKIT_ENVIRONMENT variable in deployed GCP environments.
  * e.g. for GAE add this in app.yaml
  *
  * @example
  * env_variables:
- *   GAEJS_ENVIRONMENT: appengine
+ *   MONDOKIT_ENVIRONMENT: appengine
  */
 export const runningOnGcp = (): boolean => {
   return onAppEngine() || onCloudFunctions();

@@ -3,7 +3,7 @@ import { runningOnGcp } from "./environment.js";
 describe("environment", () => {
   describe("runningOnGcp", () => {
     beforeEach(() => {
-      delete process.env.GAEJS_ENVIRONMENT;
+      delete process.env.MONDOKIT_ENVIRONMENT;
       delete process.env.K_SERVICE;
       delete process.env.K_REVISION;
     });
@@ -12,15 +12,15 @@ describe("environment", () => {
       expect(runningOnGcp()).toBeFalsy();
     });
 
-    it("returns true when GAEJS_ENVIRONMENT set to appengine", () => {
+    it("returns true when MONDOKIT_ENVIRONMENT set to appengine", () => {
       expect(runningOnGcp()).toBeFalsy();
-      process.env.GAEJS_ENVIRONMENT = "appengine";
+      process.env.MONDOKIT_ENVIRONMENT = "appengine";
       expect(runningOnGcp()).toBeTruthy();
     });
 
-    it("returns false when GAEJS_ENVIRONMENT not set to appengine", () => {
+    it("returns false when MONDOKIT_ENVIRONMENT not set to appengine", () => {
       expect(runningOnGcp()).toBeFalsy();
-      process.env.GAEJS_ENVIRONMENT = "something else";
+      process.env.MONDOKIT_ENVIRONMENT = "something else";
       expect(runningOnGcp()).toBeFalsy();
     });
 

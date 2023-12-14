@@ -4,8 +4,8 @@ import { GcpStorageConfiguration, gcpStorageConfigurationSchema } from "../confi
 
 export const initTestConfig = async (config?: Partial<GcpStorageConfiguration>): Promise<GcpStorageConfiguration> => {
   const schema = gcpCoreConfigurationSchema.merge(gcpStorageConfigurationSchema);
-  process.env.GAEJS_PROJECT = "storage-tests";
-  process.env.GAEJS_CONFIG_OVERRIDES = JSON.stringify({
+  process.env.MONDOKIT_PROJECT = "storage-tests";
+  process.env.MONDOKIT_CONFIG_OVERRIDES = JSON.stringify({
     storage: {
       emulatorHost: "http://127.0.0.1:9199",
     },

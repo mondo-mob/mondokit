@@ -29,7 +29,7 @@ describe("TaskQueueService", () => {
       const expectTaskParams = (task: object) => {
         const instance = (CloudTasksClient as any).mock.instances[0];
         expect(instance.createTask).toHaveBeenCalledWith(
-          expect.objectContaining({ task: expect.objectContaining(task) })
+          expect.objectContaining({ task: expect.objectContaining(task) }),
         );
       };
 
@@ -48,7 +48,7 @@ describe("TaskQueueService", () => {
               body: Buffer.from(JSON.stringify({})).toString("base64"),
             },
           });
-        })
+        }),
       );
 
       it(
@@ -67,7 +67,7 @@ describe("TaskQueueService", () => {
             },
             scheduleTime: { seconds: expect.toBeWithin(timeIn60Seconds, timeIn60Seconds + 5) },
           });
-        })
+        }),
       );
 
       it(
@@ -90,7 +90,7 @@ describe("TaskQueueService", () => {
               },
             },
           });
-        })
+        }),
       );
 
       it(
@@ -117,7 +117,7 @@ describe("TaskQueueService", () => {
               oidcToken: { serviceAccountEmail: "sacount@gnet.com", audience: "my-audience" },
             },
           });
-        })
+        }),
       );
 
       it(
@@ -137,7 +137,7 @@ describe("TaskQueueService", () => {
               body: Buffer.from(JSON.stringify({ key: "value1" })).toString("base64"),
             },
           });
-        })
+        }),
       );
 
       it(
@@ -169,7 +169,7 @@ describe("TaskQueueService", () => {
               seconds: 1697026500,
             },
           });
-        })
+        }),
       );
 
       it(
@@ -183,7 +183,7 @@ describe("TaskQueueService", () => {
           await new TaskQueueService().enqueue("test-task", {
             throttle: { suffix: "test", periodMs: 300000 },
           });
-        })
+        }),
       );
 
       it(
@@ -197,15 +197,15 @@ describe("TaskQueueService", () => {
           await expect(
             new TaskQueueService().enqueue("test-task", {
               throttle: { suffix: "test", periodMs: 300000 },
-            })
+            }),
           ).rejects.toEqual({ code: 3, details: "Invalid argument" });
-        })
+        }),
       );
     });
 
     describe("local queue default config", () => {
       beforeEach(() => {
-        process.env.GAEJS_ENVIRONMENT = "local";
+        process.env.MONDOKIT_ENVIRONMENT = "local";
         taskQueueService = new TaskQueueService();
       });
 
@@ -247,7 +247,7 @@ describe("TaskQueueService", () => {
 
     describe("local queue custom prefix", () => {
       beforeEach(() => {
-        process.env.GAEJS_ENVIRONMENT = "local";
+        process.env.MONDOKIT_ENVIRONMENT = "local";
         taskQueueService = new TaskQueueService({ queueName: "default", pathPrefix: "/admin/tasks" });
       });
 
@@ -280,7 +280,7 @@ describe("TaskQueueService", () => {
     };
 
     it("calculates throttle slots", async () => {
-      process.env.GAEJS_ENVIRONMENT = "local";
+      process.env.MONDOKIT_ENVIRONMENT = "local";
       taskQueueService = new TaskQueueService();
 
       // Standard
