@@ -7,7 +7,7 @@ import { verifyTask } from "./verify-task.js";
  * b) Extends the nodejs request timeout to 10 minutes
  *
  * @example Apply to all /tasks endpoints
- * app.use("/tasks", gaeJsTask);
+ * app.use("/tasks", appEngineTask);
  * app.post("/tasks/poll-status", (req, res) => {...});
  */
-export const gaeJsTask = [verifyTask, requestTimeoutMinutes(10)];
+export const appEngineTask = [verifyTask, requestTimeoutMinutes(10)];

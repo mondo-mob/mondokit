@@ -1,9 +1,9 @@
-import { gaeJsCoreConfigurationSchema } from "@mondokit/gcp-core";
+import { gcpCoreConfigurationSchema } from "@mondokit/gcp-core";
 import { z } from "zod";
 
-export const gaeJsDatastoreConfigurationSchema = gaeJsCoreConfigurationSchema.extend({
+export const gcpDatastoreConfigurationSchema = gcpCoreConfigurationSchema.extend({
   datastoreProjectId: z.string().optional(),
   datastoreApiEndpoint: z.string().optional(),
 });
 
-export type GaeJsDatastoreConfiguration = z.infer<typeof gaeJsDatastoreConfigurationSchema>;
+export type GcpDatastoreConfiguration = z.infer<typeof gcpDatastoreConfigurationSchema>;

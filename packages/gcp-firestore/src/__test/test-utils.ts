@@ -1,6 +1,6 @@
 import { CollectionReference } from "@google-cloud/firestore";
 import { configurationProvider, runWithRequestStorage, zodValidator } from "@mondokit/gcp-core";
-import { GaeJsFirestoreConfiguration, gaeJsFirestoreConfigurationSchema } from "../configuration/schema.js";
+import { GcpFirestoreConfiguration, gcpFirestoreConfigurationSchema } from "../configuration/schema.js";
 import { FirestoreLoader } from "../firestore/firestore-loader.js";
 import { firestoreLoaderRequestStorage } from "../firestore/firestore-request-storage.js";
 import { firestoreProvider } from "../firestore/firestore-provider.js";
@@ -23,18 +23,18 @@ export const repositoryItemSchema = z.object({
 
 export type RepositoryItem = z.infer<typeof repositoryItemSchema>;
 
-export const initTestConfig = async (config: Record<string, unknown> = {}): Promise<GaeJsFirestoreConfiguration> => {
+export const initTestConfig = async (config: Record<string, unknown> = {}): Promise<GcpFirestoreConfiguration> => {
   await configurationProvider.init({
-    validator: zodValidator(gaeJsFirestoreConfigurationSchema),
+    validator: zodValidator(gcpFirestoreConfigurationSchema),
     projectId: "firestore-tests",
     overrides: config,
   });
-  return configurationProvider.get<GaeJsFirestoreConfiguration>();
+  return configurationProvider.get<GcpFirestoreConfiguration>();
 };
 
 export const initEmulatorConfig = async (
-  config?: Partial<GaeJsFirestoreConfiguration>
-): Promise<GaeJsFirestoreConfiguration> => {
+  config?: Partial<GcpFirestoreConfiguration>,
+): Promise<GcpFirestoreConfiguration> => {
   return initTestConfig({
     firestoreProjectId: "firestore-tests",
     firestoreHost: "0.0.0.0",

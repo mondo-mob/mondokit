@@ -1,14 +1,14 @@
 import { Firestore, Settings, v1 as firestoreV1 } from "@google-cloud/firestore";
 import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client.js";
 import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
-import { GaeJsFirestoreConfiguration } from "../configuration/schema.js";
+import { GcpFirestoreConfiguration } from "../configuration/schema.js";
 
 export interface FirestoreConnectOptions {
-  configuration?: GaeJsFirestoreConfiguration;
+  configuration?: GcpFirestoreConfiguration;
   firestoreSettings?: Settings;
 }
 
-const getProjectId = (config: GaeJsFirestoreConfiguration): string | undefined =>
+const getProjectId = (config: GcpFirestoreConfiguration): string | undefined =>
   runningOnGcp()
     ? // On GCP if you do not specify a firestoreProjectId the client will auto connect to the hosting project
       config.firestoreProjectId || undefined
@@ -20,7 +20,7 @@ const getProjectId = (config: GaeJsFirestoreConfiguration): string | undefined =
  */
 export const connectFirestore = (options?: FirestoreConnectOptions): Firestore => {
   const logger = createLogger("connectFirestore");
-  const config = options?.configuration || configurationProvider.get<GaeJsFirestoreConfiguration>();
+  const config = options?.configuration || configurationProvider.get<GcpFirestoreConfiguration>();
 
   // If firestoreHost specified then assume connecting to an emulator
   if (config.firestoreHost) {
@@ -50,7 +50,7 @@ export const connectFirestore = (options?: FirestoreConnectOptions): Firestore =
 type AdminClientOptions = ConstructorParameters<typeof firestoreV1.FirestoreAdminClient>[0];
 
 export interface FirestoreAdminConnectOptions {
-  configuration?: GaeJsFirestoreConfiguration;
+  configuration?: GcpFirestoreConfiguration;
   clientOptions?: AdminClientOptions;
 }
 
@@ -60,7 +60,7 @@ export interface FirestoreAdminConnectOptions {
  */
 export const connectFirestoreAdmin = (options?: FirestoreAdminConnectOptions): FirestoreAdminClient => {
   const logger = createLogger("connectFirestoreAdmin");
-  const config = options?.configuration || configurationProvider.get<GaeJsFirestoreConfiguration>();
+  const config = options?.configuration || configurationProvider.get<GcpFirestoreConfiguration>();
 
   const clientOptions: AdminClientOptions = {
     projectId: getProjectId(config),

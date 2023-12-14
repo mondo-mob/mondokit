@@ -1,13 +1,13 @@
 import { Datastore, DatastoreAdminClient, DatastoreOptions } from "@google-cloud/datastore";
 import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
-import { GaeJsDatastoreConfiguration } from "../configuration/index.js";
+import { GcpDatastoreConfiguration } from "../configuration/index.js";
 
 export interface DatastoreConnectOptions {
-  configuration?: GaeJsDatastoreConfiguration;
+  configuration?: GcpDatastoreConfiguration;
   datastoreOptions?: DatastoreOptions;
 }
 
-const getProjectId = (config: GaeJsDatastoreConfiguration): string | undefined =>
+const getProjectId = (config: GcpDatastoreConfiguration): string | undefined =>
   runningOnGcp()
     ? // On GCP if you do not specify a datastoreProjectId the client will auto connect to the hosting project
       config.datastoreProjectId || undefined
@@ -19,7 +19,7 @@ const getProjectId = (config: GaeJsDatastoreConfiguration): string | undefined =
  */
 export const connectDatastore = (options?: DatastoreConnectOptions): Datastore => {
   const logger = createLogger("connectDatastore");
-  const config = options?.configuration || configurationProvider.get<GaeJsDatastoreConfiguration>();
+  const config = options?.configuration || configurationProvider.get<GcpDatastoreConfiguration>();
 
   // If datastoreApiEndpoint specified then assume connecting to an emulator
   if (config.datastoreApiEndpoint) {
@@ -47,7 +47,7 @@ export const connectDatastore = (options?: DatastoreConnectOptions): Datastore =
 type AdminClientOptions = ConstructorParameters<typeof DatastoreAdminClient>[0];
 
 export interface DatastoreAdminConnectOptions {
-  configuration?: GaeJsDatastoreConfiguration;
+  configuration?: GcpDatastoreConfiguration;
   clientOptions?: AdminClientOptions;
 }
 
@@ -56,7 +56,7 @@ export interface DatastoreAdminConnectOptions {
  */
 export const connectDatastoreAdmin = (options?: DatastoreAdminConnectOptions): DatastoreAdminClient => {
   const logger = createLogger("connectDatastoreAdmin");
-  const config = options?.configuration || configurationProvider.get<GaeJsDatastoreConfiguration>();
+  const config = options?.configuration || configurationProvider.get<GcpDatastoreConfiguration>();
 
   const clientOptions: AdminClientOptions = {
     projectId: getProjectId(config),

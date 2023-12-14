@@ -7,7 +7,7 @@ import { verifyCron } from "./verify-cron.js";
  * b) Extends the nodejs request timeout to 10 minutes
  *
  * @example Apply to all /crons endpoints
- * app.use("/crons", gaeJsCron);
+ * app.use("/crons", appEngineCron);
  * app.post("/crons/poll-status", (req, res) => {...});
  */
-export const gaeJsCron = [verifyCron, requestTimeoutMinutes(10)];
+export const appEngineCron = [verifyCron, requestTimeoutMinutes(10)];

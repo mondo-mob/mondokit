@@ -1,15 +1,15 @@
 import { BigQuery, BigQueryOptions } from "@google-cloud/bigquery";
 import { configurationProvider, createLogger } from "@mondokit/gcp-core";
-import { GaeJsBigQueryConfiguration } from "../configuration/index.js";
+import { GcpBigQueryConfiguration } from "../configuration/index.js";
 
 export interface BigQueryConnectOptions {
-  configuration?: GaeJsBigQueryConfiguration;
+  configuration?: GcpBigQueryConfiguration;
   bigQueryOptions?: BigQueryOptions;
 }
 
 export const connectBigQuery = (options?: BigQueryConnectOptions): BigQuery => {
   const logger = createLogger("connectBigQuery");
-  const configuration = options?.configuration || configurationProvider.get<GaeJsBigQueryConfiguration>();
+  const configuration = options?.configuration || configurationProvider.get<GcpBigQueryConfiguration>();
 
   logger.info("Initialising BigQuery");
   const bigQueryOptions: BigQueryOptions = {

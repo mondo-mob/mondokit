@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { ENV_VAR_CONFIG_OVERRIDES, zodValidator } from "@mondokit/core";
 import { ConfigurationProvider } from "./configuration-provider.js";
-import { gaeJsCoreConfigurationSchema } from "./schema.js";
+import { gcpCoreConfigurationSchema } from "./schema.js";
 import { ENV_VAR_PROJECT } from "./variables.js";
 
-const testConfigSchema = gaeJsCoreConfigurationSchema.extend({
+const testConfigSchema = gcpCoreConfigurationSchema.extend({
   appName: z.string(),
 });
 type TestConfig = z.infer<typeof testConfigSchema>;
@@ -13,7 +13,7 @@ const validator = zodValidator(testConfigSchema);
 
 describe("ConfigurationProvider", () => {
   beforeEach(() => {
-    process.env[ENV_VAR_PROJECT] = "gaejs-tests";
+    process.env[ENV_VAR_PROJECT] = "gcp-core-tests";
     process.env[ENV_VAR_CONFIG_OVERRIDES] = JSON.stringify({
       host: "localhost",
       location: "local",
@@ -45,7 +45,7 @@ describe("ConfigurationProvider", () => {
 
     expect(provider.hasValue()).toBe(true);
     expect(provider.get()).toBeTruthy();
-    expect(provider.get().projectId).toBe("gaejs-tests");
+    expect(provider.get().projectId).toBe("gcp-core-tests");
     expect(provider.get().appName).toBe("Test app");
   });
 
@@ -55,7 +55,7 @@ describe("ConfigurationProvider", () => {
 
     expect(provider.hasValue()).toBe(true);
     expect(provider.get()).toBeTruthy();
-    expect(provider.get().projectId).toBe("gaejs-tests");
+    expect(provider.get().projectId).toBe("gcp-core-tests");
     expect(provider.get<TestConfig>().appName).toBe("Test app");
   });
 });

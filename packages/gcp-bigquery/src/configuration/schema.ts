@@ -1,7 +1,7 @@
-import { gaeJsCoreConfigurationSchema } from "@mondokit/gcp-core";
+import { gcpCoreConfigurationSchema } from "@mondokit/gcp-core";
 import { z } from "zod";
 
-export const gaeJsBigQueryConfigurationSchema = gaeJsCoreConfigurationSchema.extend({
+export const gcpBigQueryConfigurationSchema = gcpCoreConfigurationSchema.extend({
   bigQuery: z
     .object({
       projectId: z.string().optional(),
@@ -9,4 +9,4 @@ export const gaeJsBigQueryConfigurationSchema = gaeJsCoreConfigurationSchema.ext
     .optional(),
 });
 
-export type GaeJsBigQueryConfiguration = z.infer<typeof gaeJsBigQueryConfigurationSchema>;
+export type GcpBigQueryConfiguration = z.infer<typeof gcpBigQueryConfigurationSchema>;

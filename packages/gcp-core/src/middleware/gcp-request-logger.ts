@@ -22,7 +22,7 @@ const createMiddleware = (): Promise<Handler> => {
 
 const mwPromise = createMiddleware();
 
-export const gaeRequestLogger: Handler = async (req, res, next) => {
+export const gcpRequestLogger: Handler = async (req, res, next) => {
   const middleware = await mwPromise;
   middleware(req, res, next);
 };

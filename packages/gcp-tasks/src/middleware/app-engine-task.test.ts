@@ -1,15 +1,15 @@
 import express from "express";
 import request from "supertest";
-import { gaeJsTask } from "./gae-js-task.js";
+import { appEngineTask } from "./app-engine-task.js";
 
 const initApp = () => {
   const app = express();
-  app.use("/tasks", gaeJsTask);
+  app.use("/tasks", appEngineTask);
   app.get("/tasks/task1", (req, res) => res.json({ timeout: (req as any).socket.timeout }));
   return app;
 };
 
-describe("gaeJsTask", () => {
+describe("appEngineTask", () => {
   const app = initApp();
 
   it("allows request with x-appengine-taskname and sets timeout to 10 mins", async () => {

@@ -2,12 +2,12 @@ import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { z } from "zod";
 import { ConfigValidator, ENV_VAR_CONFIG_OVERRIDES, zodValidator } from "@mondokit/core";
 import { withEnvVars } from "../__test/test-utils.js";
-import { gaeJsCoreConfigurationSchema } from "./schema.js";
+import { gcpCoreConfigurationSchema } from "./schema.js";
 import { ConfigurationOptions, initialiseConfiguration } from "./configuration.js";
 import { ENV_VAR_CONFIG_ENV, ENV_VAR_PROJECT } from "./variables.js";
 import { MockInstance } from "@vitest/spy";
 
-const configSchema = gaeJsCoreConfigurationSchema.extend({
+const configSchema = gcpCoreConfigurationSchema.extend({
   customString: z.string(),
 });
 
@@ -212,7 +212,7 @@ describe("configuration", () => {
       // Raw value SECRET(MY_SECRET) doesn't pass this validation
       // We only want validation to run after secret has been resolved
       const secretLengthValidator = zodValidator(
-        gaeJsCoreConfigurationSchema.extend({
+        gcpCoreConfigurationSchema.extend({
           customString: z.string().min(20),
         }),
       );

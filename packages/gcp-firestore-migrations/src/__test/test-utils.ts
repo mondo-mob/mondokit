@@ -1,11 +1,16 @@
 import { CollectionReference, Firestore, Settings } from "@google-cloud/firestore";
 import { configurationProvider, runWithRequestStorage, zodValidator } from "@mondokit/gcp-core";
-import { FirestoreLoader, firestoreLoaderRequestStorage, firestoreProvider, GaeJsFirestoreConfiguration, gaeJsFirestoreConfigurationSchema } from "@mondokit/gcp-firestore";
-
+import {
+  FirestoreLoader,
+  firestoreLoaderRequestStorage,
+  firestoreProvider,
+  GcpFirestoreConfiguration,
+  gcpFirestoreConfigurationSchema,
+} from "@mondokit/gcp-firestore";
 
 export const initTestConfig = async (
-  config?: Partial<GaeJsFirestoreConfiguration>
-): Promise<GaeJsFirestoreConfiguration> => {
+  config?: Partial<GcpFirestoreConfiguration>,
+): Promise<GcpFirestoreConfiguration> => {
   process.env.GAEJS_PROJECT = "migration-tests";
   process.env.GAEJS_CONFIG_OVERRIDES = JSON.stringify({
     firestoreProjectId: "firestore-tests",
@@ -14,9 +19,9 @@ export const initTestConfig = async (
     ...config,
   });
   await configurationProvider.init({
-    validator: zodValidator<GaeJsFirestoreConfiguration>(gaeJsFirestoreConfigurationSchema),
+    validator: zodValidator<GcpFirestoreConfiguration>(gcpFirestoreConfigurationSchema),
   });
-  return configurationProvider.get<GaeJsFirestoreConfiguration>();
+  return configurationProvider.get<GcpFirestoreConfiguration>();
 };
 
 export const connectFirestore = (settings?: Settings): Firestore => {

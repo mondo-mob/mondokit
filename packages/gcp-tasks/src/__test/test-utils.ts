@@ -1,19 +1,19 @@
 import {
   configurationProvider,
-  GaeJsCoreConfiguration,
-  gaeJsCoreConfigurationSchema,
+  GcpCoreConfiguration,
+  gcpCoreConfigurationSchema,
   zodValidator,
 } from "@mondokit/gcp-core";
 
-export const initTestConfig = async (config?: Partial<GaeJsCoreConfiguration>): Promise<GaeJsCoreConfiguration> => {
+export const initTestConfig = async (config?: Partial<GcpCoreConfiguration>): Promise<GcpCoreConfiguration> => {
   process.env.GAEJS_PROJECT = "tasks-tests";
   process.env.GAEJS_CONFIG_OVERRIDES = JSON.stringify({
     host: "http://127.0.0.1",
     location: "local",
     ...config,
   });
-  await configurationProvider.init({ validator: zodValidator<GaeJsCoreConfiguration>(gaeJsCoreConfigurationSchema) });
-  return configurationProvider.get<GaeJsCoreConfiguration>();
+  await configurationProvider.init({ validator: zodValidator<GcpCoreConfiguration>(gcpCoreConfigurationSchema) });
+  return configurationProvider.get<GcpCoreConfiguration>();
 };
 
 /**

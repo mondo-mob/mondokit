@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { configurationProvider } from "@mondokit/gcp-core";
-import { gaeJsBigQueryConfigurationSchema } from "@mondokit/gcp-bigquery";
-import { gaeJsStorageConfigurationSchema } from "@mondokit/gcp-storage";
+import { gcpBigQueryConfigurationSchema } from "@mondokit/gcp-bigquery";
+import { gcpStorageConfigurationSchema } from "@mondokit/gcp-storage";
 
-const libraryConfig = gaeJsBigQueryConfigurationSchema.merge(gaeJsStorageConfigurationSchema);
+const libraryConfig = gcpBigQueryConfigurationSchema.merge(gcpStorageConfigurationSchema);
 
 export const coreBackupConfigSchema = libraryConfig.extend({
   datastoreBackup: z

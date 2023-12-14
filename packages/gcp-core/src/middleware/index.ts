@@ -1,2 +1,2 @@
-export { gaeJsApp } from "./gae-js-app.js";
-export { gaeRequestLogger } from "./gae-request-logger.js";
+export { gcpApp } from "./gcp-app.js";
+export { gcpRequestLogger } from "./gcp-request-logger.js";

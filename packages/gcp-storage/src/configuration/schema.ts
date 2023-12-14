@@ -1,7 +1,7 @@
-import { gaeJsCoreConfigurationSchema } from "@mondokit/gcp-core";
+import { gcpCoreConfigurationSchema } from "@mondokit/gcp-core";
 import { z } from "zod";
 
-export const gaeJsStorageConfigurationSchema = gaeJsCoreConfigurationSchema.extend({
+export const gcpStorageConfigurationSchema = gcpCoreConfigurationSchema.extend({
   storage: z
     .object({
       /**
@@ -29,4 +29,4 @@ export const gaeJsStorageConfigurationSchema = gaeJsCoreConfigurationSchema.exte
     .optional(),
 });
 
-export type GaeJsStorageConfiguration = z.infer<typeof gaeJsStorageConfigurationSchema>;
+export type GcpStorageConfiguration = z.infer<typeof gcpStorageConfigurationSchema>;

@@ -1,4 +1,4 @@
-import { GaeJsStorageConfiguration } from "../configuration/index.js";
+import { GcpStorageConfiguration } from "../configuration/index.js";
 import { initTestConfig } from "./test-utils.js";
 import { storageProvider } from "../storage/index.js";
 
@@ -17,7 +17,7 @@ export const emptyBuckets = async (bucketNames: string[]): Promise<void> => {
 };
 
 export interface StorageTestOptions {
-  config?: Partial<GaeJsStorageConfiguration>;
+  config?: Partial<GcpStorageConfiguration>;
   clearBuckets?: string[];
   clearBefore?: boolean;
   clearAfter?: boolean;

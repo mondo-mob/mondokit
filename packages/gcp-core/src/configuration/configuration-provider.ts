@@ -1,8 +1,8 @@
 import { Provider } from "@mondokit/core";
-import { GaeJsCoreConfiguration } from "./schema.js";
+import { GcpCoreConfiguration } from "./schema.js";
 import { ConfigurationOptions, initialiseConfiguration } from "./configuration.js";
 
-export class ConfigurationProvider<T extends GaeJsCoreConfiguration = any> extends Provider<T> {
+export class ConfigurationProvider<T extends GcpCoreConfiguration = any> extends Provider<T> {
   get<K extends T>(): K {
     return super.get() as K;
   }

@@ -1,11 +1,9 @@
 import { Storage, StorageOptions } from "@google-cloud/storage";
-import { configurationProvider, gaeJsCoreConfigurationSchema, zodValidator } from "@mondokit/gcp-core";
-import { GaeJsStorageConfiguration, gaeJsStorageConfigurationSchema } from "../configuration/index.js";
+import { configurationProvider, gcpCoreConfigurationSchema, zodValidator } from "@mondokit/gcp-core";
+import { GcpStorageConfiguration, gcpStorageConfigurationSchema } from "../configuration/index.js";
 
-export const initTestConfig = async (
-  config?: Partial<GaeJsStorageConfiguration>
-): Promise<GaeJsStorageConfiguration> => {
-  const schema = gaeJsCoreConfigurationSchema.merge(gaeJsStorageConfigurationSchema);
+export const initTestConfig = async (config?: Partial<GcpStorageConfiguration>): Promise<GcpStorageConfiguration> => {
+  const schema = gcpCoreConfigurationSchema.merge(gcpStorageConfigurationSchema);
   process.env.GAEJS_PROJECT = "storage-tests";
   process.env.GAEJS_CONFIG_OVERRIDES = JSON.stringify({
     storage: {
@@ -13,8 +11,8 @@ export const initTestConfig = async (
     },
     ...config,
   });
-  await configurationProvider.init({ validator: zodValidator<GaeJsStorageConfiguration>(schema) });
-  return configurationProvider.get<GaeJsStorageConfiguration>();
+  await configurationProvider.init({ validator: zodValidator<GcpStorageConfiguration>(schema) });
+  return configurationProvider.get<GcpStorageConfiguration>();
 };
 
 export const connectEmulatorStorage = (settings?: StorageOptions): Storage => {

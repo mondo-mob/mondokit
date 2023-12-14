@@ -1,15 +1,15 @@
 import { Storage, StorageOptions } from "@google-cloud/storage";
 import { configurationProvider, createLogger } from "@mondokit/gcp-core";
-import { GaeJsStorageConfiguration } from "../configuration/index.js";
+import { GcpStorageConfiguration } from "../configuration/index.js";
 
 export interface StorageConnectOptions {
-  configuration?: GaeJsStorageConfiguration;
+  configuration?: GcpStorageConfiguration;
   storageOptions?: StorageOptions;
 }
 
 export const connectStorage = (options?: StorageConnectOptions): Storage => {
   const logger = createLogger("connectStorage");
-  const { storage: configuration } = options?.configuration || configurationProvider.get<GaeJsStorageConfiguration>();
+  const { storage: configuration } = options?.configuration || configurationProvider.get<GcpStorageConfiguration>();
 
   logger.info("Initialising Storage");
   const storageSettings: StorageOptions = {

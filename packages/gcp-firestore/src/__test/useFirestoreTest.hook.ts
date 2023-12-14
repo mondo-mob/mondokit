@@ -1,10 +1,10 @@
-import { GaeJsFirestoreConfiguration } from "../configuration/schema.js";
+import { GcpFirestoreConfiguration } from "../configuration/schema.js";
 import { deleteCollections, initEmulatorConfig } from "./test-utils.js";
 import { firestoreProvider } from "../firestore/firestore-provider.js";
 import { connectFirestore } from "../firestore/connect.js";
 
 export interface FirestoreTestOptions {
-  config?: Partial<GaeJsFirestoreConfiguration>;
+  config?: Partial<GcpFirestoreConfiguration>;
   clearCollections?: string[];
   clearBefore?: boolean;
   clearAfter?: boolean;

@@ -1,12 +1,12 @@
 import _, { isString } from "lodash";
 import { createLogger, ConfigValidator, loadConfiguration as initBaseConfig } from "@mondokit/core";
-import { GaeJsCoreConfiguration } from "./schema.js";
+import { GcpCoreConfiguration } from "./schema.js";
 import { SecretsResolver } from "./secrets/secrets.resolver.js";
 import { ENV_VAR_CONFIG_ENV, ENV_VAR_PROJECT } from "./variables.js";
 
 export type EnvironmentStrategy = (projectId?: string) => string | undefined;
 
-export interface ConfigurationOptions<T extends GaeJsCoreConfiguration> {
+export interface ConfigurationOptions<T extends GcpCoreConfiguration> {
   validator: ConfigValidator<T>;
   configDir?: string;
   projectId?: string;
@@ -71,7 +71,7 @@ const resolveSecrets = async (config: Record<string, unknown>): Promise<Record<s
   return configWithSecrets;
 };
 
-export const initialiseConfiguration = async <T extends GaeJsCoreConfiguration>(
+export const initialiseConfiguration = async <T extends GcpCoreConfiguration>(
   options: ConfigurationOptions<T>,
 ): Promise<T> => {
   const { configDir, environment, overrides, projectId, validator } = options;

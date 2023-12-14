@@ -1,15 +1,15 @@
 import express from "express";
 import request from "supertest";
-import { gaeJsCron } from "./gae-js-cron.js";
+import { appEngineCron } from "./app-engine-cron.js";
 
 const initApp = () => {
   const app = express();
-  app.use("/crons", gaeJsCron);
+  app.use("/crons", appEngineCron);
   app.get("/crons/cron1", (req, res) => res.json({ timeout: (req as any).socket.timeout }));
   return app;
 };
 
-describe("gaeJsCron", () => {
+describe("appEngineCron", () => {
   const app = initApp();
 
   it("allows request with x-appengine-cron and sets timeout to 10 mins", async () => {

@@ -1,6 +1,6 @@
 import { Datastore, DatastoreOptions } from "@google-cloud/datastore";
 import { configurationProvider, zodValidator } from "@mondokit/gcp-core";
-import { GaeJsDatastoreConfiguration, gaeJsDatastoreConfigurationSchema } from "../configuration/index.js";
+import { GcpDatastoreConfiguration, gcpDatastoreConfigurationSchema } from "../configuration/index.js";
 
 // NOTE: This will only work for code that does not inspect the process on initialisation
 export const withEnvVars = (vars: Record<string, string | undefined>, testFn: () => Promise<unknown>) => {
@@ -21,18 +21,18 @@ export interface RepositoryItem {
   name: string;
 }
 
-export const initTestConfig = async (config: Record<string, unknown> = {}): Promise<GaeJsDatastoreConfiguration> => {
+export const initTestConfig = async (config: Record<string, unknown> = {}): Promise<GcpDatastoreConfiguration> => {
   await configurationProvider.init({
-    validator: zodValidator(gaeJsDatastoreConfigurationSchema),
+    validator: zodValidator(gcpDatastoreConfigurationSchema),
     projectId: "datastore-tests",
     overrides: config,
   });
-  return configurationProvider.get<GaeJsDatastoreConfiguration>();
+  return configurationProvider.get<GcpDatastoreConfiguration>();
 };
 
 export const initEmulatorConfig = async (
-  config?: Partial<GaeJsDatastoreConfiguration>
-): Promise<GaeJsDatastoreConfiguration> => {
+  config?: Partial<GcpDatastoreConfiguration>,
+): Promise<GcpDatastoreConfiguration> => {
   return initTestConfig({
     datastoreProjectId: "datastore-tests",
     datastoreApiEndpoint: "localhost:8081",
