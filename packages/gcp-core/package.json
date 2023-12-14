@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-core",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -30,6 +30,6 @@
     "@mondokit/core": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "@mondokit/core": "^1.0.0-alpha.1"
+    "@mondokit/core": "^1.0.0-alpha.2"
   }
 }

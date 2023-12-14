@@ -1,5 +1,12 @@
 # @mondokit/gcp-firestore
 
+## 1.0.0-alpha.7
+
+### Patch Changes
+
+- Updated dependencies [cdc36ec]
+  - @mondokit/gcp-core@1.0.0-alpha.5
+
 ## 1.0.0-alpha.6
 
 ### Patch Changes

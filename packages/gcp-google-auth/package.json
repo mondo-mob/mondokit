@@ -27,7 +27,7 @@
     "google-auth-library": "^9.4.0"
   },
   "devDependencies": {
-    "@mondokit/gcp-core": "1.0.0-alpha.4",
+    "@mondokit/gcp-core": "1.0.0-alpha.5",
     "google-auth-library": "^9.4.1"
   }
 }
