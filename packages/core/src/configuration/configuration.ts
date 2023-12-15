@@ -1,9 +1,9 @@
 import FileSystem from "fs";
-import { merge } from "lodash";
+import { merge } from "lodash-es";
 import Path from "path";
 import { createLogger } from "../logging/logging.js";
-import { ENV_VAR_CONFIG_DIR, ENV_VAR_CONFIG_OVERRIDES } from "./variables.js";
 import { DataValidator } from "../util/data.js";
+import { ENV_VAR_CONFIG_DIR, ENV_VAR_CONFIG_OVERRIDES } from "./variables.js";
 
 export type ConfigValidator<T> = DataValidator<T>;
 

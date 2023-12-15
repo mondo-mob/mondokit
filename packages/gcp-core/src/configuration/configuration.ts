@@ -1,5 +1,5 @@
-import _, { isString } from "lodash";
-import { createLogger, ConfigValidator, loadConfiguration as initBaseConfig } from "@mondokit/core";
+import { ConfigValidator, createLogger, loadConfiguration as initBaseConfig } from "@mondokit/core";
+import { isString, last } from "lodash-es";
 import { GcpCoreConfiguration } from "./schema.js";
 import { SecretsResolver } from "./secrets/secrets.resolver.js";
 import { ENV_VAR_CONFIG_ENV, ENV_VAR_PROJECT } from "./variables.js";
@@ -24,7 +24,7 @@ export const getProjectId = (optionsProjectId?: string): string | undefined => {
 
 const projectSuffixEnvironment: EnvironmentStrategy = (projectId?: string) => {
   if (!projectId) return undefined;
-  return _.last(projectId.split("-"));
+  return last(projectId.split("-"));
 };
 
 const getEnvironment = (
