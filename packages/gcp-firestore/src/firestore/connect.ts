@@ -1,4 +1,4 @@
-import { Firestore, Settings, v1 as firestoreV1 } from "@google-cloud/firestore";
+import { Firestore, Settings } from "@google-cloud/firestore";
 import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client.js";
 import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
 import { GcpFirestoreConfiguration } from "../configuration/schema.js";
@@ -47,7 +47,7 @@ export const connectFirestore = (options?: FirestoreConnectOptions): Firestore =
 
 // The proper typings from google-gax can be flaky depending on which version gets resolved
 // It's safer to extract the types from client sdk
-type AdminClientOptions = ConstructorParameters<typeof firestoreV1.FirestoreAdminClient>[0];
+type AdminClientOptions = ConstructorParameters<typeof FirestoreAdminClient>[0];
 
 export interface FirestoreAdminConnectOptions {
   configuration?: GcpFirestoreConfiguration;
@@ -67,5 +67,5 @@ export const connectFirestoreAdmin = (options?: FirestoreAdminConnectOptions): F
     ...options?.clientOptions,
   };
   logger.info(`Connecting Firestore Admin Client for project ${clientOptions.projectId || "(default)"}`);
-  return new firestoreV1.FirestoreAdminClient(clientOptions);
+  return new FirestoreAdminClient(clientOptions);
 };
