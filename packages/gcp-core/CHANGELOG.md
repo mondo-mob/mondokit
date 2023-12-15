@@ -1,5 +1,11 @@
 # @mondokit/gcp-core
 
+## 1.0.0-alpha.8
+
+### Patch Changes
+
+- af37cd5: Set new minimum version of core for gcp-core
+
 ## 1.0.0-alpha.7
 
 ### Patch Changes

@@ -16,6 +16,7 @@
     "@mondokit/core": "1.0.0-alpha.1"
   },
   "changesets": [
+    "breezy-moles-compare",
     "cyan-papayas-greet",
     "friendly-trains-fetch",
     "funny-oranges-dream",
