@@ -1,5 +1,11 @@
 # @mondokit/gcp-firestore-backups
 
+## 1.0.0-alpha.7
+
+### Patch Changes
+
+- 2776acf: Fix internal circular dependencies
+
 ## 1.0.0-alpha.6
 
 ### Patch Changes
