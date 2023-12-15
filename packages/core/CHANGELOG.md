@@ -1,5 +1,11 @@
 # @mondokit/core
 
+## 1.0.0-alpha.5
+
+### Patch Changes
+
+- e381ed2: Fix leftover imports from "lodash" instead of "lodash-es"
+
 ## 1.0.0-alpha.4
 
 ### Patch Changes

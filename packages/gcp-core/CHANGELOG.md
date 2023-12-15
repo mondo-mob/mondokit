@@ -1,5 +1,11 @@
 # @mondokit/gcp-core
 
+## 1.0.0-alpha.7
+
+### Patch Changes
+
+- e381ed2: Fix leftover imports from "lodash" instead of "lodash-es"
+
 ## 1.0.0-alpha.6
 
 ### Patch Changes
