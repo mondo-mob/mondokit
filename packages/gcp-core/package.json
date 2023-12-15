@@ -27,9 +27,9 @@
     "@google-cloud/secret-manager": "^5.0.1"
   },
   "peerDependencies": {
-    "@mondokit/core": "^1.0.0-alpha.1"
+    "@mondokit/core": "^1.0.0-alpha.6"
   },
   "devDependencies": {
-    "@mondokit/core": "^1.0.0-alpha.5"
+    "@mondokit/core": "^1.0.0-alpha.6"
   }
 }
