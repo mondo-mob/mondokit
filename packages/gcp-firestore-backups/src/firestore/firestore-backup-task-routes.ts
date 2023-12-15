@@ -1,11 +1,10 @@
-import { Router } from "express";
 import { asyncHandler, createLogger } from "@mondokit/gcp-core";
+import { Router } from "express";
 import { bigQueryFirestoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery/index.js";
+import { validateRequest } from "../util/types.js";
 import { firestoreExportCheckRequestSchema } from "./firestore-export-check-request.js";
 import { firestoreExportServiceProvider } from "./firestore-export.service.js";
-import { validateRequest } from "../util/types.js";
-
-export const TASK_FIRESTORE_EXPORT_CHECK = "/backups/firestore-export-check";
+import { TASK_FIRESTORE_EXPORT_CHECK } from "./route-paths.js";
 
 export const firestoreBackupTaskRoutes = (router = Router()): Router => {
   const logger = createLogger("firestoreBackupTaskRoutes");
@@ -27,7 +26,7 @@ export const firestoreBackupTaskRoutes = (router = Router()): Router => {
         return res.send("Firestore export complete. BigQuery load queued...");
       }
       return res.send("Firestore export complete");
-    })
+    }),
   );
 
   bigQueryImportTaskRoutes(router);

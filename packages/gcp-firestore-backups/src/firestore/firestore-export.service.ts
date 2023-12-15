@@ -7,9 +7,9 @@ import { nanoid } from "nanoid";
 import { BackupOperation, backupTaskServiceProvider } from "../backups/index.js";
 import { getFirestoreBackupConfiguration } from "../configuration/index.js";
 import { backupOperationsRepository } from "./backup-operations.repository.js";
-import { TASK_FIRESTORE_EXPORT_CHECK } from "./firestore-backup-task-routes.js";
 import { FirestoreExportCheckRequest } from "./firestore-export-check-request.js";
 import { FirestoreExportRequest } from "./firestore-export-request.js";
+import { TASK_FIRESTORE_EXPORT_CHECK } from "./route-paths.js";
 import { mergeExportOperation } from "./util.js";
 
 const UPDATE_STATUS_DELAY_SECONDS = 60;
@@ -46,7 +46,7 @@ export class FirestoreExportService {
 
     this.logger.info(
       { databaseName, collectionIds, outputBucket },
-      `Starting firestore export: ${options.type} - ${name}`
+      `Starting firestore export: ${options.type} - ${name}`,
     );
     const [operation] = await this.adminClient.exportDocuments({
       name: databaseName,
@@ -68,7 +68,7 @@ export class FirestoreExportService {
         done: operation.done,
         metadata: operation.metadata,
         error: operation.error,
-      }
+      },
     );
     await backupOperationsRepository.insert(backupOperation);
 

@@ -4,7 +4,8 @@ import { BigQueryImportService, connectBigQuery } from "@mondokit/gcp-bigquery";
 import { connectStorage } from "@mondokit/gcp-storage";
 import { BackupOperation, backupTaskServiceProvider } from "../backups/index.js";
 import { BigQueryLoadRequest } from "./bigquery-load-request.js";
-import { TASK_BIGQUERY_LOAD_KIND } from "./bigquery-load-task-routes.js";
+
+import { TASK_BIGQUERY_LOAD_KIND } from "./route-paths.js";
 
 class BigQueryDatastoreImportService {
   private readonly logger = createLogger(BigQueryDatastoreImportService.name);

@@ -1,10 +1,9 @@
-import { Router } from "express";
 import { asyncHandler } from "@mondokit/gcp-core";
-import { bigQueryFirestoreImportServiceProvider } from "./bigquery-firestore-import.service.js";
+import { Router } from "express";
 import { validateRequest } from "../util/types.js";
+import { bigQueryFirestoreImportServiceProvider } from "./bigquery-firestore-import.service.js";
 import { bigQueryLoadRequestSchema } from "./bigquery-load-request.js";
-
-export const TASK_BIGQUERY_LOAD_COLLECTION = "/backups/bigquery-load-collection";
+import { TASK_BIGQUERY_LOAD_COLLECTION } from "./route-paths.js";
 
 export const bigQueryImportTaskRoutes = (router = Router()): Router => {
   router.post(
@@ -15,7 +14,7 @@ export const bigQueryImportTaskRoutes = (router = Router()): Router => {
         .get()
         .importCollection(options.gcsObjectPath, options.targetDataset, options.targetTable);
       res.send(result);
-    })
+    }),
   );
 
   return router;

@@ -1,5 +1,5 @@
 import { Logger } from "@mondokit/gcp-core";
-import { MigrationOptions } from "./migration.js";
+import { MigrationOptions } from "./migration-options.js";
 
 export interface MigrateParams {
   /**

@@ -7,9 +7,9 @@ import { nanoid } from "nanoid";
 import { BackupOperation, backupTaskServiceProvider } from "../backups/index.js";
 import { getDatastoreBackupConfiguration } from "../configuration/index.js";
 import { backupOperationsRepository } from "./backup-operations.repository.js";
-import { TASK_DATASTORE_EXPORT_CHECK } from "./datastore-backup-task-routes.js";
 import { DatastoreExportCheckRequest } from "./datastore-export-check-request.js";
 import { DatastoreExportRequest } from "./datastore-export-request.js";
+import { TASK_DATASTORE_EXPORT_CHECK } from "./route-paths.js";
 import { mergeExportOperation } from "./util.js";
 
 const UPDATE_STATUS_DELAY_SECONDS = 60;
@@ -67,7 +67,7 @@ export class DatastoreExportService {
         done: operation.done,
         metadata: operation.metadata,
         error: operation.error,
-      }
+      },
     );
     await backupOperationsRepository.insert(backupOperation);
 

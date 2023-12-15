@@ -8,6 +8,7 @@ import {
 } from "@mondokit/gcp-firestore";
 import { merge } from "lodash-es";
 import { AutoMigration } from "./auto-migration.js";
+import { MigrationOptions } from "./migration-options.js";
 import { migrationResultsRepository } from "./migration-results.repository.js";
 import { mutexServiceProvider } from "./mutex.js";
 
@@ -75,7 +76,7 @@ export const runMigrations = async (migrations: AutoMigration[], options: Migrat
       const migrationsToRun = await getMigrationsToRun(migrations);
 
       logger.info(
-        `${migrationsToRun.length} migrations to run, ${migrations.length - migrationsToRun.length} skipped.`
+        `${migrationsToRun.length} migrations to run, ${migrations.length - migrationsToRun.length} skipped.`,
       );
       for (const migration of migrationsToRun) {
         await runMigration(migration, options);
@@ -83,7 +84,7 @@ export const runMigrations = async (migrations: AutoMigration[], options: Migrat
     },
     {
       onMutexUnavailable: () => logger.info(`Unable to obtain migration mutex '${MUTEX_ID}'. Skipping all migrations.`),
-    }
+    },
   );
 };
 
@@ -97,10 +98,3 @@ export const bootstrapMigrations =
       await runMigrations(migrations, options);
     });
   };
-
-export interface MigrationOptions {
-  /**
-   * If set to true, then timestamps will not be automatically set via TimestampedRepository instances.
-   */
-  disableTimestampUpdate?: boolean;
-}

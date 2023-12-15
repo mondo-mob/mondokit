@@ -1,11 +1,10 @@
-import { Router } from "express";
 import { asyncHandler, createLogger } from "@mondokit/gcp-core";
+import { Router } from "express";
 import { bigQueryDatastoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery/index.js";
+import { validateRequest } from "../util/types.js";
 import { datastoreExportCheckRequestSchema } from "./datastore-export-check-request.js";
 import { datastoreExportServiceProvider } from "./datastore-export.service.js";
-import { validateRequest } from "../util/types.js";
-
-export const TASK_DATASTORE_EXPORT_CHECK = "/backups/datastore-export-check";
+import { TASK_DATASTORE_EXPORT_CHECK } from "./route-paths.js";
 
 export const datastoreBackupTaskRoutes = (router = Router()): Router => {
   const logger = createLogger("datastoreBackupTaskRoutes");
@@ -27,7 +26,7 @@ export const datastoreBackupTaskRoutes = (router = Router()): Router => {
         return res.send("Datastore export complete. BigQuery load queued...");
       }
       return res.send("Datastore export complete");
-    })
+    }),
   );
 
   bigQueryImportTaskRoutes(router);
