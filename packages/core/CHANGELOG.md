@@ -1,5 +1,11 @@
 # @mondokit/core
 
+## 1.0.0-alpha.6
+
+### Patch Changes
+
+- Force version update to fix issue with last lib published with lodash import
+
 ## 1.0.0-alpha.5
 
 ### Patch Changes
