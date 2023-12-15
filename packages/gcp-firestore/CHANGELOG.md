@@ -1,5 +1,11 @@
 # @mondokit/gcp-firestore
 
+## 1.0.0-alpha.11
+
+### Patch Changes
+
+- 03b4e67: Try to resolve issue with invalid ESM import for firestore
+
 ## 1.0.0-alpha.10
 
 ### Patch Changes
