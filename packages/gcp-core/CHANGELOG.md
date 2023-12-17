@@ -1,5 +1,11 @@
 # @mondokit/gcp-core
 
+## 1.0.0-alpha.9
+
+### Patch Changes
+
+- 3f3b0aa: Rename gcpApp to mondokitGcpMiddleware and export initialiseConfiguration() function
+
 ## 1.0.0-alpha.8
 
 ### Patch Changes

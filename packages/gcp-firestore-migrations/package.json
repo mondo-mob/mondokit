@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "@google-cloud/firestore": "^7.1.0",
-    "@mondokit/gcp-core": "1.0.0-alpha.8",
-    "@mondokit/gcp-firestore": "1.0.0-alpha.12"
+    "@mondokit/gcp-core": "1.0.0-alpha.9",
+    "@mondokit/gcp-firestore": "1.0.0-alpha.13"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }
