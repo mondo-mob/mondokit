@@ -1,2 +1,2 @@
-export { gcpApp } from "./gcp-app.js";
+export { mondokitGcpMiddleware } from "./mondokit-gcp-middleware.js";
 export { gcpRequestLogger } from "./gcp-request-logger.js";

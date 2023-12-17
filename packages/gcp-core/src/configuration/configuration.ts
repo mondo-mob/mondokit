@@ -6,7 +6,7 @@ import { ENV_VAR_CONFIG_ENV, ENV_VAR_PROJECT } from "./variables.js";
 
 export type EnvironmentStrategy = (projectId?: string) => string | undefined;
 
-export interface ConfigurationOptions<T extends GcpCoreConfiguration> {
+export interface GcpConfigurationOptions<T extends GcpCoreConfiguration> {
   validator: ConfigValidator<T>;
   configDir?: string;
   projectId?: string;
@@ -72,7 +72,7 @@ const resolveSecrets = async (config: Record<string, unknown>): Promise<Record<s
 };
 
 export const initialiseConfiguration = async <T extends GcpCoreConfiguration>(
-  options: ConfigurationOptions<T>,
+  options: GcpConfigurationOptions<T>,
 ): Promise<T> => {
   const { configDir, environment, overrides, projectId, validator } = options;
 

@@ -1,4 +1,4 @@
 import { requestAsyncStorage } from "@mondokit/core";
 import { gcpRequestLogger } from "./gcp-request-logger.js";
 
-export const gcpApp = [gcpRequestLogger, requestAsyncStorage];
+export const mondokitGcpMiddleware = [gcpRequestLogger, requestAsyncStorage];

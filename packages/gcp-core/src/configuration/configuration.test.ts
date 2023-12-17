@@ -3,7 +3,7 @@ import { z } from "zod";
 import { ConfigValidator, ENV_VAR_CONFIG_OVERRIDES, zodValidator } from "@mondokit/core";
 import { withEnvVars } from "../__test/test-utils.js";
 import { gcpCoreConfigurationSchema } from "./schema.js";
-import { ConfigurationOptions, initialiseConfiguration } from "./configuration.js";
+import { GcpConfigurationOptions, initialiseConfiguration } from "./configuration.js";
 import { ENV_VAR_CONFIG_ENV, ENV_VAR_PROJECT } from "./variables.js";
 import { MockInstance } from "@vitest/spy";
 
@@ -15,13 +15,13 @@ type Config = z.infer<typeof configSchema>;
 
 const validator = zodValidator(configSchema);
 
-const withOptions = (overrides?: Partial<ConfigurationOptions<Config>>): ConfigurationOptions<Config> => ({
+const withOptions = (overrides?: Partial<GcpConfigurationOptions<Config>>): GcpConfigurationOptions<Config> => ({
   projectId: "gcp-core-test",
   validator,
   ...overrides,
 });
 
-const fromDir = (dir: string, overrides?: Partial<ConfigurationOptions<Config>>): ConfigurationOptions<Config> =>
+const fromDir = (dir: string, overrides?: Partial<GcpConfigurationOptions<Config>>): GcpConfigurationOptions<Config> =>
   withOptions({
     configDir: `${__dirname}/__test/${dir}`,
     ...overrides,
