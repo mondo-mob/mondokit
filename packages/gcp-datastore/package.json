@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-datastore",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -30,11 +30,11 @@
   },
   "peerDependencies": {
     "@google-cloud/datastore": ">=7.4.0",
-    "@mondokit/gcp-core": "^1.0.0-alpha.1"
+    "@mondokit/gcp-core": "^1.0.0"
   },
   "devDependencies": {
     "@google-cloud/datastore": "^8.3.0",
-    "@mondokit/gcp-core": "^1.0.0-alpha.6",
+    "@mondokit/gcp-core": "^1.0.0",
     "google-datastore-emulator": "^7.1.0"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"

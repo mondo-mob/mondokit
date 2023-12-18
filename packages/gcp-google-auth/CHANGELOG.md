@@ -1,19 +1,9 @@
 # @mondokit/gcp-google-auth
 
-## 1.0.0-alpha.3
+## 1.0.0
 
-### Patch Changes
+We are excited to announce the ESM-only library release of our cloud libraries, with a fun new name of [MondoKit](https://mondokit.dev/).
 
-- 9bb9f30: Fix npm vulnerabilities via npm audit fix
+Libraries migrated from [gae-js](https://github.com/mondo-mob/gae-js).
 
-## 1.0.0-alpha.2
-
-### Patch Changes
-
-- 0a52b54: Remove lurking lodash references and replace with lodash-es for ESM
-
-## 1.0.0-alpha.1
-
-### Patch Changes
-
-- Create a minor version for all libs with changeset
+See the [Migration Guide from GAE JS](https://mondokit.dev/migration-from-gae-js) for steps to migrate.

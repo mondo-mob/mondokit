@@ -1,32 +1,9 @@
 # @mondokit/gcp-datastore-backups
 
-## 1.0.0-alpha.5
+## 1.0.0
 
-### Patch Changes
+We are excited to announce the ESM-only library release of our cloud libraries, with a fun new name of [MondoKit](https://mondokit.dev/).
 
-- 2776acf: Fix internal circular dependencies
+Libraries migrated from [gae-js](https://github.com/mondo-mob/gae-js).
 
-## 1.0.0-alpha.4
-
-### Patch Changes
-
-- 25c0eaa: Replace gaejs in variable and file names
-
-## 1.0.0-alpha.3
-
-### Patch Changes
-
-- 9bb9f30: Fix npm vulnerabilities via npm audit fix
-
-## 1.0.0-alpha.2
-
-### Patch Changes
-
-- dd0d63e: Update internal google-cloud libs to latest
-- 6030743: Update all dependencies except for vitest
-
-## 1.0.0-alpha.1
-
-### Patch Changes
-
-- Create a minor version for all libs with changeset
+See the [Migration Guide from GAE JS](https://mondokit.dev/migration-from-gae-js) for steps to migrate.

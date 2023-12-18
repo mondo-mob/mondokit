@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-firestore-migrations",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -27,13 +27,13 @@
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
-    "@mondokit/gcp-core": "^1.0.0-alpha.1",
-    "@mondokit/gcp-firestore": "^1.0.0-alpha.2"
+    "@mondokit/gcp-core": "^1.0.0",
+    "@mondokit/gcp-firestore": "^1.0.0"
   },
   "devDependencies": {
     "@google-cloud/firestore": "^7.1.0",
-    "@mondokit/gcp-core": "1.0.0-alpha.9",
-    "@mondokit/gcp-firestore": "1.0.0-alpha.13"
+    "@mondokit/gcp-core": "1.0.0",
+    "@mondokit/gcp-firestore": "1.0.0"
   },
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }
