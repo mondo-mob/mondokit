@@ -35,5 +35,14 @@
     "@mondokit/gcp-core": "1.0.0",
     "@mondokit/gcp-firestore": "1.0.0"
   },
+  "keywords": [
+    "firestore",
+    "migrations",
+    "mutex",
+    "gcp",
+    "google-cloud",
+    "google cloud",
+    "database"
+  ],
   "gitHead": "087032afa8903aa576041cdfe4913fe8f115e919"
 }

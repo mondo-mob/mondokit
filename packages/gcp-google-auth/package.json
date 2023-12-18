@@ -29,5 +29,14 @@
   "devDependencies": {
     "@mondokit/gcp-core": "1.0.0",
     "google-auth-library": "^9.4.1"
-  }
+  },
+  "keywords": [
+    "google-auth",
+    "jwt",
+    "token",
+    "express",
+    "gcp",
+    "google-cloud",
+    "google cloud"
+  ]
 }

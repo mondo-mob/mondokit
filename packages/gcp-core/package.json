@@ -31,5 +31,13 @@
   },
   "devDependencies": {
     "@mondokit/core": "^1.0.0"
-  }
+  },
+  "keywords": [
+    "cloud",
+    "gcp",
+    "google-cloud",
+    "google cloud",
+    "utils",
+    "express"
+  ]
 }

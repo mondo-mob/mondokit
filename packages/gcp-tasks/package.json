@@ -35,5 +35,15 @@
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
-  }
+  },
+  "keywords": [
+    "tasks",
+    "cloud tasks",
+    "google cloud tasks",
+    "task queue",
+    "express",
+    "gcp",
+    "google-cloud",
+    "google cloud"
+  ]
 }
