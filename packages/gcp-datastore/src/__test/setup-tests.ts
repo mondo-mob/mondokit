@@ -1,4 +1,3 @@
-import "vitest/globals.d.ts";
 import "jest-extended";
 import nock from "nock";
 import matchers from "jest-extended";

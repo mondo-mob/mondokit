@@ -20,7 +20,10 @@ export interface RepositoryOptions<T extends IdEntity> extends AbstractRepositor
 }
 
 export class DatastoreRepository<T extends IdEntity> extends AbstractRepository<T> {
-  constructor(protected readonly kind: string, protected readonly options: RepositoryOptions<T> = {}) {
+  constructor(
+    protected readonly kind: string,
+    protected readonly options: RepositoryOptions<T> = {},
+  ) {
     super(kind, options);
   }
 
@@ -71,7 +74,6 @@ export class DatastoreRepository<T extends IdEntity> extends AbstractRepository<
 
   protected createEntity(datastoreEntity: DatastoreEntity): T {
     const key = datastoreEntity[Datastore.KEY];
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const id = key.name || parseInt(key.id!);
     const data = omit(datastoreEntity, Datastore.KEY);
     return { ...(this.options.defaultValues as any), ...data, id };

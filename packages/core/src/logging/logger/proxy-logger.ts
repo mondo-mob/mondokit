@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
 import { Logger } from "./logger.js";
 
 const isString = (param: any) => typeof param === "string";

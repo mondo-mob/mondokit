@@ -78,7 +78,7 @@ describe("verifyFirebaseUser", () => {
       expect(error).toBeInstanceOf(UnauthorisedError);
     });
 
-    it("rejects real but invalid token with unauthorised", async () => {
+    it("rejects real but expired token with unauthorised", async () => {
       const expired =
         "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJuYW1lIjoiIiwicGljdHVyZSI6IiIsInJvbGVzIjpbIlVTRVIiXSwiZW1haWwiOiJtYXJ0aW5AZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImF1dGhfdGltZSI6MTYxMzM4MDk2MiwidXNlcl9pZCI6Im92ZncxY2l0N1VVeGJoTzZlUVlmZFRPVW1id0kiLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbIm1hcnRpbkBleGFtcGxlLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn0sImlhdCI6MTYxMzM4MDk2MiwiZXhwIjoxNjEzMzg0NTYyLCJhdWQiOiJnYWUtanMtaW1wbC1sb2NhbCIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9nYWUtanMtaW1wbC1sb2NhbCIsInN1YiI6Im92ZncxY2l0N1VVeGJoTzZlUVlmZFRPVW1id0kifQ.";
       await request(app).get("/").set("Authorization", `Bearer ${expired}`);

@@ -39,7 +39,7 @@ Here's the basic flow:
 - Once you've made your changes, create a changeset. You can create more than one changeset for a single version.
 
 ```
-npx changeset
+ci
 ```
 
 - From the cli tool, choose which packages to update and if major/minor/patch update

@@ -23,14 +23,14 @@ export const requiresGoogleJwt = ({
         .verifyIdToken({ idToken, audience: audience && castArray(audience) });
       return ticket.getPayload();
     } catch (e) {
-      logger.error("Error extracting token payload.");
+      logger.error("Error extracting token payload.", e);
       throw new ForbiddenError();
     }
   };
 
   const validate: (expression: boolean, failureMessage: string) => asserts expression = (
     expression: boolean,
-    failureMessage: string
+    failureMessage: string,
   ) => {
     if (!expression) {
       logger.error(failureMessage);
@@ -57,7 +57,7 @@ export const requiresGoogleJwt = ({
     if (email) {
       validate(
         !!claims.email && castArray(email).includes(claims.email),
-        `JWT email ${claims.email} does not match one of the expected: ${email}`
+        `JWT email ${claims.email} does not match one of the expected: ${email}`,
       );
     }
   });
