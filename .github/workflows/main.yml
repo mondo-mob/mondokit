@@ -23,17 +23,26 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v3
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
 
       - name: Set up Cloud SDK and Datastore Emulator
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v3
         with:
-          install_components: cloud-datastore-emulator
+          install_components: beta,cloud-datastore-emulator
+
+      - name: Check gcloud CLI
+        run: 'gcloud info'
 
       - name: Install dependencies
         run: | 
