@@ -23,8 +23,8 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
-    "@google-cloud/logging-bunyan": "^5.0.1",
-    "@google-cloud/secret-manager": "^5.0.1"
+    "@google-cloud/logging-bunyan": "^5.1.0",
+    "@google-cloud/secret-manager": "^6.1.1"
   },
   "peerDependencies": {
     "@mondokit/core": "^1.0.0"

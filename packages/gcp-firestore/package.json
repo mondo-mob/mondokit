@@ -24,7 +24,7 @@
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
-    "dataloader": "^2.2.2",
+    "dataloader": "^2.2.3",
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
@@ -32,7 +32,7 @@
     "@mondokit/gcp-core": "1.0.1"
   },
   "devDependencies": {
-    "@google-cloud/firestore": "^7.1.0",
+    "@google-cloud/firestore": "^7.11.6",
     "@mondokit/gcp-core": "1.0.1",
     "@types/lodash-es": "^4.17.8"
   },
