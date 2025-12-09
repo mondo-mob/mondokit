@@ -15,6 +15,10 @@ const initApp = (fallback = "src/static/index.ts") => {
     res.write("NOT FALLBACK");
     res.end();
   });
+  app.get("/*", (req, res) => {
+    res.write("Shouldn't get here");
+    res.end();
+  });
   return app;
 };
 
