@@ -1,4 +1,4 @@
-import { z, ZodType } from "zod";
+import { z } from "zod";
 import { BadRequestError } from "@mondokit/gcp-core";
 
 /**
@@ -7,7 +7,7 @@ import { BadRequestError } from "@mondokit/gcp-core";
  * @param schema schema to validate against
  * @param data request payload
  */
-export const validateRequest = <T>(schema: ZodType<T, z.ZodTypeDef, unknown>, data: unknown): T => {
+export const validateRequest = <T extends z.ZodType>(schema: T, data: unknown): z.output<T> => {
   const decoded = schema.safeParse(data);
   if (!decoded.success) {
     throw new BadRequestError(decoded.error.message || "Invalid payload");
@@ -15,6 +15,6 @@ export const validateRequest = <T>(schema: ZodType<T, z.ZodTypeDef, unknown>, da
   return decoded.data;
 };
 
-export const oneOrManyStrings: ZodType<string[] | undefined, z.ZodTypeDef, unknown> = z.preprocess((arg) => {
+export const oneOrManyStrings = z.preprocess((arg) => {
   return typeof arg === "string" ? [arg] : arg;
 }, z.array(z.string()).optional());

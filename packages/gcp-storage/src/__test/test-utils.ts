@@ -3,7 +3,7 @@ import { configurationProvider, gcpCoreConfigurationSchema, zodValidator } from 
 import { GcpStorageConfiguration, gcpStorageConfigurationSchema } from "../configuration/index.js";
 
 export const initTestConfig = async (config?: Partial<GcpStorageConfiguration>): Promise<GcpStorageConfiguration> => {
-  const schema = gcpCoreConfigurationSchema.merge(gcpStorageConfigurationSchema);
+  const schema = gcpCoreConfigurationSchema.extend(gcpStorageConfigurationSchema);
   process.env.MONDOKIT_PROJECT = "storage-tests";
   process.env.MONDOKIT_CONFIG_OVERRIDES = JSON.stringify({
     storage: {
@@ -11,7 +11,7 @@ export const initTestConfig = async (config?: Partial<GcpStorageConfiguration>):
     },
     ...config,
   });
-  await configurationProvider.init({ validator: zodValidator<GcpStorageConfiguration>(schema) });
+  await configurationProvider.init({ validator: zodValidator(schema) });
   return configurationProvider.get<GcpStorageConfiguration>();
 };
 

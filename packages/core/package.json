@@ -28,11 +28,11 @@
   },
   "peerDependencies": {
     "express": ">= 4.17.1",
-    "zod": "^3.21.0"
+    "zod": ">= ^4.0.0"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.11",
     "@types/lodash-es": "^4.17.8",
-    "zod": "^3.25.76"
+    "zod": "^4.1.13"
   }
 }

@@ -19,7 +19,7 @@ export const initTestConfig = async (
     ...config,
   });
   await configurationProvider.init({
-    validator: zodValidator<GcpFirestoreConfiguration>(gcpFirestoreConfigurationSchema),
+    validator: zodValidator(gcpFirestoreConfigurationSchema),
   });
   return configurationProvider.get<GcpFirestoreConfiguration>();
 };
