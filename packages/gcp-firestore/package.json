@@ -25,7 +25,7 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
     "dataloader": "^2.2.3",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.23"
   },
   "peerDependencies": {
     "@google-cloud/firestore": ">= 6.5.0",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@google-cloud/firestore": "^7.11.6",
     "@mondokit/gcp-core": "1.0.1",
-    "@types/lodash-es": "^4.17.8"
+    "@types/lodash-es": "^4.17.12"
   },
   "keywords": [
     "firestore",

@@ -24,7 +24,7 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
     "bunyan": "^1.8.15",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.23"
   },
   "peerDependencies": {
     "express": ">= 4.17.1",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.11",
-    "@types/lodash-es": "^4.17.8",
+    "@types/lodash-es": "^4.17.12",
     "zod": "^4.1.13"
   }
 }
