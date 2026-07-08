@@ -65,8 +65,13 @@ describe("TaskQueueService", () => {
               headers: { "Content-Type": "application/json" },
               body: Buffer.from(JSON.stringify({ key: "value1" })).toString("base64"),
             },
-            scheduleTime: { seconds: expect.toBeWithin(timeIn60Seconds, timeIn60Seconds + 5) },
           });
+          // scheduleTime is relative to "now", so assert the seconds fall within the expected window
+          // (start inclusive, end exclusive) rather than an exact value.
+          const instance = (CloudTasksClient as any).mock.instances[0];
+          const scheduledSeconds = Number(instance.createTask.mock.calls[0][0].task.scheduleTime.seconds);
+          expect(scheduledSeconds).toBeGreaterThanOrEqual(timeIn60Seconds);
+          expect(scheduledSeconds).toBeLessThan(timeIn60Seconds + 5);
         }),
       );
 
@@ -199,6 +204,88 @@ describe("TaskQueueService", () => {
               throttle: { suffix: "test", periodMs: 300000 },
             }),
           ).rejects.toEqual({ code: 3, details: "Invalid argument" });
+        }),
+      );
+
+      it(
+        "returns the generated task name",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          vi.spyOn(tasksProvider.get(), "createTask").mockResolvedValue([
+            { name: "projects/p/locations/l/queues/default/tasks/generated-123" },
+          ] as any);
+
+          const name = await new TaskQueueService().enqueue("test-task", { data: { key: "value1" } });
+
+          expect(name).toEqual("projects/p/locations/l/queues/default/tasks/generated-123");
+        }),
+      );
+
+      it(
+        "returns undefined when a throttled task is deduplicated away",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          vi.spyOn(tasksProvider.get(), "createTask").mockImplementation(() => {
+            throw { code: 6, details: "Requested entity already exists" };
+          });
+
+          const name = await new TaskQueueService().enqueue("test-task", {
+            throttle: { suffix: "test", periodMs: 300000 },
+          });
+
+          expect(name).toBeUndefined();
+        }),
+      );
+    });
+
+    describe("deleteTask", () => {
+      const name = "projects/p/locations/l/queues/default/tasks/generated-123";
+
+      it(
+        "deletes a task by name",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          const deleteSpy = vi.spyOn(tasksProvider.get(), "deleteTask").mockResolvedValue([{}] as any);
+
+          await new TaskQueueService().deleteTask(name);
+
+          expect(deleteSpy).toHaveBeenCalledWith({ name });
+        }),
+      );
+
+      it(
+        "ignores NOT_FOUND when the task no longer exists",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          vi.spyOn(tasksProvider.get(), "deleteTask").mockImplementation(() => {
+            throw { code: 5, details: "Requested entity was not found" };
+          });
+
+          await expect(new TaskQueueService().deleteTask(name)).resolves.toBeUndefined();
+        }),
+      );
+
+      it(
+        "rethrows non NOT_FOUND errors when deleting",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+          vi.spyOn(tasksProvider.get(), "deleteTask").mockImplementation(() => {
+            throw { code: 3, details: "Invalid argument" };
+          });
+
+          await expect(new TaskQueueService().deleteTask(name)).rejects.toEqual({
+            code: 3,
+            details: "Invalid argument",
+          });
+        }),
+      );
+
+      it(
+        "throws when no task name is supplied",
+        withEnvVars({ [ENV_VAR_RUNTIME_ENVIRONMENT]: "appengine" }, async () => {
+          tasksProvider.init();
+
+          await expect(new TaskQueueService().deleteTask("")).rejects.toThrow("deleteTask requires a task name");
         }),
       );
     });

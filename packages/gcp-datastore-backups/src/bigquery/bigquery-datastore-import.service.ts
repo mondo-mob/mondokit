@@ -32,7 +32,7 @@ class BigQueryDatastoreImportService {
     const gcsObjectPath = `${gcsPrefix}/all_namespaces/kind_${kind}/all_namespaces_kind_${kind}.export_metadata`;
     this.logger.info(`Queue importing kind ${kind} from GCS: ${gcsObjectPath}`);
 
-    return backupTaskServiceProvider.get().enqueue<BigQueryLoadRequest>(TASK_BIGQUERY_LOAD_KIND, {
+    await backupTaskServiceProvider.get().enqueue<BigQueryLoadRequest>(TASK_BIGQUERY_LOAD_KIND, {
       data: {
         gcsObjectPath,
         targetDataset,

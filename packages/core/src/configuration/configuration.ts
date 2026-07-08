@@ -29,7 +29,7 @@ const readFile = async (file: string) => {
     const fileContent = await FileSystem.promises.readFile(file, { encoding: "utf-8" });
     return fileContent.replace(/^\uFEFF/, "");
   } catch (e) {
-    throw new Error(`Cannot read config file: ${file}: ${(e as Error).message}`);
+    throw new Error(`Cannot read config file: ${file}: ${(e as Error).message}`, { cause: e });
   }
 };
 
@@ -44,7 +44,7 @@ const parseJsonSource = (source: string, content: string): Record<string, unknow
   try {
     return JSON.parse(content);
   } catch (e) {
-    throw new Error(`Cannot parse config source: ${source}: ${(e as Error).message}`);
+    throw new Error(`Cannot parse config source: ${source}: ${(e as Error).message}`, { cause: e });
   }
 };
 

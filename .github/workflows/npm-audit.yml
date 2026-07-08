@@ -1,0 +1,33 @@
+name: NPM Audit
+
+on:
+  schedule:
+    # 06:15 UTC daily
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies (monorepo)
+        run: npm ci
+
+      # The tree is fully clean. Every advisory we ever saw rooted in two leaf packages -
+      # uuid (<11.1.1) and tar-fs (<2.1.4) - dragged in transitively by google-gax@4
+      # (@google-cloud/logging + @google-cloud/datastore) and dockerode (google-datastore-emulator).
+      # We force patched versions of just those two via `overrides` in package.json (see CLAUDE.md);
+      # everything else that was flagged only "depends on" them, so it clears too.
+      #
+      # Full audit, all severities: this must stay at 0. If it goes red, either a genuinely new
+      # advisory landed, or an override no longer matches the tree and should be revisited/removed
+      # once the upstream Google Cloud libs move to the fixed versions themselves.
+      - name: npm audit
+        run: npm audit

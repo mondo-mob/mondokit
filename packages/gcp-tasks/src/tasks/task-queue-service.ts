@@ -14,7 +14,7 @@ import {
   TaskThrottle,
 } from "./types.js";
 import { tasksProvider } from "./tasks-provider.js";
-import { createLocalTask } from "./local-tasks.js";
+import { createLocalTask, deleteLocalTask } from "./local-tasks.js";
 import { isGoogleGaxError } from "../utils/errors.js";
 
 export class TaskQueueService {
@@ -26,7 +26,7 @@ export class TaskQueueService {
     const location = options?.location || configurationProvider.get().location;
     if (!location) {
       throw new Error(
-        'Cannot resolve queue location - please configure "location" for application or supply "location" option when creating service'
+        'Cannot resolve queue location - please configure "location" for application or supply "location" option when creating service',
       );
     }
 
@@ -39,11 +39,19 @@ export class TaskQueueService {
     };
     const { queueName, pathPrefix } = this.options;
     this.logger.info(
-      `Initialised task queue ${projectId}/${location}/${queueName} with target path prefix ${pathPrefix}`
+      `Initialised task queue ${projectId}/${location}/${queueName} with target path prefix ${pathPrefix}`,
     );
   }
 
-  async enqueue<P extends object = object>(path: string, taskOptions: TaskOptions<P> = {}) {
+  /**
+   * Enqueues a task and returns its fully-qualified name (`<queuePath>/tasks/<id>`), which Cloud Tasks
+   * generates automatically. Retain this name to later remove the task via {@link deleteTask}.
+   * Returns `undefined` when no task was created (e.g. a throttled duplicate that was deduplicated away).
+   */
+  async enqueue<P extends object = object>(
+    path: string,
+    taskOptions: TaskOptions<P> = {},
+  ): Promise<string | undefined> {
     if (taskOptions.throttle && taskOptions.inSeconds) {
       throw new Error("Tasks cannot be created with both 'throttle' and 'inSeconds' options");
     }
@@ -55,12 +63,15 @@ export class TaskQueueService {
 
     this.logger.info("Creating task with payload: ", createTaskRequest.task);
     try {
+      let taskName: string | undefined;
       if (runningOnGcp()) {
-        await this.getTasksClient().createTask(createTaskRequest);
+        const [created] = (await this.getTasksClient().createTask(createTaskRequest)) ?? [];
+        taskName = created?.name ?? undefined;
       } else {
-        await createLocalTask(this.getLocalBaseUrl(), createTaskRequest);
+        taskName = await createLocalTask(this.getLocalBaseUrl(), createTaskRequest);
       }
-      this.logger.info("Created task");
+      this.logger.info(`Created task: ${taskName}`);
+      return taskName;
     } catch (e) {
       if (taskOptions.throttle && isGoogleGaxError(e, Status.ALREADY_EXISTS)) {
         const scheduled = new Date(Number(createTaskRequest.task?.scheduleTime?.seconds) * 1000);
@@ -68,8 +79,33 @@ export class TaskQueueService {
           createTaskRequest.task,
           `Ignoring ALREADY_EXISTS error for throttled task: ${
             taskOptions.throttle.suffix
-          } scheduled for ${scheduled.toISOString()}`
+          } scheduled for ${scheduled.toISOString()}`,
         );
+        return undefined;
+      } else {
+        throw e;
+      }
+    }
+  }
+
+  /**
+   * Removes a previously enqueued task by the fully-qualified name returned from {@link enqueue}.
+   * A task that has already executed (or been deleted) no longer exists and is silently ignored,
+   * so deletion is best-effort - it tidies up pending tasks but must not be relied on for correctness.
+   */
+  async deleteTask(name: string) {
+    if (!name) throw new Error("deleteTask requires a task name");
+    this.logger.info(`Deleting task: ${name}`);
+    try {
+      if (runningOnGcp()) {
+        await this.getTasksClient().deleteTask({ name });
+      } else {
+        deleteLocalTask(name);
+      }
+      this.logger.info("Deleted task");
+    } catch (e) {
+      if (isGoogleGaxError(e, Status.NOT_FOUND)) {
+        this.logger.info(`Task not found (already executed or deleted), ignoring: ${name}`);
       } else {
         throw e;
       }
@@ -195,7 +231,7 @@ export class TaskQueueService {
     const url = this.options.localBaseUrl || configurationProvider.get().host;
     if (!url) {
       throw new Error(
-        'Cannot resolve local base url - please configure "host" for application or supply "localBaseUrl" option when creating service'
+        'Cannot resolve local base url - please configure "host" for application or supply "localBaseUrl" option when creating service',
       );
     }
     return url;
