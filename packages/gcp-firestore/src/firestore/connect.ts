@@ -2,7 +2,11 @@ import firestore, { Firestore, Settings } from "@google-cloud/firestore";
 import { configurationProvider, createLogger, runningOnGcp } from "@mondokit/gcp-core";
 import { GcpFirestoreConfiguration } from "../configuration/schema.js";
 
-const { v1: firestoreV1 } = firestore;
+// Firestore v8 no longer exposes its deep type paths via the package "exports" map, so we reference the
+// admin client through the publicly-accessible `firestore.v1` namespace rather than a deep import or a
+// destructured local (whose inferred type would still point at the now-private deep path).
+export type FirestoreAdminClient = InstanceType<typeof firestore.v1.FirestoreAdminClient>;
+
 export interface FirestoreConnectOptions {
   configuration?: GcpFirestoreConfiguration;
   firestoreSettings?: Settings;
@@ -47,7 +51,7 @@ export const connectFirestore = (options?: FirestoreConnectOptions): Firestore =
 
 // The proper typings from google-gax can be flaky depending on which version gets resolved
 // It's safer to extract the types from client sdk
-type AdminClientOptions = ConstructorParameters<typeof firestoreV1.FirestoreAdminClient>[0];
+type AdminClientOptions = ConstructorParameters<typeof firestore.v1.FirestoreAdminClient>[0];
 
 export interface FirestoreAdminConnectOptions {
   configuration?: GcpFirestoreConfiguration;
@@ -58,7 +62,7 @@ export interface FirestoreAdminConnectOptions {
  * Creates a Firestore Admin Client. e.g. for admin operations like imports/exports.
  * NOTE: This currently only works for real Firestore - i.e. not the emulator
  */
-export const connectFirestoreAdmin = (options?: FirestoreAdminConnectOptions) => {
+export const connectFirestoreAdmin = (options?: FirestoreAdminConnectOptions): FirestoreAdminClient => {
   const logger = createLogger("connectFirestoreAdmin");
   const config = options?.configuration || configurationProvider.get<GcpFirestoreConfiguration>();
 
@@ -67,5 +71,5 @@ export const connectFirestoreAdmin = (options?: FirestoreAdminConnectOptions) =>
     ...options?.clientOptions,
   };
   logger.info(`Connecting Firestore Admin Client for project ${clientOptions.projectId || "(default)"}`);
-  return new firestoreV1.FirestoreAdminClient(clientOptions);
+  return new firestore.v1.FirestoreAdminClient(clientOptions);
 };

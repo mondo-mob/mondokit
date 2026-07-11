@@ -12,7 +12,7 @@ import { NotFoundError } from "../error/not-found-error.js";
  * apiRouter.use(routeNotFound("Invalid API request"));
  *
  * app.use("/api", apiRouter);
- * app.use("/*",  () => { // Standard fallback route });
+ * app.use(() => { // Standard fallback route });
  */
 export const routeNotFound =
   (message?: string): Handler =>

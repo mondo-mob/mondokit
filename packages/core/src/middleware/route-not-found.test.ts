@@ -14,7 +14,7 @@ const initApp = () => {
   app.use("/message", (req, res) => {
     res.send("MESSAGE");
   });
-  app.use("/*", (req, res) => {
+  app.use((req, res) => {
     res.send("FALLBACK");
   });
   return app;

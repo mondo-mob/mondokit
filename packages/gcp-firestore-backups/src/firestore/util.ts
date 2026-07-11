@@ -1,7 +1,18 @@
-import { google } from "@google-cloud/firestore/build/protos/firestore_admin_v1_proto_api.js";
 import { BackupOperation } from "../backups/index.js";
-import IExportDocumentsMetadata = google.firestore.admin.v1.IExportDocumentsMetadata;
-import ITimestamp = google.protobuf.ITimestamp;
+
+// Firestore v8 no longer exposes its generated proto types via the package "exports" map, so we model
+// the handful of fields we read from an export operation's metadata locally.
+interface ITimestamp {
+  seconds?: number | string | null;
+  nanos?: number | null;
+}
+interface IExportDocumentsMetadata {
+  collectionIds?: string[] | null;
+  outputUriPrefix?: string | null;
+  operationState?: string | null;
+  startTime?: ITimestamp | null;
+  endTime?: ITimestamp | null;
+}
 
 export const toISOTime = (timestamp?: ITimestamp | null): string | null => {
   if (!timestamp || !timestamp.seconds) return null;

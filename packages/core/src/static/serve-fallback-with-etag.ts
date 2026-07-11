@@ -11,7 +11,7 @@ import { createLogger } from "../logging/logging.js";
  * a single page app.
  *
  * @example
- * app.use("/*", serveFallbackWithEtag(`${__dirname}/public/index.html`))
+ * app.use(serveFallbackWithEtag(`${__dirname}/public/index.html`))
  */
 export const serveFallbackWithEtag = (file: string): Handler => {
   const logger = createLogger("serveFallbackWithEtag");

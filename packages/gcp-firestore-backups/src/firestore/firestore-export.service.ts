@@ -1,6 +1,5 @@
-import { FirestoreAdminClient } from "@google-cloud/firestore/types/v1/firestore_admin_client.js";
 import { createLogger, LazyProvider, validateArrayNotEmpty, validateNotNil } from "@mondokit/gcp-core";
-import { connectFirestoreAdmin, newTimestampedEntity } from "@mondokit/gcp-firestore";
+import { connectFirestoreAdmin, FirestoreAdminClient, newTimestampedEntity } from "@mondokit/gcp-firestore";
 import assert from "assert";
 import { DateTime } from "luxon";
 import { nanoid } from "nanoid";

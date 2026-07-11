@@ -5,32 +5,35 @@
     "build": "npm run build --workspaces",
     "build:watch": "tsc --build --verbose --watch tsconfig.packages.json",
     "clean": "npm run clean --workspaces",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint .",
     "test:ci": "npm run test:ci --workspaces",
     "prepublish-libs": "(npm run clean && npm run build) || (echo 'ERROR running build. Check logs above. Error not necessarily at bottom.' && exit -1)",
-    "publish-libs": "npx changeset publish && git push --follow-tags"
+    "publish-libs": "npx changeset publish && git push --follow-tags",
+    "clean:deps": "rm -rf node_modules packages/*/node_modules",
+    "reinstall": "npm run clean:deps && rm -f package-lock.json && npm install"
   },
   "workspaces": [
     "./packages/*"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
-    "@types/express": "^4.17.25",
+    "@changesets/cli": "^2.31.0",
+    "@eslint/js": "^10.0.1",
+    "@types/express": "^5.0.6",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^20.19.25",
-    "@types/supertest": "^6.0.3",
-    "@typescript-eslint/eslint-plugin": "^8.48.1",
-    "@typescript-eslint/parser": "^8.48.1",
-    "eslint": "^9.39.1",
+    "@types/node": "^22.20.1",
+    "@types/supertest": "^7.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/parser": "^8.63.0",
+    "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
-    "express": "4.22.1",
+    "express": "5.2.1",
     "jest-extended": "^7.0.0",
-    "nock": "^14.0.10",
-    "prettier": "^3.7.4",
-    "supertest": "7.1.4",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.1",
-    "vitest": "^4.0.15"
+    "nock": "^14.0.16",
+    "prettier": "^3.9.4",
+    "supertest": "7.2.2",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.63.0",
+    "vitest": "^4.1.10"
   },
   "engines": {
     "node": ">=22",
@@ -42,5 +45,9 @@
   "keywords": [
     "cloud",
     "utils"
-  ]
+  ],
+  "overrides": {
+    "uuid": "^11.1.1",
+    "tar-fs": "^2.1.5"
+  }
 }

@@ -10,7 +10,7 @@ const initApp = (fallback = "src/static/index.ts") => {
     res.writeHead(200, { "Content-Type": "text/plain" });
     next();
   });
-  app.use("/*", serveFallbackWithEtag(fallback));
+  app.use(serveFallbackWithEtag(fallback));
   app.get("/notfallback", (req, res) => {
     res.write("NOT FALLBACK");
     res.end();

@@ -1,3 +1,4 @@
+import * as crypto from "crypto";
 import fetch from "node-fetch";
 import { BadRequestError, createLogger } from "@mondokit/gcp-core";
 import { CreateTaskRequest } from "./types.js";
@@ -6,9 +7,23 @@ import { CreateTaskRequest } from "./types.js";
 const taskNames = new Set<string>();
 const logger = createLogger("LocalTasks");
 
-export const createLocalTask = async (targetHost: string, createTaskRequest: CreateTaskRequest) => {
+/**
+ * Frees a locally-tracked task name so its id can be reused, mirroring a Cloud Tasks delete.
+ * NOTE: a local task is dispatched via a pending timer that this does not cancel - local emulation
+ * cannot truly prevent an in-flight dispatch. Correctness should not rely on delete locally.
+ */
+export const deleteLocalTask = (name: string): void => {
+  taskNames.delete(name);
+  logger.info(`Deleted local task name: ${name}`);
+};
+
+export const createLocalTask = async (targetHost: string, createTaskRequest: CreateTaskRequest): Promise<string> => {
   const { parent, task } = createTaskRequest;
   if (!parent || !task) throw new BadRequestError("parent and task must be supplied");
+
+  // Cloud Tasks auto-generates a task name when none is supplied - emulate that so callers always
+  // get a name back to delete by.
+  const taskName = task.name ?? `${parent}/tasks/${crypto.randomUUID()}`;
 
   const { appEngineHttpRequest, httpRequest } = task;
   if (!appEngineHttpRequest && !httpRequest) {
@@ -76,4 +91,6 @@ export const createLocalTask = async (targetHost: string, createTaskRequest: Cre
     .catch((e) => {
       logger.error(e, `Task failed to execute`);
     });
+
+  return taskName;
 };
