@@ -1,5 +1,16 @@
 # @mondokit/gcp-datastore
 
+## 2.0.0
+
+### Major Changes
+
+- Release as a major version. The build now targets TypeScript 6 / ES2022 and the libraries are compiled and validated against the current framework majors — express 5, zod 4, and the latest Google Cloud SDK / firebase-admin releases. The published output uses ES2022 syntax (Node 22+, already the `engines` floor), firestore v8's tightened `exports` map is accommodated, and peer ranges for `zod` and `google-auth-library` are widened to the new majors. Bumped to a major so consumers consciously re-verify against the updated targets and peers.
+
+### Patch Changes
+
+- Updated dependencies
+  - @mondokit/gcp-core@2.0.0
+
 ## 1.1.0
 
 ### Minor Changes
