@@ -45,7 +45,8 @@ Vitest. Two kinds of package:
 
 Running the emulator tests locally requires **JDK 21+** (both the gcloud datastore emulator and
 firebase-tools now refuse older Java), the datastore emulator **port 8081** free, and no other firebase
-emulator suite holding ports 4000/8080/9099/9199. CI (ubuntu-latest) has all of this.
+emulator suite holding ports 4000/8080/9099/9199. CI installs JDK 21 explicitly (`actions/setup-java`)
+because the ubuntu-latest default JDK is older than 21.
 
 The repo pins Java via `.java-version` (jenv) to a 21+ release; without it, jenv falls back to its global
 default and an older global (e.g. 16) makes every emulator test fail with an opaque error.

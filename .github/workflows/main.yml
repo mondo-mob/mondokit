@@ -30,6 +30,14 @@ jobs:
         with:
           node-version: 22
 
+      # The gcloud datastore emulator and firebase-tools both require a JDK 21+ on PATH;
+      # the ubuntu-latest default JDK is older, so pin it explicitly.
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
       - name: Set up Cloud SDK and Datastore Emulator
         uses: google-github-actions/setup-gcloud@v2
         with:
