@@ -40,3 +40,23 @@ export const mergeExportOperation = (
     errorMessage: exportOperation.error?.message || null,
   };
 };
+
+const FAILED_OPERATION_STATES = new Set(["FAILED", "CANCELLED"]);
+
+/**
+ * True when a long-running export has finished successfully.
+ * `done` alone is not enough — failed/cancelled ops also set `done: true`.
+ */
+export const isSuccessfulExport = (backupOperation: BackupOperation): boolean => {
+  if (!backupOperation.done) {
+    return false;
+  }
+  if (backupOperation.errorCode != null || backupOperation.errorMessage) {
+    return false;
+  }
+  const state = backupOperation.operationState?.toString().toUpperCase();
+  if (state && FAILED_OPERATION_STATES.has(state)) {
+    return false;
+  }
+  return true;
+};
