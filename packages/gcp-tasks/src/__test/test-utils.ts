@@ -12,7 +12,7 @@ export const initTestConfig = async (config?: Partial<GcpCoreConfiguration>): Pr
     location: "local",
     ...config,
   });
-  await configurationProvider.init({ validator: zodValidator<GcpCoreConfiguration>(gcpCoreConfigurationSchema) });
+  await configurationProvider.init({ validator: zodValidator(gcpCoreConfigurationSchema) });
   return configurationProvider.get<GcpCoreConfiguration>();
 };
 

@@ -1,8 +1,9 @@
-import { ZodType } from "zod";
+import { z } from "zod";
+
 import { DataValidator } from "./data.js";
 
 export const zodValidator =
-  <T>(schema: ZodType<T>): DataValidator<T> =>
+  <T extends z.ZodType>(schema: T): DataValidator<z.output<T>> =>
   (data: unknown) => {
-    return schema.parse(data);
+    return z.parse(schema, data);
   };

@@ -3,9 +3,9 @@ import { configurationProvider } from "@mondokit/gcp-core";
 import { gcpBigQueryConfigurationSchema } from "@mondokit/gcp-bigquery";
 import { gcpStorageConfigurationSchema } from "@mondokit/gcp-storage";
 
-const libraryConfig = gcpBigQueryConfigurationSchema.merge(gcpStorageConfigurationSchema);
-
-export const coreBackupConfigSchema = libraryConfig.extend({
+export const coreBackupConfigSchema = z.object({
+  ...gcpStorageConfigurationSchema.shape,
+  ...gcpBigQueryConfigurationSchema.shape,
   datastoreBackup: z
     .object({
       enabled: z.boolean().optional(),
