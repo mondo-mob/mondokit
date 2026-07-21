@@ -24,7 +24,7 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "dependencies": {
     "luxon": "^3.7.2",
-    "nanoid": "^5.1.16"
+    "nanoid": "^6.0.0"
   },
   "peerDependencies": {
     "@mondokit/gcp-bigquery": "^2.0.0",
