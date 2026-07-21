@@ -66,7 +66,6 @@ export const generateSignedDownloadUrl = async (
   src: File | GcsFileIdentifier,
   { expiryInMs = DEFAULT_SIGNED_URL_EXPIRY_MS, storage }: { expiryInMs?: number; storage?: Storage } = {},
 ) => {
-  console.log("expiryMs", expiryInMs);
   const [url] = await toGcsFile(src, { storage: storage }).getSignedUrl({
     action: "read",
     expires: Date.now() + (expiryInMs ?? DEFAULT_SIGNED_URL_EXPIRY_MS),
