@@ -28,9 +28,14 @@ export const serveFallbackWithEtag = (file: string): Handler => {
     if (!res.headersSent) {
       const etag = `"${await hashPromise}"`;
       logger.info(`Sending file ${fullFilePath} with etag ${etag}`);
-      return res.sendFile(fullFilePath, { headers: { etag }, lastModified: false }, (err) => {
-        return err ? next(err) : next();
-      });
+      return res.sendFile(
+        fullFilePath,
+        // Express 5 ignores absolute paths that contain hidden directory segments unless opted in.
+        { headers: { etag }, lastModified: false, dotfiles: "allow" },
+        (err) => {
+          return err ? next(err) : next();
+        },
+      );
     }
     next();
   };

@@ -22,10 +22,11 @@ const HASH_UNSET = "HASH_UNSET";
 export interface StaticEtagOptions {
   ignorePaths?: string[];
   quiet?: boolean;
+  dotfiles?: "allow" | "deny" | "ignore";
 }
 export const serveStaticWithEtag = (
   root: string,
-  { ignorePaths = [], quiet = false }: StaticEtagOptions = {},
+  { ignorePaths = [], quiet = false, dotfiles = "allow" }: StaticEtagOptions = {},
 ): Handler => {
   const logger = createLogger("serveStaticWithEtag");
   const rootFolder = path.resolve(root);
@@ -62,7 +63,7 @@ export const serveStaticWithEtag = (
       if (!quiet) {
         logger.info(`Sending file ${fullFilePath} with etag ${etag}`);
       }
-      return res.sendFile(fullFilePath, { headers: { etag }, lastModified: false }, (err) => {
+      return res.sendFile(fullFilePath, { headers: { etag }, lastModified: false, dotfiles }, (err) => {
         return err ? next(err) : next();
       });
     }

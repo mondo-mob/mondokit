@@ -6,7 +6,10 @@ import { Application } from "express";
  */
 export const startServer = (app: Application) => {
   const PORT = process.env.PORT || 8080;
-  const server = app.listen(PORT, () => {
+  const server = app.listen(PORT, (error?: Error) => {
+    if (error) {
+      throw error;
+    }
     console.log(`Server is running in http://localhost:${PORT}`);
   });
 
