@@ -16,16 +16,20 @@ export const mergeExportOperation = (
     error: { code?: number; message?: string } | undefined;
   },
 ): BackupOperation => {
-  const meta = exportOperation.metadata as IExportEntitiesMetadata;
+  const meta = (exportOperation.metadata ?? {}) as IExportEntitiesMetadata;
   return {
     ...backupOperation,
-    done: exportOperation.done || false,
-    kinds: meta.entityFilter?.kinds || [],
-    outputUriPrefix: meta.outputUrlPrefix || null,
-    operationState: meta.common?.state ? `${meta.common.state}` : null,
-    startTime: toISOTime(meta.common?.startTime),
-    endTime: toISOTime(meta.common?.endTime),
-    errorCode: exportOperation.error?.code || null,
-    errorMessage: exportOperation.error?.message || null,
+    done: exportOperation.done ?? backupOperation.done ?? false,
+    // Prefer metadata when present; otherwise keep values stored at export start.
+    // Sparse/partial metadata must not wipe kinds (needed for EXPORT_TO_BIGQUERY).
+    kinds: meta.entityFilter?.kinds ?? backupOperation.kinds ?? [],
+    outputUriPrefix: meta.outputUrlPrefix ?? backupOperation.outputUriPrefix ?? null,
+    operationState:
+      meta.common?.state != null ? `${meta.common.state}` : (backupOperation.operationState ?? null),
+    startTime: toISOTime(meta.common?.startTime) ?? backupOperation.startTime ?? null,
+    endTime: toISOTime(meta.common?.endTime) ?? backupOperation.endTime ?? null,
+    errorCode: exportOperation.error?.code ?? (exportOperation.done ? null : (backupOperation.errorCode ?? null)),
+    errorMessage:
+      exportOperation.error?.message ?? (exportOperation.done ? null : (backupOperation.errorMessage ?? null)),
   };
 };
