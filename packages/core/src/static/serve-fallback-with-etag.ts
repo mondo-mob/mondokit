@@ -33,7 +33,9 @@ export const serveFallbackWithEtag = (file: string): Handler => {
         // Express 5 ignores absolute paths that contain hidden directory segments unless opted in.
         { headers: { etag }, lastModified: false, dotfiles: "allow" },
         (err) => {
-          return err ? next(err) : next();
+          if (err) {
+            next(err);
+          }
         },
       );
     }

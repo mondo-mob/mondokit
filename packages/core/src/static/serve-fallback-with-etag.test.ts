@@ -18,6 +18,11 @@ const initApp = (fallback = "src/static/index.ts") => {
     res.write("NOT FALLBACK");
     res.end();
   });
+  // Guard against the middleware calling next() after a successful send.
+  app.use((req, res) => {
+    res.write("Shouldn't get here");
+    res.end();
+  });
   return app;
 };
 
