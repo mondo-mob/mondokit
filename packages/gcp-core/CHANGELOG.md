@@ -1,5 +1,27 @@
 # @mondokit/gcp-core
 
+## 3.0.0-rc.0
+
+### Patch Changes
+
+- ae253fa: Declare missing peer/runtime dependencies that production code already imports:
+
+  - `express` `>= 5` peer where middleware/routes are exported
+  - `zod` `>= 4` peer where configuration/request schemas are defined
+  - `lodash-es` dependency in packages that import it but did not declare it
+
+- bb50c0c: Fully update to Express 5
+
+  - Require `express` `>= 5` as a peer of `@mondokit/core`
+  - fix Express 5 static/`sendFile` behaviour that ignores absolute paths containing hidden directory segments unless `dotfiles` is opted in. `serveStaticWithEtag` and `serveFallbackWithEtag` now pass `dotfiles: "allow"` by default. `StaticEtagOptions` exposes an optional `dotfiles` override.
+  - fix static middleware calling `next()` after a successful send — now only calls `next` on error.
+  - `@mondokit/gcp-core`'s `startServer` handles the Express 5 `listen` error callback.
+  - Deprecate `asyncHandler` and `asyncMiddleware`. Express 5 forwards rejected promises from async handlers/middleware natively.
+
+- Updated dependencies [bb50c0c]
+- Updated dependencies [d933393]
+  - @mondokit/core@3.0.0-rc.0
+
 ## 2.0.0
 
 ### Major Changes

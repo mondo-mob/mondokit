@@ -1,5 +1,23 @@
 # @mondokit/gcp-firebase-auth
 
+## 3.0.0-rc.0
+
+### Major Changes
+
+- 0de4a0b: `verifyFirebaseUser()`: Move `firebaseApp` param into options argument (avoids needing to pass `undefined` as the first argument). Also fix unnecessary call to `next()` after token validation error.
+
+### Patch Changes
+
+- ae253fa: Declare missing peer/runtime dependencies that production code already imports:
+
+  - `express` `>= 5` peer where middleware/routes are exported
+  - `zod` `>= 4` peer where configuration/request schemas are defined
+  - `lodash-es` dependency in packages that import it but did not declare it
+
+- Updated dependencies [ae253fa]
+- Updated dependencies [bb50c0c]
+  - @mondokit/gcp-core@3.0.0-rc.0
+
 ## 2.0.0
 
 ### Major Changes

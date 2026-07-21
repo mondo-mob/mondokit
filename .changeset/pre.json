@@ -1,0 +1,28 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@mondokit/core": "2.0.0",
+    "@mondokit/gcp-bigquery": "2.0.0",
+    "@mondokit/gcp-core": "2.0.0",
+    "@mondokit/gcp-datastore": "2.0.0",
+    "@mondokit/gcp-datastore-backups": "2.0.0",
+    "@mondokit/gcp-firebase-auth": "2.0.0",
+    "@mondokit/gcp-firestore": "2.0.0",
+    "@mondokit/gcp-firestore-backups": "2.0.0",
+    "@mondokit/gcp-firestore-migrations": "2.0.0",
+    "@mondokit/gcp-google-auth": "2.0.0",
+    "@mondokit/gcp-storage": "2.0.0",
+    "@mondokit/gcp-tasks": "2.0.0"
+  },
+  "changesets": [
+    "datastore-backup-preserve-kinds",
+    "datastore-v10",
+    "declare-missing-peers",
+    "express-5-peer-and-dotfiles",
+    "firestore-export-fail-skip-bq",
+    "update-nanoid-6",
+    "update-to-zod-4",
+    "verify-firebase-user-options"
+  ]
+}

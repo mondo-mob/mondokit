@@ -1,5 +1,14 @@
 # @mondokit/gcp-firestore-migrations
 
+## 3.0.0-rc.0
+
+### Patch Changes
+
+- Updated dependencies [ae253fa]
+- Updated dependencies [bb50c0c]
+  - @mondokit/gcp-core@3.0.0-rc.0
+  - @mondokit/gcp-firestore@3.0.0-rc.0
+
 ## 2.0.0
 
 ### Major Changes

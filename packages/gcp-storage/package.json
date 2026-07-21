@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-storage",
-  "version": "2.0.0",
+  "version": "3.0.0-rc.0",
   "description": "Tools for Google Cloud Storage",
   "type": "module",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "peerDependencies": {
     "@google-cloud/storage": ">= 6.0.0",
-    "@mondokit/gcp-core": "^2.0.0",
+    "@mondokit/gcp-core": "^3.0.0-rc.0",
     "zod": ">=4.0.0"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@google-cloud/storage": "^7.21.0",
-    "@mondokit/gcp-core": "^2.0.0",
+    "@mondokit/gcp-core": "^3.0.0-rc.0",
     "@types/lodash-es": "^4.17.8",
     "zod": "^4.4.3"
   },

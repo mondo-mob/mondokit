@@ -1,6 +1,6 @@
 {
   "name": "@mondokit/gcp-google-auth",
-  "version": "2.0.0",
+  "version": "3.0.0-rc.0",
   "description": "Tools for Google Cloud Authentication",
   "type": "module",
   "main": "dist/index.js",
@@ -26,12 +26,12 @@
     "lodash-es": "^4.18.1"
   },
   "peerDependencies": {
-    "@mondokit/gcp-core": "^2.0.0",
+    "@mondokit/gcp-core": "^3.0.0-rc.0",
     "express": ">= 5.0.0",
     "google-auth-library": ">=9.4.0"
   },
   "devDependencies": {
-    "@mondokit/gcp-core": "2.0.0",
+    "@mondokit/gcp-core": "3.0.0-rc.0",
     "@types/lodash-es": "^4.17.8",
     "google-auth-library": "^10.9.0"
   },

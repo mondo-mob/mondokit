@@ -1,5 +1,25 @@
 # @mondokit/gcp-firestore-backups
 
+## 3.0.0-rc.0
+
+### Patch Changes
+
+- ae253fa: Declare missing peer/runtime dependencies that production code already imports:
+
+  - `express` `>= 5` peer where middleware/routes are exported
+  - `zod` `>= 4` peer where configuration/request schemas are defined
+  - `lodash-es` dependency in packages that import it but did not declare it
+
+- 5bab4de: Do not queue BigQuery import when a Firestore export finishes with failure (`error` / `FAILED` / `CANCELLED`). Previously any `done: true` export was treated as success.
+- 191e27c: Update `nanoid` dependency to `^6.0.0`.
+- Updated dependencies [ae253fa]
+- Updated dependencies [bb50c0c]
+  - @mondokit/gcp-core@3.0.0-rc.0
+  - @mondokit/gcp-tasks@3.0.0-rc.0
+  - @mondokit/gcp-firestore@3.0.0-rc.0
+  - @mondokit/gcp-storage@3.0.0-rc.0
+  - @mondokit/gcp-bigquery@3.0.0-rc.0
+
 ## 2.0.0
 
 ### Major Changes
