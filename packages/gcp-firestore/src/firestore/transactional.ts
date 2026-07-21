@@ -87,7 +87,10 @@ export const isTransactionActive = (): boolean => {
 };
 
 export class PostCommitError<T = unknown> extends Error {
-  constructor(readonly cause: unknown, readonly result: T) {
+  constructor(
+    readonly cause: unknown,
+    readonly result: T,
+  ) {
     super();
     this.name = "PostCommitError";
   }
@@ -95,5 +98,5 @@ export class PostCommitError<T = unknown> extends Error {
 
 const getLoader = () =>
   firestoreLoaderRequestStorage.getRequired(
-    "Firestore transactions require a FirestoreLoader to be set in request storage but none was found."
+    "Firestore transactions require a FirestoreLoader to be set in request storage but none was found.",
   );

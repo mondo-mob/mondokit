@@ -30,7 +30,7 @@ const cloneDocument = (data: DocumentData | null) => cloneDeep(data);
 const setCacheFromData = (
   loader: DataLoader<DocumentReference, DocumentData | null>,
   ref: DocumentReference,
-  data: DocumentData | null
+  data: DocumentData | null,
 ) => {
   loader.clear(ref).prime(ref, cloneDocument(data));
 };
@@ -41,7 +41,7 @@ const setCacheFromData = (
  */
 const setCacheFromSnapshot = (
   loader: DataLoader<DocumentReference, DocumentData | null>,
-  snapshot: DocumentSnapshot
+  snapshot: DocumentSnapshot,
 ) => {
   loader.clear(snapshot.ref).prime(snapshot.ref, snapshot.data() || null);
 };
@@ -74,7 +74,7 @@ export class FirestoreLoader {
       entities,
       (transaction, entity) => transaction.create(entity.ref, entity.data),
       (batch, entity) => batch.create(entity.ref, entity.data),
-      (loader, { ref, data }) => setCacheFromData(loader, ref, data)
+      (loader, { ref, data }) => setCacheFromData(loader, ref, data),
     );
   }
 
@@ -83,7 +83,7 @@ export class FirestoreLoader {
       entities,
       (transaction, entity) => transaction.set(entity.ref, entity.data),
       (batch, entity) => batch.set(entity.ref, entity.data),
-      (loader, { ref, data }) => setCacheFromData(loader, ref, data)
+      (loader, { ref, data }) => setCacheFromData(loader, ref, data),
     );
   }
 
@@ -92,7 +92,7 @@ export class FirestoreLoader {
       refs,
       (transaction, ref) => transaction.delete(ref, precondition),
       (batch, ref) => batch.delete(ref, precondition),
-      (loader, key) => loader.clear(key)
+      (loader, key) => loader.clear(key),
     );
   }
 
@@ -100,7 +100,7 @@ export class FirestoreLoader {
     if (this.transaction && !ignoreTransaction) {
       throw new FirestoreRepositoryError(
         "deleteAll.transaction.repository.error",
-        "deleteAll is not supported from within a transaction"
+        "deleteAll is not supported from within a transaction",
       );
     }
     this.loader.clearAll();
@@ -208,7 +208,7 @@ export class FirestoreLoader {
     batchOperation: (batch: WriteBatch, value: T) => void,
     transactionOperation: (txn: Transaction, value: T) => void,
     updateLoader: (loader: DataLoader<DocumentReference, DocumentData | null>, value: T) => void,
-    batchSize = 100
+    batchSize = 100,
   ) {
     if (this.transaction) {
       const txn = this.transaction;

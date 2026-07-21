@@ -64,7 +64,7 @@ export const toGcsSaveOptions = ({
 
 export const generateSignedDownloadUrl = async (
   src: File | GcsFileIdentifier,
-  { expiryInMs = DEFAULT_SIGNED_URL_EXPIRY_MS, storage }: { expiryInMs?: number; storage?: Storage } = {}
+  { expiryInMs = DEFAULT_SIGNED_URL_EXPIRY_MS, storage }: { expiryInMs?: number; storage?: Storage } = {},
 ) => {
   console.log("expiryMs", expiryInMs);
   const [url] = await toGcsFile(src, { storage: storage }).getSignedUrl({
@@ -76,7 +76,7 @@ export const generateSignedDownloadUrl = async (
 
 export const makePublic = async (
   file: File | GcsFileIdentifier,
-  { storage }: { storage?: Storage } = {}
+  { storage }: { storage?: Storage } = {},
 ): Promise<string> => {
   const src = toGcsFile(file, { storage });
   await src.makePublic();
@@ -85,7 +85,7 @@ export const makePublic = async (
 
 export const makePrivate = async (
   file: File | GcsFileIdentifier,
-  { storage }: { storage?: Storage } = {}
+  { storage }: { storage?: Storage } = {},
 ): Promise<void> => {
   const src = toGcsFile(file, { storage });
   await src.makePrivate();

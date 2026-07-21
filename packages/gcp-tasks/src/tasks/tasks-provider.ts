@@ -15,5 +15,5 @@ export class TasksProvider extends Provider<CloudTasksClient> {
 
 export const tasksProvider = new TasksProvider(
   undefined,
-  "No CloudTasksClient instance found. Please initialise tasksProvider."
+  "No CloudTasksClient instance found. Please initialise tasksProvider.",
 );

@@ -19,8 +19,8 @@ export interface ComplexFilter<T> {
 type FilterType<T> = [NonNullable<T>] extends [Date] | [Key]
   ? Filter<T>
   : [NonNullable<T>] extends [object]
-  ? Filters<T>
-  : Filter<T>;
+    ? Filters<T>
+    : Filter<T>;
 
 type FilterArray<T extends any[] | (any[] | null) | (any[] | null | undefined)> = NonNullable<T>[0] extends object
   ? Filters<NonNullable<T>[0]>

@@ -82,7 +82,7 @@ describe("runMigrations", () => {
         createdAt: ORIG_CREATED_AT,
       });
       expectUpdatedAtAfterCreatedAt(entity);
-    })
+    }),
   );
 
   it(
@@ -96,7 +96,7 @@ describe("runMigrations", () => {
       await runMigrations(migrations);
 
       expect(migrationCount).toBe(1);
-    })
+    }),
   );
 
   it(
@@ -110,7 +110,7 @@ describe("runMigrations", () => {
       await runMigrations(migrations);
 
       expect(migrationCount).toBe(1);
-    })
+    }),
   );
 
   it(
@@ -121,7 +121,7 @@ describe("runMigrations", () => {
       await runMigrations(migrations);
 
       expect(migrationCount).toBe(0);
-    })
+    }),
   );
 
   it(
@@ -133,7 +133,7 @@ describe("runMigrations", () => {
 
       expect(migrationCount).toBe(2);
       expect(mutex.locked).toBe(false);
-    })
+    }),
   );
 
   describe("disableTimestampUpdate option", () => {
@@ -155,7 +155,7 @@ describe("runMigrations", () => {
           createdAt: ORIG_CREATED_AT,
           updatedAt: ORIG_CREATED_AT,
         });
-      })
+      }),
     );
 
     it(
@@ -172,7 +172,7 @@ describe("runMigrations", () => {
           ],
           {
             disableTimestampUpdate: false,
-          }
+          },
         );
 
         const results = await getMigrationResults();
@@ -186,7 +186,7 @@ describe("runMigrations", () => {
           createdAt: ORIG_CREATED_AT,
           updatedAt: ORIG_CREATED_AT,
         });
-      })
+      }),
     );
 
     it(
@@ -203,7 +203,7 @@ describe("runMigrations", () => {
           ],
           {
             disableTimestampUpdate: true,
-          }
+          },
         );
 
         const results = await getMigrationResults();
@@ -217,7 +217,7 @@ describe("runMigrations", () => {
           createdAt: ORIG_CREATED_AT,
         });
         expectUpdatedAtAfterCreatedAt(entity);
-      })
+      }),
     );
   });
 });

@@ -125,7 +125,7 @@ describe("DatastoreChildRepository", () => {
         });
 
         await expect(repository.getByKey(itemKey("123"))).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load',
         );
       });
     });
@@ -181,7 +181,7 @@ describe("DatastoreChildRepository", () => {
         });
 
         await expect(repository.get(parentKey, "123")).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load',
         );
       });
     });
@@ -232,9 +232,9 @@ describe("DatastoreChildRepository", () => {
         await insertItemDirect("123");
 
         await expect(
-          repository.getRequiredByKey([itemKey("123"), itemKey("does-not-exist"), itemKey("also-does-not-exist")])
+          repository.getRequiredByKey([itemKey("123"), itemKey("does-not-exist"), itemKey("also-does-not-exist")]),
         ).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|does-not-exist" failed to load'
+          '"repository-items" with id "parent-items|xyz|repository-items|does-not-exist" failed to load',
         );
       });
     });
@@ -260,7 +260,7 @@ describe("DatastoreChildRepository", () => {
           },
         });
         await expect(repository.getRequiredByKey(itemKey("123"))).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load',
         );
       });
     });
@@ -299,7 +299,7 @@ describe("DatastoreChildRepository", () => {
         });
 
         await expect(repository.getRequired(parentKey, "123")).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to load',
         );
       });
     });
@@ -378,7 +378,7 @@ describe("DatastoreChildRepository", () => {
       it("throws for document that doesn't match schema", async () => {
         const abc = { parentKey, id: "123", message: "no name" } as any as RepositoryItem;
         await expect(repository.save(abc)).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to save'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to save',
         );
       });
     });
@@ -425,7 +425,7 @@ describe("DatastoreChildRepository", () => {
       it("throws for document that doesn't match schema", async () => {
         const abc = { parentKey, id: "123", message: "no name" } as any as RepositoryItem;
         await expect(repository.insert(abc)).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to save'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to save',
         );
       });
     });
@@ -448,7 +448,7 @@ describe("DatastoreChildRepository", () => {
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
         return runInTransaction(async () =>
-          repository.update([createItem("123", { message: "update" }), createItem("234", { message: "update" })])
+          repository.update([createItem("123", { message: "update" }), createItem("234", { message: "update" })]),
         );
       });
 
@@ -474,7 +474,7 @@ describe("DatastoreChildRepository", () => {
       it("throws for document that doesn't match schema", async () => {
         const abc = { parentKey, id: "123", message: "no name" } as any as RepositoryItem;
         await expect(repository.save(abc)).rejects.toThrow(
-          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to save'
+          '"repository-items" with id "parent-items|xyz|repository-items|123" failed to save',
         );
       });
     });
@@ -523,7 +523,7 @@ describe("DatastoreChildRepository", () => {
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
         return runInTransaction(() =>
-          Promise.all([repository.delete(parentKey, "123"), repository.delete(parentKey, "234")])
+          Promise.all([repository.delete(parentKey, "123"), repository.delete(parentKey, "234")]),
         );
       });
 
@@ -944,7 +944,7 @@ describe("DatastoreChildRepository", () => {
 
         expect(searchService.delete).toHaveBeenCalledWith(
           "item",
-          "eyJwYXRoIjpbInBhcmVudC1pdGVtcyIsInh5eiIsInJlcG9zaXRvcnktaXRlbXMiLCJpdGVtMSJdfQ=="
+          "eyJwYXRoIjpbInBhcmVudC1pdGVtcyIsInh5eiIsInJlcG9zaXRvcnktaXRlbXMiLCJpdGVtMSJdfQ==",
         );
       });
 
@@ -954,7 +954,7 @@ describe("DatastoreChildRepository", () => {
         expect(searchService.delete).toHaveBeenCalledWith(
           "item",
           "eyJwYXRoIjpbInBhcmVudC1pdGVtcyIsInh5eiIsInJlcG9zaXRvcnktaXRlbXMiLCJpdGVtMSJdfQ==",
-          "eyJwYXRoIjpbInBhcmVudC1pdGVtcyIsInh5eiIsInJlcG9zaXRvcnktaXRlbXMiLCJpdGVtMiJdfQ=="
+          "eyJwYXRoIjpbInBhcmVudC1pdGVtcyIsInh5eiIsInJlcG9zaXRvcnktaXRlbXMiLCJpdGVtMiJdfQ==",
         );
       });
     });

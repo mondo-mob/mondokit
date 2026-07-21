@@ -14,5 +14,5 @@ export class FirestoreProvider extends Provider<Firestore> {
 
 export const firestoreProvider = new FirestoreProvider(
   undefined,
-  "No Firestore instance found. Please initialise firestoreProvider."
+  "No Firestore instance found. Please initialise firestoreProvider.",
 );

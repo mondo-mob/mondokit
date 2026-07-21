@@ -16,7 +16,7 @@ describe("Datastore repository indexing", () => {
   const expectQueryMatch = async <T extends StringIdEntity>(
     repository: DatastoreRepository<T>,
     filters: Filters<T>,
-    expectedId = "123"
+    expectedId = "123",
   ) => {
     const [results] = await repository.query({ filters });
     expect(results.length).toBe(1);
@@ -26,7 +26,7 @@ describe("Datastore repository indexing", () => {
   const expectQueryError = async <T extends StringIdEntity>(
     repository: DatastoreRepository<T>,
     filters: Filters<T>,
-    message: string
+    message: string,
   ) => {
     await expect(() => repository.query({ filters })).rejects.toThrow(message);
   };
@@ -79,7 +79,7 @@ describe("Datastore repository indexing", () => {
     await expectQueryError(
       repository,
       { stringOptionalNullable: undefined },
-      "Attempt to filter by undefined value for property 'stringOptionalNullable'"
+      "Attempt to filter by undefined value for property 'stringOptionalNullable'",
     );
   });
 
@@ -241,7 +241,7 @@ describe("Datastore repository indexing", () => {
     await expectQueryMatch(
       repository,
       { nestedOptionalNullable: { stringOptionalNullable: { op: "=", value: null } } },
-      "234"
+      "234",
     );
   });
 
@@ -341,7 +341,7 @@ describe("Datastore repository indexing", () => {
       await expectQueryMatch(
         repository,
         { nestedRequired: { stringOptionalNullable: { op: "=", value: null } } },
-        "234"
+        "234",
       );
       await expectQueryMatch(repository, { nestedRequired: { deeper: { deeper: { stringRequired: "abc" } } } });
       await expectQueryMatch(repository, { nestedRequired: { deeper: { deeper: { stringNullable: null } } } }, "234");
@@ -356,7 +356,7 @@ describe("Datastore repository indexing", () => {
       await expectQueryMatch(
         repository,
         { nestedOptional: { deeper: { deeperArray: { stringNullable: null } } } },
-        "234"
+        "234",
       );
 
       await expectQueryMatch(repository, { nestedNullable: { stringRequired: "abc" } });
@@ -369,7 +369,7 @@ describe("Datastore repository indexing", () => {
       await expectQueryMatch(
         repository,
         { nestedNullable: { stringOptionalNullable: { op: "=", value: null } } },
-        "234"
+        "234",
       );
 
       await expectQueryMatch(repository, { nestedOptionalNullable: { stringRequired: "abc" } });
@@ -379,14 +379,14 @@ describe("Datastore repository indexing", () => {
       await expectQueryMatch(
         repository,
         { nestedOptionalNullable: { stringNullable: { op: "=", value: null } } },
-        "234"
+        "234",
       );
       await expectQueryMatch(repository, { nestedOptionalNullable: { stringOptionalNullable: "jkl" } });
       await expectQueryMatch(repository, { nestedOptionalNullable: { stringOptionalNullable: null } }, "234");
       await expectQueryMatch(
         repository,
         { nestedOptionalNullable: { stringOptionalNullable: { op: "=", value: null } } },
-        "234"
+        "234",
       );
     });
 

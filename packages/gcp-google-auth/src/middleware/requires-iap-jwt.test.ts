@@ -25,7 +25,7 @@ describe("requiresIapJwt", () => {
       "the-token",
       { key1: "keyabc", key2: "keydef" },
       ["http://example.com"],
-      ["https://cloud.google.com/iap"]
+      ["https://cloud.google.com/iap"],
     );
   });
 
@@ -42,7 +42,7 @@ describe("requiresIapJwt", () => {
       "the-token",
       { key1: "keyabc", key2: "keydef" },
       ["expected-audience"],
-      ["https://cloud.google.com/iap"]
+      ["https://cloud.google.com/iap"],
     );
   });
 
@@ -78,7 +78,7 @@ const initEndpointWithRequiresIapJwt = (opts?: Partial<IapJwtVerificationOptions
       audience: "http://example.com",
       ...opts,
     }),
-    (req, res) => res.send("MESSAGE")
+    (req, res) => res.send("MESSAGE"),
   );
   return app;
 };
@@ -94,7 +94,7 @@ const mockVerifyIdToken = (payloadOverrides: Partial<TokenPayload> = {}) =>
       new LoginTicket("envelope", {
         ...SAMPLE_SUCCESS_PAYLOAD,
         ...payloadOverrides,
-      })
+      }),
   );
 
 const mockVerifyIdTokenThrowsError = () =>

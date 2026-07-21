@@ -28,7 +28,7 @@ export class MutexService {
   async withMutexSilent(
     mutexId: OneOrMany<string>,
     fn: () => Promise<unknown> | unknown,
-    options?: MutexOptionsWithHandler
+    options?: MutexOptionsWithHandler,
   ): Promise<void> {
     const mutexIdString = joinIdElements(mutexId);
     try {
@@ -70,7 +70,7 @@ export class MutexService {
    */
   async obtain(
     mutexId: OneOrMany<string>,
-    { expirySeconds = this.defaultExpirySeconds }: MutexOptions = {}
+    { expirySeconds = this.defaultExpirySeconds }: MutexOptions = {},
   ): Promise<Mutex> {
     const id = this.mutexId(joinIdElements(mutexId));
     this.logger.info(`Obtaining mutex for ${id}...`);

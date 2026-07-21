@@ -5,7 +5,13 @@ import { FirestoreLoader } from "./firestore-loader.js";
 import { firestoreProvider } from "./firestore-provider.js";
 import { FirestoreRepository } from "./firestore-repository.js";
 import { firestoreLoaderRequestStorage } from "./firestore-request-storage.js";
-import { execPostCommitOrNow, execPostCommitOrNowSync, isTransactionActive, PostCommitError, runInTransaction } from "./transactional.js";
+import {
+  execPostCommitOrNow,
+  execPostCommitOrNowSync,
+  isTransactionActive,
+  PostCommitError,
+  runInTransaction,
+} from "./transactional.js";
 
 interface RepositoryItem {
   id: string;
@@ -28,11 +34,11 @@ describe("Transactional", () => {
     vi.clearAllMocks();
   });
 
-  const saveItems = async (id: string)  => {
+  const saveItems = async (id: string) => {
     const item1 = await repository1.save({ id, name: `item${id}` });
     const item2 = await repository2.save({ id, name: `item${id}` });
     return [item1, item2];
-  }
+  };
 
   describe("runInTransaction", () => {
     it("saves multiple collections in single transaction", async () => {
@@ -135,7 +141,7 @@ describe("Transactional", () => {
           await execPostCommitOrNow(async () => executions.push("post-commit-2"));
           executions.push("action-2");
           executions.push("action-3");
-        })
+        }),
       );
 
       expect(executions).toEqual(["action-1", "action-2", "action-3", "post-commit-1", "post-commit-2"]);
@@ -152,8 +158,8 @@ describe("Transactional", () => {
             await execPostCommitOrNow(async () => executions.push("post-commit-2"));
             executions.push("action-2");
             throw new Error("Something went wrong");
-          })
-        )
+          }),
+        ),
       ).rejects.toThrow("Something went wrong");
 
       expect(executions).toEqual(["action-1", "action-2"]);
@@ -192,7 +198,7 @@ describe("Transactional", () => {
             executions.push("action-2");
             executions.push("action-3");
             return "Result of the transactional block";
-          })
+          }),
         );
         throw Error("Expected error");
       } catch (err) {
@@ -217,7 +223,7 @@ describe("Transactional", () => {
           execPostCommitOrNowSync(() => executions.push("post-commit-2"));
           executions.push("action-2");
           executions.push("action-3");
-        })
+        }),
       );
 
       expect(executions).toEqual(["action-1", "action-2", "action-3", "post-commit-1", "post-commit-2"]);
@@ -234,8 +240,8 @@ describe("Transactional", () => {
             execPostCommitOrNowSync(() => executions.push("post-commit-2"));
             executions.push("action-2");
             throw new Error("Something went wrong");
-          })
-        )
+          }),
+        ),
       ).rejects.toThrow("Something went wrong");
 
       expect(executions).toEqual(["action-1", "action-2"]);
@@ -271,7 +277,7 @@ describe("Transactional", () => {
             executions.push("action-2");
             executions.push("action-3");
             return "Result of the transactional block";
-          })
+          }),
         );
         throw Error("Expected error");
       } catch (err) {

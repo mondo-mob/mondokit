@@ -5,5 +5,5 @@ export const mutexServiceProvider = new LazyProvider(
   () =>
     new MutexService({
       expirySeconds: 5 * 60,
-    })
+    }),
 );

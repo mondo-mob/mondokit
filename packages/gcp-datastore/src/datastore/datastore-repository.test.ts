@@ -69,7 +69,7 @@ describe("DatastoreRepository", () => {
         data: {
           name: `test${id}`,
         },
-      }))
+      })),
     );
   };
 
@@ -77,7 +77,7 @@ describe("DatastoreRepository", () => {
   const insertNItems = async (totalItems: number) => {
     const chunkedIds = chunk(
       Array.from({ length: totalItems }, (_, i) => padStart(`${i + 1}`, `${totalItems}`.length, "0")),
-      200
+      200,
     );
     for (const ids of chunkedIds) {
       await insertItems(ids);
@@ -264,7 +264,7 @@ describe("DatastoreRepository", () => {
           },
         });
         await expect(repository.get("123")).rejects.toThrow(
-          '"repository-items" with id "repository-items|123" failed to load'
+          '"repository-items" with id "repository-items|123" failed to load',
         );
       });
     });
@@ -302,7 +302,7 @@ describe("DatastoreRepository", () => {
 
     it("throws for document that doesn't exist", async () => {
       await expect(repository.getRequired("123")).rejects.toThrow(
-        '"repository-items" with id "repository-items|123" failed to load'
+        '"repository-items" with id "repository-items|123" failed to load',
       );
     });
 
@@ -329,7 +329,7 @@ describe("DatastoreRepository", () => {
         await insertItems("123");
 
         await expect(repository.getRequired(["123", "does-not-exist", "also-does-not-exist"])).rejects.toThrow(
-          '"repository-items" with id "repository-items|does-not-exist" failed to load'
+          '"repository-items" with id "repository-items|does-not-exist" failed to load',
         );
       });
     });
@@ -361,7 +361,7 @@ describe("DatastoreRepository", () => {
           },
         });
         await expect(repository.getRequired("123")).rejects.toThrow(
-          '"repository-items" with id "repository-items|123" failed to load'
+          '"repository-items" with id "repository-items|123" failed to load',
         );
       });
     });
@@ -421,7 +421,7 @@ describe("DatastoreRepository", () => {
       it("throws for document that doesn't match schema", async () => {
         const abc = { id: "123", message: "no name" } as any as RepositoryItem;
         await expect(repository.save(abc)).rejects.toThrow(
-          '"repository-items" with id "repository-items|123" failed to save'
+          '"repository-items" with id "repository-items|123" failed to save',
         );
       });
     });
@@ -471,7 +471,7 @@ describe("DatastoreRepository", () => {
       it("throws for document that doesn't match schema", async () => {
         const abc = { id: "123", message: "no name" } as any as RepositoryItem;
         await expect(repository.insert(abc)).rejects.toThrow(
-          '"repository-items" with id "repository-items|123" failed to save'
+          '"repository-items" with id "repository-items|123" failed to save',
         );
       });
     });
@@ -494,7 +494,7 @@ describe("DatastoreRepository", () => {
       await runWithRequestStorage(async () => {
         datastoreLoaderRequestStorage.set(new DatastoreLoader(datastore));
         return runInTransaction(async () =>
-          repository.update([createItem("123", { message: "update" }), createItem("234", { message: "update" })])
+          repository.update([createItem("123", { message: "update" }), createItem("234", { message: "update" })]),
         );
       });
 
@@ -523,7 +523,7 @@ describe("DatastoreRepository", () => {
       it("throws for document that doesn't match schema", async () => {
         const abc = { id: "123", message: "no name" } as any as RepositoryItem;
         await expect(repository.save(abc)).rejects.toThrow(
-          '"repository-items" with id "repository-items|123" failed to save'
+          '"repository-items" with id "repository-items|123" failed to save',
         );
       });
     });

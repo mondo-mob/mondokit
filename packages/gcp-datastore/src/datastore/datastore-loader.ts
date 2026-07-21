@@ -77,7 +77,7 @@ export class DatastoreLoader {
         }
         return acc;
       },
-      { errors: [] as Array<Error>, values: [] as Array<DatastoreEntity | null> }
+      { errors: [] as Array<Error>, values: [] as Array<DatastoreEntity | null> },
     );
     if (errors.length) {
       throw errors[0];
@@ -96,7 +96,7 @@ export class DatastoreLoader {
     await this.applyBatched(
       entities,
       (datastore, chunk) => datastore.save(chunk),
-      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data)
+      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data),
     );
   }
 
@@ -104,7 +104,7 @@ export class DatastoreLoader {
     await this.applyBatched(
       entities,
       (datastore, chunk) => datastore.delete(chunk) as Promise<any>,
-      (loader, key) => loader.clear(key)
+      (loader, key) => loader.clear(key),
     );
   }
 
@@ -112,7 +112,7 @@ export class DatastoreLoader {
     await this.applyBatched(
       entities,
       (datastore, chunk) => datastore.update(chunk),
-      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data)
+      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data),
     );
   }
 
@@ -120,7 +120,7 @@ export class DatastoreLoader {
     await this.applyBatched(
       entities,
       (datastore, chunk) => datastore.upsert(chunk),
-      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data)
+      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data),
     );
   }
 
@@ -128,13 +128,13 @@ export class DatastoreLoader {
     await this.applyBatched(
       entities,
       (datastore, chunk) => datastore.insert(chunk),
-      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data)
+      (loader, { key, data }) => DatastoreLoader.resetDataloaderCache(loader, key, data),
     );
   }
 
   public async executeQuery<T>(
     kind: string | null,
-    options: Partial<QueryOptions<T>>
+    options: Partial<QueryOptions<T>>,
   ): Promise<[DatastoreEntity[], RunQueryInfo]> {
     let query = this.datastore.createQuery(kind ? kind : undefined);
 
@@ -217,7 +217,7 @@ export class DatastoreLoader {
 
   private async runCallbackInTransaction<T>(
     callback: (loader: DatastoreLoader) => Promise<T>,
-    transaction: Transaction
+    transaction: Transaction,
   ): Promise<T> {
     try {
       return await callback(new DatastoreLoader(transaction));
@@ -239,7 +239,7 @@ export class DatastoreLoader {
   private static resetDataloaderCache(
     loader: DataLoader<Entity.Key, DatastoreEntity | null>,
     key: Entity.Key,
-    data: DocumentData | null
+    data: DocumentData | null,
   ) {
     const datastoreEntity = { [Datastore.KEY]: key, ...data };
     return loader.clear(key).prime(key, datastoreEntity);
@@ -249,7 +249,7 @@ export class DatastoreLoader {
     values: ReadonlyArray<T>,
     operation: (datastore: Datastore | Transaction, chunk: ReadonlyArray<T>) => Promise<any> | void,
     updateLoader: (loader: DataLoader<Entity.Key, DatastoreEntity | null>, value: T) => void,
-    batchSize = 100
+    batchSize = 100,
   ) {
     const entityChunks: T[][] = chunk(values, batchSize);
     const pendingModifications = entityChunks.map((entityChunk: T[]) => operation(this.datastore, entityChunk));

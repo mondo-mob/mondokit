@@ -152,7 +152,7 @@ const mockVerifyIdToken = (payloadOverrides: Partial<TokenPayload> = {}) =>
       new LoginTicket("envelope", {
         ...SAMPLE_SUCCESS_PAYLOAD,
         ...payloadOverrides,
-      })
+      }),
   );
 
 const mockVerifyIdTokenUndefinedPayload = () =>

@@ -9,7 +9,10 @@ import { BaseEntity, DocumentIdentifier, GroupEntity } from "./types.js";
 export class FirestoreGroupRepository<T extends BaseEntity> extends FirestoreBaseRepository<T> {
   protected readonly logger = createLogger("firestore-group-repository");
 
-  constructor(protected readonly collectionId: string, options?: BaseRepositoryOptions<T>) {
+  constructor(
+    protected readonly collectionId: string,
+    options?: BaseRepositoryOptions<T>,
+  ) {
     super(collectionId, options);
   }
 

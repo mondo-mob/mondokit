@@ -369,7 +369,7 @@ describe("FirestoreRepository", () => {
         });
 
         await expect(repository.getRequired(["123", "does-not-exist", "also-does-not-exist"])).rejects.toThrow(
-          '"repository-items" with id "does-not-exist" failed to load'
+          '"repository-items" with id "does-not-exist" failed to load',
         );
       });
     });
@@ -560,7 +560,7 @@ describe("FirestoreRepository", () => {
 
     it("fails when document does not exist, when precondition is specified", async () => {
       await expect(repository.delete("123", { exists: true })).rejects.toThrow(
-        `NOT_FOUND: no entity to update: app: "dev~firestore-tests"`
+        `NOT_FOUND: no entity to update: app: "dev~firestore-tests"`,
       );
     });
 
@@ -568,7 +568,7 @@ describe("FirestoreRepository", () => {
       await firestore.doc(`${collection}/123`).create({ name: "test123" });
 
       await expect(repository.delete(["123", "234"], { exists: true })).rejects.toThrow(
-        `NOT_FOUND: no entity to update: app: "dev~firestore-tests"`
+        `NOT_FOUND: no entity to update: app: "dev~firestore-tests"`,
       );
 
       const doc = await firestore.doc(`${collection}/123`).get();
@@ -604,7 +604,7 @@ describe("FirestoreRepository", () => {
         runWithRequestStorage(async () => {
           firestoreLoaderRequestStorage.set(new FirestoreLoader(firestore));
           return runInTransaction(() => repository.deleteAll());
-        })
+        }),
       ).rejects.toThrow("deleteAll is not supported from within a transaction");
     });
 
@@ -622,7 +622,7 @@ describe("FirestoreRepository", () => {
             await repository.save({ id: "999", name: "this should be rolled back" });
             throw new Error("Error to force rollback");
           });
-        })
+        }),
       ).rejects.toThrow("Error to force rollback");
 
       // Delete not rolled back, but the save of new entity was
@@ -963,7 +963,7 @@ describe("FirestoreRepository", () => {
         expect(
           await repository.count({
             filters: [{ fieldPath: "name", opStr: "==", value: "aaa" }],
-          })
+          }),
         ).toBe(3);
       });
     });

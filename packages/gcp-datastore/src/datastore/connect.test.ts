@@ -15,7 +15,7 @@ describe("connect", () => {
         connectDatastore();
 
         expect(Datastore).toHaveBeenLastCalledWith({ projectId: undefined });
-      })
+      }),
     );
 
     it("connects to app projectId if not running on gcp", async () => {
@@ -75,7 +75,7 @@ describe("connect", () => {
         connectDatastoreAdmin();
 
         expect(DatastoreAdminClient).toHaveBeenLastCalledWith({ projectId: undefined });
-      })
+      }),
     );
 
     it("connects to app projectId if not running on gcp", async () => {

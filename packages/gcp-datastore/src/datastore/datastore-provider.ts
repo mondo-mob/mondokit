@@ -14,5 +14,5 @@ export class DatastoreProvider extends Provider<Datastore> {
 
 export const datastoreProvider = new DatastoreProvider(
   undefined,
-  "No Datastore instance found. Please initialise datastoreProvider."
+  "No Datastore instance found. Please initialise datastoreProvider.",
 );

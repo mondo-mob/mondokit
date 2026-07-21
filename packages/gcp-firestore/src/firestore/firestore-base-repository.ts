@@ -27,7 +27,7 @@ export abstract class FirestoreBaseRepository<T extends BaseEntity> {
         write: [DateTransformers.write()],
         read: [DateTransformers.read()],
       },
-    }: BaseRepositoryOptions<T> = {}
+    }: BaseRepositoryOptions<T> = {},
   ) {
     this.validator = validator;
     this.firestore = firestore;

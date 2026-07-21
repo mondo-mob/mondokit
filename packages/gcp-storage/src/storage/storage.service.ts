@@ -53,15 +53,15 @@ export class StorageService {
     const destination = fileName
       ? this.bucket.file(fileName)
       : filePath
-      ? this.bucket.file(gcsPathJoin(filePath, path.basename(src.name)))
-      : this.bucket;
+        ? this.bucket.file(gcsPathJoin(filePath, path.basename(src.name)))
+        : this.bucket;
     const [file] = await srcFile.copy(destination);
     return file;
   }
 
   async copyAllToBucket(
     src: Array<File | GcsFileIdentifier>,
-    options?: Pick<CopyFileOptions, "filePath">
+    options?: Pick<CopyFileOptions, "filePath">,
   ): Promise<File[]> {
     return Promise.all(src.map((f) => gcsPromiseLimit(() => this.copyToBucket(f, options))));
   }
@@ -80,8 +80,8 @@ export class StorageService {
         gcsPromiseLimit(async () => {
           await file.delete({ ignoreNotFound: true });
           this.logger.info(`Deleted file: ${toGcsUri(file)}`);
-        })
-      )
+        }),
+      ),
     );
     this.logger.info(`Deleted: ${files.length} files from path: ${prefix}`);
   }
@@ -89,7 +89,7 @@ export class StorageService {
   async getResumableUploadUrl(
     fileId: string,
     uploadOptions?: CreateResumableUploadOptions,
-    fileOptions?: FileOptions
+    fileOptions?: FileOptions,
   ): Promise<string> {
     const gcsFile = this.bucket.file(fileId, fileOptions);
     const origin = uploadOptions?.origin || this.options.origin || configurationProvider.get().host;

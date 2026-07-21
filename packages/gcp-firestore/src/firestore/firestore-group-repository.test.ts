@@ -392,7 +392,7 @@ describe("FirestoreGroupRepository", () => {
           expect(
             await groupRepository.count({
               filters: [{ fieldPath: "name", opStr: "==", value: "aaa" }],
-            })
+            }),
           ).toBe(3);
         });
       });

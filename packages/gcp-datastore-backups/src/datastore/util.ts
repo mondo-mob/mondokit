@@ -14,7 +14,7 @@ export const mergeExportOperation = (
     done: boolean | undefined;
     metadata: unknown | null;
     error: { code?: number; message?: string } | undefined;
-  }
+  },
 ): BackupOperation => {
   const meta = exportOperation.metadata as IExportEntitiesMetadata;
   return {

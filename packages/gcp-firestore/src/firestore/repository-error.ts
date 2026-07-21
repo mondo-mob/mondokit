@@ -1,5 +1,8 @@
 export class FirestoreRepositoryError extends Error {
-  constructor(readonly code: string, message: string) {
+  constructor(
+    readonly code: string,
+    message: string,
+  ) {
     super(message);
     this.name = "FirestoreRepositoryError";
   }
@@ -11,11 +14,11 @@ export class RepositoryError extends FirestoreRepositoryError {
     kind: string,
     id: string,
     errors: string[],
-    code = `${operation}.repository.error`
+    code = `${operation}.repository.error`,
   ) {
     super(
       code,
-      `"${kind}" with id "${id}" failed to ${operation} due to ${errors.length} errors:\n${errors.join("\n")}`
+      `"${kind}" with id "${id}" failed to ${operation} due to ${errors.length} errors:\n${errors.join("\n")}`,
     );
     this.name = "RepositoryError";
   }

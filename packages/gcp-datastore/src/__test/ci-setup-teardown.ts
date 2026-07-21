@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import DataStoreEmulator from "google-datastore-emulator";
 
-
 export async function setup() {
   const emulator = new DataStoreEmulator({
     port: 8081,
@@ -21,7 +20,7 @@ export async function setup() {
   }
 }
 
-export async function teardown(){
+export async function teardown() {
   // @ts-ignore
   const emulator = global.__DATASTORE__;
   if (emulator) {

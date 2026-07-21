@@ -217,7 +217,7 @@ describe("FirestoreLoader", () => {
 
     it("fails when document does not exist, when precondition is specified", async () => {
       await expect(loader.delete([firestore.doc("/users/123")], { exists: true })).rejects.toThrow(
-        `NOT_FOUND: no entity to update: app: "dev~firestore-tests"`
+        `NOT_FOUND: no entity to update: app: "dev~firestore-tests"`,
       );
     });
 
@@ -249,7 +249,7 @@ describe("FirestoreLoader", () => {
       await expect(
         loader.inTransaction(async (txnLoader) => {
           await txnLoader.deleteAll("users");
-        })
+        }),
       ).rejects.toThrow("deleteAll is not supported from within a transaction");
     });
 
@@ -262,7 +262,7 @@ describe("FirestoreLoader", () => {
           await txnLoader.deleteAll("users", { ignoreTransaction: true });
           await txnLoader.create([createUserPayload("999")]);
           throw new Error("Error to force rollback");
-        })
+        }),
       ).rejects.toThrow("Error to force rollback");
 
       (loader as any).loader.clearAll();
@@ -579,7 +579,7 @@ describe("FirestoreLoader", () => {
         expect(
           await loader.execCount("users", {
             filters: [{ fieldPath: "message", opStr: "==", value: "msg1" }],
-          })
+          }),
         ).toBe(3);
       });
     });

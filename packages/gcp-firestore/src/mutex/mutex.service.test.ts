@@ -20,7 +20,7 @@ describe("MutexService", () => {
         expect(mutex.id).toBe("test1");
         expect(mutex.locked).toBeTruthy();
         expect(secondsDifference(mutex.expiredAt, mutex.obtainedAt)).toBe(10);
-      })
+      }),
     );
 
     it(
@@ -30,7 +30,7 @@ describe("MutexService", () => {
         expect(mutex.id).toBe("test1");
         expect(mutex.locked).toBeTruthy();
         expect(secondsDifference(mutex.expiredAt, mutex.obtainedAt)).toBe(5);
-      })
+      }),
     );
 
     it(
@@ -38,9 +38,9 @@ describe("MutexService", () => {
       transactional(async () => {
         await mutexService.obtain("test1");
         await expect(() => mutexService.obtain("test1")).rejects.toThrow(
-          "Mutex test1 already active for another process"
+          "Mutex test1 already active for another process",
         );
-      })
+      }),
     );
 
     it(
@@ -53,7 +53,7 @@ describe("MutexService", () => {
 
         expect(mutex.id).toBe("test1");
         expect(mutex.locked).toBeTruthy();
-      })
+      }),
     );
 
     it(
@@ -66,18 +66,18 @@ describe("MutexService", () => {
 
         expect(mutex.id).toBe("test1");
         expect(mutex.locked).toBeTruthy();
-      })
+      }),
     );
 
     it("cannot obtain mutex with id containing '/'", async () => {
       await expect(mutexService.obtain("foo/bar")).rejects.toThrow(
-        "Mutex id elements cannot contain '/'. Supplied: foo/bar."
+        "Mutex id elements cannot contain '/'. Supplied: foo/bar.",
       );
     });
 
     it("cannot obtain mutex with id elements containing '/'", async () => {
       await expect(mutexService.obtain(["foo", "foo/bar"])).rejects.toThrow(
-        "Mutex id elements cannot contain '/'. Supplied: foo,foo/bar."
+        "Mutex id elements cannot contain '/'. Supplied: foo,foo/bar.",
       );
     });
   });
@@ -92,7 +92,7 @@ describe("MutexService", () => {
         const released = await mutexService.release("test1");
         expect(released).toBeTruthy();
         expect(released?.locked).toBeFalsy();
-      })
+      }),
     );
 
     it(
@@ -100,7 +100,7 @@ describe("MutexService", () => {
       transactional(async () => {
         const mutex = await mutexService.release("i-dont-exist");
         expect(mutex).toBe(null);
-      })
+      }),
     );
   });
 
@@ -120,7 +120,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: false,
         });
-      })
+      }),
     );
 
     it(
@@ -133,7 +133,7 @@ describe("MutexService", () => {
         await expectMutex("test1::test2", {
           locked: false,
         });
-      })
+      }),
     );
 
     it(
@@ -150,7 +150,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: false,
         });
-      })
+      }),
     );
 
     it(
@@ -159,7 +159,7 @@ describe("MutexService", () => {
         await mutexService.obtain("test1");
 
         await expect(mutexService.withMutex("test1", executorFunction)).rejects.toThrow(
-          "Mutex test1 already active for another process"
+          "Mutex test1 already active for another process",
         );
 
         expect(executorFunction).not.toHaveBeenCalled();
@@ -167,7 +167,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: true,
         });
-      })
+      }),
     );
   });
 
@@ -187,7 +187,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: false,
         });
-      })
+      }),
     );
 
     it(
@@ -200,7 +200,7 @@ describe("MutexService", () => {
         await expectMutex("test1::test2", {
           locked: false,
         });
-      })
+      }),
     );
 
     it(
@@ -217,7 +217,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: false,
         });
-      })
+      }),
     );
 
     it(
@@ -232,7 +232,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: true,
         });
-      })
+      }),
     );
 
     it(
@@ -242,7 +242,7 @@ describe("MutexService", () => {
         await mutexService.obtain("test1");
 
         await expect(
-          mutexService.withMutexSilent("test1", executorFunction, { onMutexUnavailable: handler })
+          mutexService.withMutexSilent("test1", executorFunction, { onMutexUnavailable: handler }),
         ).resolves.toBeUndefined();
 
         expect(executorFunction).not.toHaveBeenCalled();
@@ -251,7 +251,7 @@ describe("MutexService", () => {
         await expectMutex("test1", {
           locked: true,
         });
-      })
+      }),
     );
   });
 
@@ -271,7 +271,7 @@ describe("MutexService", () => {
           expect(mutex.id).toBe("grandparent::parent::test1");
           expect(mutex.locked).toBeTruthy();
           expect(secondsDifference(mutex.expiredAt, mutex.obtainedAt)).toBe(10);
-        })
+        }),
       );
 
       it(
@@ -281,7 +281,7 @@ describe("MutexService", () => {
           expect(mutex.id).toBe("grandparent::parent::test1::test23");
           expect(mutex.locked).toBeTruthy();
           expect(secondsDifference(mutex.expiredAt, mutex.obtainedAt)).toBe(10);
-        })
+        }),
       );
 
       it(
@@ -291,7 +291,7 @@ describe("MutexService", () => {
           expect(mutex.id).toBe("grandparent::parent::test1");
           expect(mutex.locked).toBeTruthy();
           expect(secondsDifference(mutex.expiredAt, mutex.obtainedAt)).toBe(5);
-        })
+        }),
       );
     });
 
@@ -305,7 +305,7 @@ describe("MutexService", () => {
           const released = await mutexService.release("test1");
           expect(released).toBeDefined();
           expect(released?.locked).toBeFalsy();
-        })
+        }),
       );
 
       it(
@@ -317,7 +317,7 @@ describe("MutexService", () => {
           const released = await mutexService.release(["test1", "test23"]);
           expect(released).toBeDefined();
           expect(released?.locked).toBeFalsy();
-        })
+        }),
       );
     });
 
@@ -336,7 +336,7 @@ describe("MutexService", () => {
           const released = await mutexService.release("test1");
           expect(released).toBeDefined();
           expect(released?.locked).toBeFalsy();
-        })
+        }),
       );
     });
   });
@@ -344,13 +344,13 @@ describe("MutexService", () => {
   describe("validation", () => {
     it("cannot construct mutexService with prefix containing '/'", () => {
       expect(() => new MutexService({ expirySeconds: 1, prefix: "foo/bar" })).toThrow(
-        "Mutex id elements cannot contain '/'. Supplied: foo/bar."
+        "Mutex id elements cannot contain '/'. Supplied: foo/bar.",
       );
     });
 
     it("cannot construct mutexService with prefix array containing '/'", () => {
       expect(() => new MutexService({ expirySeconds: 1, prefix: ["grandparent", "foo/bar"] })).toThrow(
-        "Mutex id elements cannot contain '/'. Supplied: grandparent,foo/bar."
+        "Mutex id elements cannot contain '/'. Supplied: grandparent,foo/bar.",
       );
     });
   });

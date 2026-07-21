@@ -14,5 +14,5 @@ export class BigQueryProvider extends Provider<BigQuery> {
 
 export const bigQueryProvider = new BigQueryProvider(
   undefined,
-  "No BigQuery instance found. Please initialise bigQueryProvider."
+  "No BigQuery instance found. Please initialise bigQueryProvider.",
 );

@@ -62,7 +62,7 @@ export const simpleConsoleWriter: WriteFn = {
 };
 
 const errorString = (err: unknown) =>
-  isErrorLike(err) ? err.stack ?? `${err.name}: ${err.message}` : JSON.stringify(err, undefined, 2);
+  isErrorLike(err) ? (err.stack ?? `${err.name}: ${err.message}`) : JSON.stringify(err, undefined, 2);
 
 const isErrorLike = (err: unknown): err is Error =>
   typeof err === "object" && err != null && "message" in err && "name" in err;

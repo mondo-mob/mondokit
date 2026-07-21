@@ -82,7 +82,10 @@ export abstract class AbstractRepository<T> implements Searchable<T> {
   private readonly datastore?: Datastore;
   protected readonly searchOptions?: RepositorySearchOptions<T>;
 
-  constructor(protected readonly kind: string, protected readonly options: AbstractRepositoryOptions<T>) {
+  constructor(
+    protected readonly kind: string,
+    protected readonly options: AbstractRepositoryOptions<T>,
+  ) {
     this.datastore = options?.datastore;
     this.validator = options.validator;
     this.searchOptions = options?.search;
@@ -212,7 +215,7 @@ export abstract class AbstractRepository<T> implements Searchable<T> {
     const [allEntities] = await this.query();
 
     const updatedEntities = await Promise.all(
-      allEntities.map((entity) => operationPromiseLimit(() => operation(entity)))
+      allEntities.map((entity) => operationPromiseLimit(() => operation(entity))),
     );
 
     return this.update(updatedEntities);
@@ -257,7 +260,7 @@ export abstract class AbstractRepository<T> implements Searchable<T> {
 
   private async doReindexInBatches(
     options: BatchReindexOptions<T>,
-    { startCursor, batchIndex = 0 }: { startCursor?: string; batchIndex?: number } = {}
+    { startCursor, batchIndex = 0 }: { startCursor?: string; batchIndex?: number } = {},
   ): Promise<number> {
     const { transform = (input) => input, batchSize = 200, quiet = false } = options;
     const [entities, { endCursor }] = await this.query({ limit: batchSize, start: startCursor });
@@ -266,7 +269,7 @@ export abstract class AbstractRepository<T> implements Searchable<T> {
         this.logger.info(`Re-indexing ${this.kind} batch ${batchIndex + 1} of size ${entities.length}`);
       }
       const updatedEntities = await Promise.all(
-        entities.map((entity, index) => operationPromiseLimit(() => transform(entity, index, batchIndex)))
+        entities.map((entity, index) => operationPromiseLimit(() => transform(entity, index, batchIndex))),
       );
       await this.update(updatedEntities);
     }
@@ -292,7 +295,7 @@ export abstract class AbstractRepository<T> implements Searchable<T> {
 
   private async applyMutation(
     entities: OneOrMany<T>,
-    mutation: (loader: DatastoreLoader, entities: ReadonlyArray<DatastorePayload>) => Promise<any>
+    mutation: (loader: DatastoreLoader, entities: ReadonlyArray<DatastorePayload>) => Promise<any>,
   ): Promise<OneOrMany<T>> {
     const entitiesToSave = castArray(entities)
       .map((e) => this.validateSave(e))

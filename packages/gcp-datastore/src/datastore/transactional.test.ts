@@ -22,11 +22,11 @@ describe("Transactional", () => {
     vi.clearAllMocks();
   });
 
-  const saveItems = async (id: string)  => {
+  const saveItems = async (id: string) => {
     const item1 = await repository1.save({ id, name: `item${id}` });
     const item2 = await repository2.save({ id, name: `item${id}` });
     return [item1, item2];
-  }
+  };
 
   describe("runInTransaction", () => {
     it("saves multiple collections in single transaction", async () => {
@@ -125,7 +125,7 @@ describe("Transactional", () => {
           await execPostCommitOrNow(() => executions.push("post-commit-2"));
           executions.push("action-2");
           executions.push("action-3");
-        })
+        }),
       );
 
       expect(executions).toEqual(["action-1", "action-2", "action-3", "post-commit-1", "post-commit-2"]);
@@ -142,8 +142,8 @@ describe("Transactional", () => {
             await execPostCommitOrNow(() => executions.push("post-commit-2"));
             executions.push("action-2");
             throw new Error("Something went wrong");
-          })
-        )
+          }),
+        ),
       ).rejects.toThrow("Something went wrong");
 
       expect(executions).toEqual(["action-1", "action-2"]);
@@ -179,7 +179,7 @@ describe("Transactional", () => {
             executions.push("action-2");
             executions.push("action-3");
             return "Result of the transactional block";
-          })
+          }),
         );
         expect("Expected an error. Test failed.").toBe("pass");
       } catch (err) {
@@ -199,4 +199,3 @@ describe("Transactional", () => {
       return testFn();
     });
 });
-

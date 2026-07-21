@@ -42,7 +42,10 @@ export class FirestoreRepository<T extends BaseEntity> extends FirestoreBaseRepo
   private readonly logger = createLogger("firestore-repository");
   protected readonly searchOptions?: RepositorySearchOptions<T>;
 
-  constructor(protected readonly collectionPath: string, options: RepositoryOptions<T> = {}) {
+  constructor(
+    protected readonly collectionPath: string,
+    options: RepositoryOptions<T> = {},
+  ) {
     super(collectionPath, options);
     this.searchOptions = options.search;
   }
@@ -179,7 +182,7 @@ export class FirestoreRepository<T extends BaseEntity> extends FirestoreBaseRepo
 
   private async applyMutation(
     entities: OneOrMany<T>,
-    mutation: (loader: FirestoreLoader, entities: ReadonlyArray<FirestorePayload>) => Promise<any>
+    mutation: (loader: FirestoreLoader, entities: ReadonlyArray<FirestorePayload>) => Promise<any>,
   ): Promise<OneOrMany<T>> {
     const transformedEntities = mapOneOrMany(entities, (entity) => transformDeep(entity, this.valueTransformers.write));
     const entitiesToSave = castArray(transformedEntities)
@@ -189,7 +192,7 @@ export class FirestoreRepository<T extends BaseEntity> extends FirestoreBaseRepo
           ({
             ref: this.documentRef(data.id),
             data,
-          } as FirestorePayload)
+          }) as FirestorePayload,
       );
 
     await mutation(this.getLoader(), entitiesToSave);
