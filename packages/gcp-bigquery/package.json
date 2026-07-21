@@ -25,11 +25,13 @@
   "peerDependencies": {
     "@google-cloud/bigquery": ">=6.0.0",
     "@mondokit/gcp-core": "^2.0.0",
-    "@mondokit/gcp-storage": "^2.0.0"
+    "@mondokit/gcp-storage": "^2.0.0",
+    "zod": ">=4.0.0"
   },
   "devDependencies": {
     "@google-cloud/bigquery": "^8.3.1",
     "@mondokit/gcp-core": "2.0.0",
-    "@mondokit/gcp-storage": "2.0.0"
+    "@mondokit/gcp-storage": "2.0.0",
+    "zod": "^4.4.3"
   }
 }

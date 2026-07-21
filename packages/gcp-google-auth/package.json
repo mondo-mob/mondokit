@@ -22,12 +22,17 @@
   "author": "",
   "license": "MIT",
   "homepage": "https://github.com/mondo-mob/mondokit",
+  "dependencies": {
+    "lodash-es": "^4.18.1"
+  },
   "peerDependencies": {
     "@mondokit/gcp-core": "^2.0.0",
+    "express": ">= 5.0.0",
     "google-auth-library": ">=9.4.0"
   },
   "devDependencies": {
     "@mondokit/gcp-core": "2.0.0",
+    "@types/lodash-es": "^4.17.8",
     "google-auth-library": "^10.9.0"
   },
   "keywords": [

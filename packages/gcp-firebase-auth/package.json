@@ -25,6 +25,7 @@
   "homepage": "https://github.com/mondo-mob/mondokit",
   "peerDependencies": {
     "@mondokit/gcp-core": "^2.0.0",
+    "express": ">= 5.0.0",
     "firebase-admin": ">= 11.0.0"
   },
   "devDependencies": {

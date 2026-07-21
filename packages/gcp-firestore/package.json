@@ -29,12 +29,15 @@
   },
   "peerDependencies": {
     "@google-cloud/firestore": ">= 6.5.0",
-    "@mondokit/gcp-core": "^2.0.0"
+    "@mondokit/gcp-core": "^2.0.0",
+    "express": ">= 5.0.0",
+    "zod": ">=4.0.0"
   },
   "devDependencies": {
     "@google-cloud/firestore": "^8.6.0",
     "@mondokit/gcp-core": "2.0.0",
-    "@types/lodash-es": "^4.17.8"
+    "@types/lodash-es": "^4.17.8",
+    "zod": "^4.4.3"
   },
   "keywords": [
     "firestore",
