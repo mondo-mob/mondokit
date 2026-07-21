@@ -1,11 +1,4 @@
-import {
-  asyncMiddleware,
-  createLogger,
-  ForbiddenError,
-  LazyProvider,
-  OneOrMany,
-  runningOnGcp,
-} from "@mondokit/gcp-core";
+import { createLogger, ForbiddenError, LazyProvider, OneOrMany, runningOnGcp } from "@mondokit/gcp-core";
 import { OAuth2Client } from "google-auth-library";
 import { Handler } from "express";
 import { castArray } from "lodash-es";
@@ -28,10 +21,10 @@ export const requiresIapJwt = ({
   const authClientProvider = new LazyProvider(() => new OAuth2Client());
   const keysPromiseProvider = new LazyProvider(() => authClientProvider.get().getIapPublicKeys());
 
-  return asyncMiddleware(async (req) => {
+  return async (req, _res, next) => {
     if (disableForNonGcpEnvironment && !runningOnGcp()) {
       logger.info("Skipping IAP JWT validation on non-GCP environment");
-      return;
+      return next();
     }
 
     const iapJwt = req.get(IAP_JWT_HEADER);
@@ -50,5 +43,6 @@ export const requiresIapJwt = ({
       logger.error(e, "Error extracting token payload");
       throw new ForbiddenError();
     }
-  });
+    next();
+  };
 };

@@ -1,4 +1,4 @@
-import { asyncHandler, createLogger } from "@mondokit/gcp-core";
+import { createLogger } from "@mondokit/gcp-core";
 import { Router } from "express";
 import { bigQueryDatastoreImportServiceProvider, bigQueryImportTaskRoutes } from "../bigquery/index.js";
 import { validateRequest } from "../util/types.js";
@@ -9,25 +9,22 @@ import { TASK_DATASTORE_EXPORT_CHECK } from "./route-paths.js";
 export const datastoreBackupTaskRoutes = (router = Router()): Router => {
   const logger = createLogger("datastoreBackupTaskRoutes");
 
-  router.post(
-    TASK_DATASTORE_EXPORT_CHECK,
-    asyncHandler(async (req, res) => {
-      const payload = validateRequest(datastoreExportCheckRequestSchema, req.body);
-      const backupOperation = await datastoreExportServiceProvider.get().updateOperation(payload.backupOperationId);
+  router.post(TASK_DATASTORE_EXPORT_CHECK, async (req, res) => {
+    const payload = validateRequest(datastoreExportCheckRequestSchema, req.body);
+    const backupOperation = await datastoreExportServiceProvider.get().updateOperation(payload.backupOperationId);
 
-      if (!backupOperation.done) {
-        await datastoreExportServiceProvider.get().queueUpdateExportStatus(payload);
-        return res.send(`Datastore export ${backupOperation.id} hasn't finished yet, will check again later`);
-      }
+    if (!backupOperation.done) {
+      await datastoreExportServiceProvider.get().queueUpdateExportStatus(payload);
+      return res.send(`Datastore export ${backupOperation.id} hasn't finished yet, will check again later`);
+    }
 
-      logger.info("Datastore export complete");
-      if (backupOperation.type === "EXPORT_TO_BIGQUERY") {
-        await bigQueryDatastoreImportServiceProvider.get().queueImportFromBackup(backupOperation);
-        return res.send("Datastore export complete. BigQuery load queued...");
-      }
-      return res.send("Datastore export complete");
-    }),
-  );
+    logger.info("Datastore export complete");
+    if (backupOperation.type === "EXPORT_TO_BIGQUERY") {
+      await bigQueryDatastoreImportServiceProvider.get().queueImportFromBackup(backupOperation);
+      return res.send("Datastore export complete. BigQuery load queued...");
+    }
+    return res.send("Datastore export complete");
+  });
 
   bigQueryImportTaskRoutes(router);
 

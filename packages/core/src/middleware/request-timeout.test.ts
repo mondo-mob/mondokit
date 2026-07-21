@@ -1,7 +1,6 @@
 import express, { Handler } from "express";
 import request from "supertest";
 import { requestTimeoutMinutes, requestTimeoutSeconds } from "./request-timeout.js";
-import { asyncHandler } from "./async-middleware.js";
 
 const sendTimeoutValue: Handler = (req, res) => {
   return res.json({ timeout: (req as any).socket.timeout });
@@ -12,11 +11,9 @@ const initApp = () => {
   app.get("/default", sendTimeoutValue);
   app.get("/secs", requestTimeoutSeconds(10), sendTimeoutValue);
   app.get("/mins", requestTimeoutMinutes(10), sendTimeoutValue);
-  app.get(
-    "/tooslow",
-    requestTimeoutSeconds(0.01),
-    asyncHandler(() => new Promise((res) => setTimeout(res, 200))),
-  );
+  app.get("/tooslow", requestTimeoutSeconds(0.01), async () => {
+    await new Promise((res) => setTimeout(res, 200));
+  });
   return app;
 };
 

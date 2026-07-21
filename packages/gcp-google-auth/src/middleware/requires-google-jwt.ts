@@ -1,4 +1,4 @@
-import { asyncMiddleware, createLogger, ForbiddenError, OneOrMany, runningOnGcp } from "@mondokit/gcp-core";
+import { createLogger, ForbiddenError, OneOrMany, runningOnGcp } from "@mondokit/gcp-core";
 import { Handler } from "express";
 import { castArray } from "lodash-es";
 import { googleAuthClientProvider } from "../google-auth/google-auth-client-provider.js";
@@ -38,10 +38,10 @@ export const requiresGoogleJwt = ({
     }
   };
 
-  return asyncMiddleware(async (req) => {
+  return async (req, _res, next) => {
     if (disableForNonGcpEnvironment && !runningOnGcp()) {
       logger.info("Skipping google JWT validation on non-GCP environment");
-      return;
+      return next();
     }
 
     const authHeader = req.header("Authorization");
@@ -60,5 +60,6 @@ export const requiresGoogleJwt = ({
         `JWT email ${claims.email} does not match one of the expected: ${email}`,
       );
     }
-  });
+    next();
+  };
 };
