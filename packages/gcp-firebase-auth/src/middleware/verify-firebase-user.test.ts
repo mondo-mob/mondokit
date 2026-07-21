@@ -35,7 +35,7 @@ const initApp = (mwOptions?: VerifyOptions) => {
   userRequestStorageProvider.set(new RequestStorageStore<AuthUser>("_USER"));
   const app = express();
   app.use(requestAsyncStorage);
-  app.use(verifyFirebaseUser(firebaseAdmin, mwOptions));
+  app.use(verifyFirebaseUser({ firebaseApp: firebaseAdmin, ...mwOptions }));
   app.use(exposeRequestStorage);
   app.use(exposeErrors);
   app.get("/", (req, res) => res.send("OK"));

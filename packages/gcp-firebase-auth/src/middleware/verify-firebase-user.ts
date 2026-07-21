@@ -4,7 +4,7 @@ import { DecodedIdToken, getAuth } from "firebase-admin/auth";
 import { AuthUser, createLogger, UnauthorisedError, userRequestStorageProvider } from "@mondokit/gcp-core";
 
 const convertIdTokenToUser = async (
-  idToken: DecodedIdToken
+  idToken: DecodedIdToken,
 ): Promise<AuthUser & Required<Pick<AuthUser, "roles">>> => ({
   id: idToken.uid,
   email: idToken.email,
@@ -12,10 +12,11 @@ const convertIdTokenToUser = async (
 });
 
 export interface VerifyOptions {
+  firebaseApp?: App;
   userConverter?: (idToken: DecodedIdToken) => Promise<AuthUser>;
 }
 
-export const verifyFirebaseUser = (firebaseAdmin: App, options?: VerifyOptions): Handler => {
+export const verifyFirebaseUser = (options?: VerifyOptions): Handler => {
   const logger = createLogger("verifyFirebaseUser");
 
   const userConverter = options?.userConverter || convertIdTokenToUser;
@@ -25,12 +26,12 @@ export const verifyFirebaseUser = (firebaseAdmin: App, options?: VerifyOptions):
     if (authHeader && authHeader.startsWith("Bearer ")) {
       try {
         logger.debug("Verifying Bearer token from Authorization header");
-        const idToken = await getAuth().verifyIdToken(authHeader.substring(7));
+        const idToken = await getAuth(options?.firebaseApp).verifyIdToken(authHeader.substring(7));
         const user = await userConverter(idToken);
         logger.info(`Verified firebase token for user ${user.id} with roles ${user.roles}`);
         userRequestStorageProvider.get().set(user);
       } catch (e: any) {
-        next(new UnauthorisedError(`Error verifying token: ${e.message}`));
+        return next(new UnauthorisedError(`Error verifying token: ${e.message}`));
       }
     } else {
       logger.debug("No Authorization header found");
