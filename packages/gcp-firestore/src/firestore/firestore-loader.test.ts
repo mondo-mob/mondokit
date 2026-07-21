@@ -99,6 +99,16 @@ describe("FirestoreLoader", () => {
       expect(getAllSpy).toBeCalledTimes(0);
     });
 
+    it("populates cache within a transaction for read-after-write", async () => {
+      const original = createUserPayload("123");
+
+      await loader.inTransaction(async (txnLoader) => {
+        await txnLoader.create([original]);
+        const [doc] = await txnLoader.get([original.ref]);
+        expect(doc).toEqual(original.data);
+      });
+    });
+
     it("should not pollute cache when changing original document", async () => {
       const original = createUserPayload("123");
       const getAllSpy = vi.spyOn(firestore, "getAll");
@@ -154,6 +164,21 @@ describe("FirestoreLoader", () => {
       expect(fetchedCache[0]).toEqual({ name: `Test User 123`, message: "set" });
     });
 
+    it("updates cache within a transaction for read-after-write", async () => {
+      const ref = firestore.doc("/users/123");
+      await loader.create([createUserPayload("123", { message: "create" })]);
+
+      await loader.inTransaction(async (txnLoader) => {
+        const [before] = await txnLoader.get([ref]);
+        expect(before).toEqual({ name: "Test User 123", message: "create" });
+
+        await txnLoader.set([createUserPayload("123", { message: "set" })]);
+
+        const [after] = await txnLoader.get([ref]);
+        expect(after).toEqual({ name: "Test User 123", message: "set" });
+      });
+    });
+
     it("clears stale cache value after transaction completes", async () => {
       await loader.create([createUserPayload("123", { message: "create" })]);
       await loader.inTransaction(async (txnLoader) => {
@@ -206,6 +231,21 @@ describe("FirestoreLoader", () => {
 
       const fetchedCache = await loader.get([firestore.doc("/users/123")]);
       expect(fetchedCache).toEqual([null]);
+    });
+
+    it("clears cache within a transaction for read-after-delete", async () => {
+      const ref = firestore.doc("/users/123");
+      await loader.create([createUserPayload("123")]);
+
+      await loader.inTransaction(async (txnLoader) => {
+        const [before] = await txnLoader.get([ref]);
+        expect(before).toEqual({ name: "Test User 123" });
+
+        await txnLoader.delete([ref]);
+
+        const [after] = await txnLoader.get([ref]);
+        expect(after).toBeNull();
+      });
     });
 
     it("does not fail when document does not exist", async () => {

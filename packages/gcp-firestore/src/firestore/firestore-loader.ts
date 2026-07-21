@@ -92,7 +92,9 @@ export class FirestoreLoader {
       refs,
       (transaction, ref) => transaction.delete(ref, precondition),
       (batch, ref) => batch.delete(ref, precondition),
-      (loader, key) => loader.clear(key),
+      // Prime null rather than clear: inside a transaction a cache miss would
+      // trigger getAll after writes, which Firestore forbids.
+      (loader, key) => setCacheFromData(loader, key, null),
     );
   }
 
@@ -221,9 +223,11 @@ export class FirestoreLoader {
         return batch.commit();
       });
       await Promise.all(pendingModifications);
-
-      values.forEach((value) => updateLoader(this.loader, value));
     }
+
+    // Keep the request-scoped cache coherent for read-after-write within the same
+    // loader (including inside a transaction, before commit).
+    values.forEach((value) => updateLoader(this.loader, value));
   }
 
   private load = async (refs: ReadonlyArray<DocumentReference>): Promise<Array<DocumentData | null | Error>> => {
