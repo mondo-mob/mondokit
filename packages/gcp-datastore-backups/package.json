@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@google-cloud/bigquery": "^8.3.1",
-    "@google-cloud/datastore": "^8.7.0",
+    "@google-cloud/datastore": "^10.1.1",
     "@google-cloud/storage": "^7.21.0",
     "@google-cloud/tasks": "^6.2.3",
     "@mondokit/gcp-bigquery": "2.0.0",

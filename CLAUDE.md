@@ -37,8 +37,9 @@ Vitest. Two kinds of package:
 - **Pure unit** (`core`, `gcp-core`, `gcp-tasks`, `gcp-bigquery`, `gcp-google-auth`): plain `vitest run`,
   no external services. Run these directly, they're fast.
 - **Emulator-backed** — need a live emulator and will hang/fail without one:
-  - `gcp-datastore` → `test:ci` uses `vitest-ci.config.ts` which starts `google-datastore-emulator`
-    on a **hardcoded port 8081**; needs the gcloud `cloud-datastore-emulator` component + a JDK.
+  - `gcp-datastore` → `test:ci` uses `vitest-ci.config.ts` which spawns
+    `gcloud beta emulators datastore` on a **hardcoded port 8081**; needs the gcloud
+    `beta` + `cloud-datastore-emulator` components + a JDK.
     (`npm run datastore:start` starts one manually for the non-CI `vitest.config.ts`.)
   - `gcp-firestore`, `gcp-firestore-migrations`, `gcp-firebase-auth`, `gcp-storage` → `test:ci` wraps
     vitest in `firebase-tools emulators:exec`. Current firebase-tools needs **JDK 21+**.
@@ -68,12 +69,10 @@ Internal `@mondokit/*` cross-deps use `updateInternalDependencies: patch`, so a 
 
 ## Dependency gotchas (learned the hard way)
 
-- **`@google-cloud/datastore` is pinned to v8**, not latest (v10). `google-datastore-emulator@7.1.0`
-  (the latest emulator) declares a peer of `@google-cloud/datastore >=1.0.0 <9.0.0`, so datastore v9/v10
-  is a hard `ERESOLVE`. Bump datastore only when the emulator widens that peer (or replace the emulator).
 - **firestore v8** removed its deep-import subpaths from the package `exports` map. Don't import
   `@google-cloud/firestore/types/v1/...` or `/build/protos/...`; reach types via the public
   `firestore.v1` namespace (see `gcp-firestore/src/firestore/connect.ts`) or model them locally.
+  (`@google-cloud/datastore` still has no `exports` map, so its `/build/src/...` deep imports still work.)
 - **express 5**: `path-to-regexp` v8 rejects unnamed wildcard routes (`app.use("/*", …)`). Use a
   pathless `app.use(mw)` for catch-alls (valid on express 4 and 5) or a named `"/*splat"`.
 - **zod 4**: `ZodTypeDef` is gone and `ZodType` is now `ZodType<Output, Input>`. Use `ZodType<T>`.
@@ -87,24 +86,21 @@ Internal `@mondokit/*` cross-deps use `updateInternalDependencies: patch`, so a 
 
 ## npm audit
 
-`npm audit` reports **0 vulnerabilities**, held there by two `overrides` in the root `package.json`:
+`npm audit` reports **0 vulnerabilities**, held there by a `uuid` override in the root `package.json`:
 
 ```json
-"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5" }
+"overrides": { "uuid": "^11.1.1" }
 ```
 
-Every advisory we ever saw rooted in exactly these two leaf packages. Everything else that was flagged
-(`gaxios`, `google-gax`, `teeny-request`, `retry-request`, `eventid`, the `@google-cloud/*`,
-`firebase-admin`, `dockerode`, `google-datastore-emulator`) was flagged only because it *depends on* one
-of them, so forcing patched leaves clears the whole tree. `npm audit fix` can't do this — its only
-"fix" is to downgrade `@google-cloud/storage` / `google-datastore-emulator` to ancient majors.
+Every advisory we ever saw rooted in `uuid@9` (pulled in by `gaxios` / `google-gax@4` /
+`teeny-request` under `@google-cloud/logging` and `@google-cloud/storage`). Everything else that was
+flagged was flagged only because it *depends on* uuid, so forcing the patched leaf clears the whole
+tree. `npm audit fix` can't do this — its only "fix" is to downgrade `@google-cloud/storage` to an
+ancient major.
 
-Where they come from: `uuid@9` survives via **`google-gax@4`**, which `@google-cloud/logging` (used by the
-latest `@google-cloud/logging-bunyan`) and the v8-pinned `@google-cloud/datastore` still depend on — the
-newest `google-gax@5` / `gaxios@7` dropped `uuid` entirely. `tar-fs@2.0.x` comes from `dockerode@3.3.5`
-inside the datastore emulator.
-
+`@google-cloud/datastore` v10 (and most other current `@google-cloud/*`) already use `google-gax@5`,
+which dropped `uuid` entirely — the override remains only for packages still on gax@4 / gaxios@6.
 These overrides only affect **this repo's** install (npm ignores a dependency's overrides), so they're
 CI/dev hygiene — a consumer of `@mondokit/gcp-core` would need their own override until Google's
-`@google-cloud/logging` moves to `google-gax@5`. **Revisit/remove the overrides** once upstream ships the
-fixes. The daily `.github/workflows/npm-audit.yml` runs a full `npm audit` and must stay green.
+`@google-cloud/logging` moves to `google-gax@5`. **Revisit/remove the override** once upstream ships
+the fix. The daily `.github/workflows/npm-audit.yml` runs a full `npm audit` and must stay green.

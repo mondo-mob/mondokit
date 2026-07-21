@@ -33,9 +33,9 @@
     "@mondokit/gcp-core": "^2.0.0"
   },
   "devDependencies": {
-    "@google-cloud/datastore": "^8.7.0",
+    "@google-cloud/datastore": "^10.1.1",
     "@mondokit/gcp-core": "^2.0.0",
-    "google-datastore-emulator": "^7.1.0"
+    "tree-kill": "^1.2.2"
   },
   "keywords": [
     "datastore",
