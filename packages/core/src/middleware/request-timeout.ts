@@ -8,26 +8,32 @@ import { createLogger } from "../logging/logging.js";
  *
  * There may also be times where you'd like a shorter request timeout than the default.
  *
- * This middleware will set the timeout for requests to the configured value.
- * e.g. For Task and Cron requests this should be set to 600000 (10 minutes)
+ * This middleware sets both the request and response socket timeouts to the configured value (in seconds).
+ * e.g. For Task and Cron requests this should typically be 600 (10 minutes), or use {@link requestTimeoutMinutes}.
  *
  * @example Apply to all /tasks endpoints
- * app.use("/tasks", requestTimeoutSeconds(10 * 60 * 1000))
+ * app.use("/tasks", requestTimeoutSeconds(10 * 60))
  */
 export const requestTimeoutSeconds = (timeoutSeconds: number): Handler => {
   const logger = createLogger("requestTimeout");
 
   return (req, res, next) => {
     const requestPath = req.originalUrl;
+    const timeoutMs = timeoutSeconds * 1000;
     logger.info(`Setting timeouts to ${timeoutSeconds}s for request: ${requestPath}`);
-    req.setTimeout(timeoutSeconds * 1000, () => {
-      logger.warn(`Request: ${requestPath} has exceeded configured request timeout of ${timeoutSeconds}s`);
-      next(new Error("Request Timeout"));
-    });
-    res.setTimeout(timeoutSeconds * 1000, () => {
-      logger.warn(`Request: ${requestPath} has exceeded configured response timeout of ${timeoutSeconds}s`);
-      next(new Error("Service Unavailable"));
-    });
+
+    let timedOut = false;
+    const onTimeout = (label: "request" | "response", error: Error) => {
+      if (timedOut || res.headersSent) {
+        return;
+      }
+      timedOut = true;
+      logger.warn(`Request: ${requestPath} has exceeded configured ${label} timeout of ${timeoutSeconds}s`);
+      next(error);
+    };
+
+    req.setTimeout(timeoutMs, () => onTimeout("request", new Error("Request Timeout")));
+    res.setTimeout(timeoutMs, () => onTimeout("response", new Error("Service Unavailable")));
     next();
   };
 };

@@ -18,7 +18,7 @@ export const routeNotFound =
   (message?: string): Handler =>
   (req, res, next) => {
     if (!res.headersSent) {
-      next(new NotFoundError(message));
+      return next(new NotFoundError(message));
     }
     next();
   };
