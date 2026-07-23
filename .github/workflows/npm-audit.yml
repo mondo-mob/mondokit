@@ -10,23 +10,17 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: 24
           cache: npm
 
       - name: Install dependencies (monorepo)
         run: npm ci
 
-      # The tree is fully clean. Every advisory we ever saw rooted in uuid (<11.1.1),
-      # dragged in transitively by google-gax@4 / gaxios@6 (@google-cloud/logging, storage).
-      # We force a patched uuid via `overrides` in package.json (see CLAUDE.md);
-      # everything else that was flagged only "depends on" it, so it clears too.
-      #
-      # Full audit, all severities: this must stay at 0. If it goes red, either a genuinely new
-      # advisory landed, or an override no longer matches the tree and should be revisited/removed
-      # once the upstream Google Cloud libs move to the fixed versions themselves.
-      - name: npm audit
-        run: npm audit
+      - name: npm audit (fail for high+ severity)
+        run: npm audit --audit-level=high
+

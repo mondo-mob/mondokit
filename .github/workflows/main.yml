@@ -25,10 +25,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Set up Node.js 22
+      - name: Set up Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
+          cache: npm
 
       # The gcloud datastore emulator and firebase-tools both require a JDK 21+ on PATH;
       # the ubuntu-latest default JDK is older, so pin it explicitly.
