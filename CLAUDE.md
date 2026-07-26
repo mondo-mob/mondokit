@@ -87,22 +87,36 @@ Internal `@mondokit/*` cross-deps use `updateInternalDependencies: patch`, so a 
 
 ## npm audit
 
-`npm audit` reports **0 vulnerabilities**, held there by two `overrides` in the root `package.json`:
+`npm audit` reports **0 vulnerabilities**, held there by three `overrides` in the root `package.json`:
 
 ```json
-"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5" }
+"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^10.2.5" }
 ```
 
-Every advisory we ever saw rooted in exactly these two leaf packages. Everything else that was flagged
-(`gaxios`, `google-gax`, `teeny-request`, `retry-request`, `eventid`, the `@google-cloud/*`,
-`firebase-admin`, `dockerode`, `google-datastore-emulator`) was flagged only because it *depends on* one
-of them, so forcing patched leaves clears the whole tree. `npm audit fix` can't do this — its only
-"fix" is to downgrade `@google-cloud/storage` / `google-datastore-emulator` to ancient majors.
+Every advisory we ever saw rooted in a handful of leaf packages. Everything else that was flagged
+(`gaxios`, `google-gax`, `teeny-request`, `retry-request`, `eventid`, `glob`, `rimraf`, `mv`,
+the `@google-cloud/*`, `firebase-admin`, `dockerode`, `google-datastore-emulator`) was flagged only
+because it *depends on* one of them, so forcing patched leaves clears the whole tree. `npm audit fix`
+can't do this — its only "fix" is to downgrade `@google-cloud/storage` / `google-datastore-emulator` /
+`google-gax` to ancient majors.
 
 Where they come from: `uuid@9` survives via **`google-gax@4`**, which `@google-cloud/logging` (used by the
 latest `@google-cloud/logging-bunyan`) and the v8-pinned `@google-cloud/datastore` still depend on — the
 newest `google-gax@5` / `gaxios@7` dropped `uuid` entirely. `tar-fs@2.0.x` comes from `dockerode@3.3.5`
 inside the datastore emulator.
+
+**Why the `minimatch` override and not `brace-expansion`** (GHSA-mh99-v99m-4gvg, the unbounded-expansion
+DoS): the advisory's only patched release is `brace-expansion@5.0.8` — there are no 1.x/2.x/3.x backports.
+But v5 is an API break: `module.exports` is now `{ expand, ... }` instead of the callable `expand`, so
+overriding `brace-expansion` directly makes `minimatch@3` and `@9` throw `expand is not a function` on any
+brace pattern (verified — it breaks `bunyan`'s rotating-file stream via `mv` → `rimraf@2` → `glob@6`).
+Overriding **`minimatch` to `^10`** instead pulls the patched `brace-expansion@5` through a caller that
+speaks its API, and dedupes the whole tree to one `minimatch`. The old CJS consumers (`glob@6`, `rimraf@2`,
+`mv`, `glob@10`, `google-gax`) all still work against `minimatch@10`. If you ever need to touch this,
+re-test those, not just `npm audit`.
+
+Changing `overrides` alone is not enough: npm keeps already-locked transitive versions and reports
+"up to date". Run `npm run reinstall` to force a real re-resolve, then re-check `npm audit`.
 
 These overrides only affect **this repo's** install (npm ignores a dependency's overrides), so they're
 CI/dev hygiene — a consumer of `@mondokit/gcp-core` would need their own override until Google's
