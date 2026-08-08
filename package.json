@@ -49,6 +49,8 @@
   "overrides": {
     "uuid": "^11.1.1",
     "tar-fs": "^2.1.5",
-    "minimatch": "^10.2.5"
+    "minimatch": "^10.2.5",
+    "read-yaml-file": "^2.1.0",
+    "js-yaml": "^4.3.1"
   }
 }
