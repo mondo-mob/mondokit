@@ -87,10 +87,13 @@ Internal `@mondokit/*` cross-deps use `updateInternalDependencies: patch`, so a 
 
 ## npm audit
 
-`npm audit` reports **0 vulnerabilities**, held there by three `overrides` in the root `package.json`:
+`npm audit` reports **0 vulnerabilities**, held there by the `overrides` in the root `package.json`:
 
 ```json
-"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^10.2.5" }
+"overrides": {
+  "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^10.2.5",
+  "read-yaml-file": "^2.1.0", "js-yaml": "^4.3.1"
+}
 ```
 
 Every advisory we ever saw rooted in a handful of leaf packages. Everything else that was flagged
@@ -114,6 +117,23 @@ Overriding **`minimatch` to `^10`** instead pulls the patched `brace-expansion@5
 speaks its API, and dedupes the whole tree to one `minimatch`. The old CJS consumers (`glob@6`, `rimraf@2`,
 `mv`, `glob@10`, `google-gax`) all still work against `minimatch@10`. If you ever need to touch this,
 re-test those, not just `npm audit`.
+
+**Why `read-yaml-file` alongside `js-yaml`** (GHSA-5p4m-2wfm-xmqj, quadratic CPU in `!!omap`): the fix
+is `js-yaml@4.3.1` and there is **no 3.x backport**. Two consumers, both under `@changesets/cli`:
+`@changesets/parse` already ranges `^4.1.1` (free), but `@manypkg/get-packages@1.1.3` pins
+`read-yaml-file@1.1.0`, which is stuck on `js-yaml@3` and calls `yaml.safeLoad` — removed in v4. So a bare
+`js-yaml: ^4` override breaks `npx changeset` (same trap as `brace-expansion` above). Overriding
+**`read-yaml-file` to `^2.1.0`** fixes it: v2 is still CJS, exports the identical callable +
+`.default` + `.sync` shape `@manypkg/get-packages` interops with, and uses `yaml.load` on `js-yaml@4`.
+Don't go to `read-yaml-file@3` — it's ESM-only and the CJS `require()` in `@manypkg/get-packages` would
+fail. The two overrides are a pair: dropping the `read-yaml-file` one re-breaks changesets. After touching
+either, run `npx changeset status`, not just `npm audit`.
+
+Advisories that were *only* stale lockfile pins, needing no override — the patched version already sat
+inside the existing range, so `npm run reinstall` alone cleared them: `brace-expansion@5.0.9`
+(GHSA-rgw5-rvv9-x895, the follow-up bypass of the DoS mitigation above; `minimatch@10` ranges `^5.0.8`)
+and `nanoid@3.3.18` (GHSA-2v37-7h3g-55p8, via `postcss` → `vite` → `vitest`; our own `nanoid@5` in the
+`*-backups` packages was never affected). Check for this before reaching for a new override.
 
 Changing `overrides` alone is not enough: npm keeps already-locked transitive versions and reports
 "up to date". Run `npm run reinstall` to force a real re-resolve, then re-check `npm audit`.
