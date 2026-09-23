@@ -133,7 +133,11 @@ Advisories that were *only* stale lockfile pins, needing no override — the pat
 inside the existing range, so `npm run reinstall` alone cleared them: `brace-expansion@5.0.9`
 (GHSA-rgw5-rvv9-x895, the follow-up bypass of the DoS mitigation above; `minimatch@10` ranges `^5.0.8`)
 and `nanoid@3.3.18` (GHSA-2v37-7h3g-55p8, via `postcss` → `vite` → `vitest`; our own `nanoid@5` in the
-`*-backups` packages was never affected). Check for this before reaching for a new override.
+`*-backups` packages was never affected); `js-yaml@4.3.2` (GHSA-2883-xcg3-v3hh, `maxTotalMergeKeys`
+doesn't bound CPU on empty merge sources — already inside the `^4.3.1` override) and
+`vitest`/`@vitest/mocker@4.1.11` (GHSA-82fw-gwwq-j7x9, path traversal via the mocker's redirect mock —
+inside our `^4.1.10` devDep range). Check for this before reaching for a new override — a targeted
+`npm update <pkg>` is enough and keeps the lockfile diff small.
 
 Changing `overrides` alone is not enough: npm keeps already-locked transitive versions and reports
 "up to date". Run `npm run reinstall` to force a real re-resolve, then re-check `npm audit`.
