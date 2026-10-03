@@ -90,10 +90,7 @@ Internal `@mondokit/*` cross-deps use `updateInternalDependencies: patch`, so a 
 `npm audit` reports **0 vulnerabilities**, held there by the `overrides` in the root `package.json`:
 
 ```json
-"overrides": {
-  "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^10.2.5",
-  "read-yaml-file": "^2.1.0", "js-yaml": "^4.3.1"
-}
+"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^10.2.5" }
 ```
 
 Every advisory we ever saw rooted in a handful of leaf packages. Everything else that was flagged
@@ -118,16 +115,23 @@ speaks its API, and dedupes the whole tree to one `minimatch`. The old CJS consu
 `mv`, `glob@10`, `google-gax`) all still work against `minimatch@10`. If you ever need to touch this,
 re-test those, not just `npm audit`.
 
-**Why `read-yaml-file` alongside `js-yaml`** (GHSA-5p4m-2wfm-xmqj, quadratic CPU in `!!omap`): the fix
-is `js-yaml@4.3.1` and there is **no 3.x backport**. Two consumers, both under `@changesets/cli`:
-`@changesets/parse` already ranges `^4.1.1` (free), but `@manypkg/get-packages@1.1.3` pins
-`read-yaml-file@1.1.0`, which is stuck on `js-yaml@3` and calls `yaml.safeLoad` — removed in v4. So a bare
-`js-yaml: ^4` override breaks `npx changeset` (same trap as `brace-expansion` above). Overriding
-**`read-yaml-file` to `^2.1.0`** fixes it: v2 is still CJS, exports the identical callable +
-`.default` + `.sync` shape `@manypkg/get-packages` interops with, and uses `yaml.load` on `js-yaml@4`.
-Don't go to `read-yaml-file@3` — it's ESM-only and the CJS `require()` in `@manypkg/get-packages` would
-fail. The two overrides are a pair: dropping the `read-yaml-file` one re-breaks changesets. After touching
-either, run `npx changeset status`, not just `npm audit`.
+**`braces`/`micromatch` had no upstream fix — the fix was upgrading `@changesets/cli` to v3**
+(GHSA-vfj7-8cjw-p6xm, stack exhaustion on deeply nested patterns; `braces` is still at 3.0.3 and the
+advisory covers `<=3.0.3`). The only consumers were `@changesets/*` and `fast-glob` → `globby` →
+`@manypkg/get-packages@1`, all dev tooling. `@changesets/cli@3` swapped `micromatch` for `picomatch` and
+moved to `@manypkg/get-packages@3`, which drops `globby`/`fast-glob` **and** `read-yaml-file`/`js-yaml`
+entirely — so the `read-yaml-file: ^2.1.0` + `js-yaml: ^4.3.1` override pair (GHSA-5p4m-2wfm-xmqj) is now
+dead and was removed. Don't trust npm's "`--force` will install `@changesets/cli@3.0.3`, which is a
+breaking change" wording — here that was an *upgrade* to the current major, not the usual downgrade.
+Caveat: changesets v3 needs node `^22.11 || ^24 || >=26` and npm `>=10.9.0`, stricter than the repo's
+`engines` (`node >=22`, `npm >=10`). After touching changesets, run `npx changeset status`, not just
+`npm audit`.
+
+**`npm update` can nest a copy that escapes a root override.** Updating `@grpc/grpc-js` et al. made npm
+plant a fresh `node_modules/google-gax/node_modules/uuid@9.0.1` beside the overridden root `uuid@11`,
+re-introducing the `uuid` buffer-bounds advisory. Overrides are only reapplied on a real resolve, so after any
+`npm update` check `npm explain <pkg>` / the lockfile for nested copies — `npm audit` is what caught it,
+but a less-watched advisory would have slipped through.
 
 Advisories that were *only* stale lockfile pins, needing no override — the patched version already sat
 inside the existing range, so `npm run reinstall` alone cleared them: `brace-expansion@5.0.9`
@@ -136,8 +140,11 @@ and `nanoid@3.3.18` (GHSA-2v37-7h3g-55p8, via `postcss` → `vite` → `vitest`;
 `*-backups` packages was never affected); `js-yaml@4.3.2` (GHSA-2883-xcg3-v3hh, `maxTotalMergeKeys`
 doesn't bound CPU on empty merge sources — already inside the `^4.3.1` override) and
 `vitest`/`@vitest/mocker@4.1.11` (GHSA-82fw-gwwq-j7x9, path traversal via the mocker's redirect mock —
-inside our `^4.1.10` devDep range). Check for this before reaching for a new override — a targeted
-`npm update <pkg>` is enough and keeps the lockfile diff small.
+inside our `^4.1.10` devDep range); and a whole round of `@grpc/grpc-js@1.14.5` (GHSA-m9gg-hp2v-232j,
+GHSA-f596-whhp-79r4), `@fastify/busboy@3.2.2` (GHSA-xjh9-v7x6-24jw, GHSA-x8mw-p69m-v3mx, via
+`firebase-admin`), `moment@2.31.0` (GHSA-4p3w-j4w9-5jqw, `bunyan`'s optional dep) and
+`brace-expansion@5.0.12` (GHSA-q2hr-2g5m-vwhr and friends). Check for this before reaching for a new
+override — a targeted `npm update <pkg>` is enough and keeps the lockfile diff small.
 
 Changing `overrides` alone is not enough: npm keeps already-locked transitive versions and reports
 "up to date". Run `npm run reinstall` to force a real re-resolve, then re-check `npm audit`.
