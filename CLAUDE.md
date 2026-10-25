@@ -143,8 +143,21 @@ doesn't bound CPU on empty merge sources — already inside the `^4.3.1` overrid
 inside our `^4.1.10` devDep range); and a whole round of `@grpc/grpc-js@1.14.5` (GHSA-m9gg-hp2v-232j,
 GHSA-f596-whhp-79r4), `@fastify/busboy@3.2.2` (GHSA-xjh9-v7x6-24jw, GHSA-x8mw-p69m-v3mx, via
 `firebase-admin`), `moment@2.31.0` (GHSA-4p3w-j4w9-5jqw, `bunyan`'s optional dep) and
-`brace-expansion@5.0.12` (GHSA-q2hr-2g5m-vwhr and friends). Check for this before reaching for a new
+`brace-expansion@5.0.12` (GHSA-q2hr-2g5m-vwhr and friends); and a round of pure devDep advisories —
+`zod@4.6.7` (GHSA-mrhx-c7xc-m3w5, memory exhaustion on oversized constrained collections; inside
+`core`'s `^4.4.3` devDep, and consumers pick their own via the `>=3.21.0` peer), `body-parser@2.4.0`
+(GHSA-27r3-jxmh-p828, DoS via trailing bytes after a compressed body; inside the pinned root
+`express@5.2.1`'s `^2.2.1`), and `vite@8.3.5` + `launch-editor@2.14.2` (GHSA-9jrq-w75r-8gcw,
+GHSA-rq7h-c2jc-7f22, GHSA-vfpm-58rq-9qcg, GHSA-698v-4r3x-3vcv, GHSA-r825-w8mm-5pxw, GHSA-587h-7wmj-h5pm
+— all dev-server-only, reached through `vitest`). Check for this before reaching for a new
 override — a targeted `npm update <pkg>` is enough and keeps the lockfile diff small.
+
+`npm update` does not always move a package to the newest in-range version. The `@vitest/mocker`
+advisories (GHSA-qxg6-89mg-rqv8, GHSA-xp26-3454-mjgp) are fixed in `4.1.12`, well inside the then-current
+`^4.1.10`, but `npm update vitest` left the lockfile on `4.1.11`; `npm i -D vitest@^4.1.12` moved it (and
+raised the floor in `package.json`, which is the point — it stops the pin drifting back). If an update
+reports success but `npm audit` still flags the same package, check the installed version before
+assuming the advisory needs an override.
 
 Changing `overrides` alone is not enough: npm keeps already-locked transitive versions and reports
 "up to date". Run `npm run reinstall` to force a real re-resolve, then re-check `npm audit`.
