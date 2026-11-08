@@ -90,7 +90,7 @@ Internal `@mondokit/*` cross-deps use `updateInternalDependencies: patch`, so a 
 `npm audit` reports **0 vulnerabilities**, held there by the `overrides` in the root `package.json`:
 
 ```json
-"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^10.2.5" }
+"overrides": { "uuid": "^11.1.1", "tar-fs": "^2.1.5", "minimatch": "^11.0.1", "rimraf@^5": "^6.1.4" }
 ```
 
 Every advisory we ever saw rooted in a handful of leaf packages. Everything else that was flagged
@@ -114,6 +114,21 @@ Overriding **`minimatch` to `^10`** instead pulls the patched `brace-expansion@5
 speaks its API, and dedupes the whole tree to one `minimatch`. The old CJS consumers (`glob@6`, `rimraf@2`,
 `mv`, `glob@10`, `google-gax`) all still work against `minimatch@10`. If you ever need to touch this,
 re-test those, not just `npm audit`.
+
+**The `minimatch` override later moved to `^11.0.1`** (GHSA-g3hv-75wg-m249, DoS via globparts
+amplification — vulnerable `>=7.0.0 <11.0.1`, so the whole v10 line including `10.2.6` is dead; there is
+no 10.x backport). Watch out: minimatch v11's CJS default export is **no longer callable** —
+`typeof require('minimatch') === 'object'`; use the named `minimatch` export. `glob@6` survives because it
+only uses the `minimatch.Minimatch` class (verified: brace patterns + bunyan rotating-file still work).
+Anything that `require`s minimatch and calls it directly would break.
+
+**Why the `"rimraf@^5": "^6.1.4"` override** (GHSA-3g3m-2fjr-6pw4, glob AbortSignal cancellation bypass —
+vulnerable `glob` 9.0.0–14.0.1, patched 14.0.2): the vulnerable `glob@10` entered via
+`google-gax@5` / `gaxios@7.1.3` → `rimraf@5.0.10` (google-gax declares `rimraf: ^5.0.1`, so no in-range
+fix; npm's `--force` "fix" was google-gax@6, a major). `rimraf@6.1.4` is the patched release (pulls
+`glob ^14.0.3`). The override is **version-scoped to `@^5`** on purpose: a bare `rimraf` override would
+also hit `mv`'s callback-era `rimraf@2.4.5` → `glob@6` chain and break bunyan's rotating-file stream
+(rimraf v4+ dropped the callback API). `glob@6` itself is below the glob advisory's range, so it can stay.
 
 **`braces`/`micromatch` had no upstream fix — the fix was upgrading `@changesets/cli` to v3**
 (GHSA-vfj7-8cjw-p6xm, stack exhaustion on deeply nested patterns; `braces` is still at 3.0.3 and the
